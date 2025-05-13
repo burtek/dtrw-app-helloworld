@@ -8,13 +8,14 @@ services:
     restart: always
 
   backend:
-    image: node:22
     container_name: helloworld_backend
     working_dir: /app
     build:
       context: ./backend
       dockerfile: ../docker/backend/Dockerfile
     command: node src/main.js
+    env_file:
+      - docker/backend/env
     environment:
       NODE_ENV: production
       PORT: 4000

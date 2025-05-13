@@ -30,6 +30,10 @@ jobs:
     - name: Build frontend and backend
       run: yarn build
 
+    - name: Setup build envs
+      run: |
+        echo "COMMIT_SHA=${{ github.sha }}" >> docker/backend/env
+
     - name: Deploy frontend
       uses: appleboy/scp-action@v1
       with:
