@@ -1,0 +1,21 @@
+{
+  "name": "dtrw-app-helloworld",
+  "version": "1.0.0",
+  "repository": "git@github.com:burtek/dtrw-app-helloworld.git",
+  "author": "Bartosz <burtekdotryw@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "backend",
+    "frontend"
+  ],
+  "dependencies": {},
+  "devDependencies": {
+    "lerna": "^8.2.2"
+  },
+  "scripts": {
+    "dev": "lerna run start:dev",
+    "build": "lerna run build",
+    "test": "lerna run test"
+  }
+}

@@ -1,0 +1,79 @@
+name: Deploy App to VPS
+
+on:
+  push:
+    branches:
+      - master
+
+env:
+  APP_NAME: helloworld
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '22'
+
+    - name: Install dependencies
+      run: yarn install
+
+    - name: Run tests
+      run: yarn test
+
+    - name: Build frontend and backend
+      run: yarn build
+
+    - name: Deploy frontend
+      uses: appleboy/scp-action@v1
+      with:
+        host: ${{ secrets.VPS_HOST }}
+        port: ${{ secrets.VPS_PORT }}
+        username: ${{ secrets.VPS_USER }}
+        key: ${{ secrets.VPS_SSH_KEY }}
+        passphrase: ${{ secrets.VPS_SSH_PASSPHRASE }}
+        source: "frontend/dist/*"
+        target: "/apps/${{ env.APP_NAME }}/frontend"
+        strip_components: 2
+
+    - name: Deploy backend
+      uses: appleboy/scp-action@v1
+      with:
+        host: ${{ secrets.VPS_HOST }}
+        port: ${{ secrets.VPS_PORT }}
+        username: ${{ secrets.VPS_USER }}
+        key: ${{ secrets.VPS_SSH_KEY }}
+        passphrase: ${{ secrets.VPS_SSH_PASSPHRASE }}
+        source: "backend/dist/*"
+        target: "/apps/${{ env.APP_NAME }}/backend"
+        strip_components: 2
+
+    - name: Deploy docker configs
+      uses: appleboy/scp-action@v1
+      with:
+        host: ${{ secrets.VPS_HOST }}
+        port: ${{ secrets.VPS_PORT }}
+        username: ${{ secrets.VPS_USER }}
+        key: ${{ secrets.VPS_SSH_KEY }}
+        passphrase: ${{ secrets.VPS_SSH_PASSPHRASE }}
+        source: "docker,docker-compose.yml"
+        target: "/apps/${{ env.APP_NAME }}"
+
+    - name: Restart Docker containers
+      uses: appleboy/ssh-action@v1
+      with:
+        host: ${{ secrets.VPS_HOST }}
+        port: ${{ secrets.VPS_PORT }}
+        username: ${{ secrets.VPS_USER }}
+        key: ${{ secrets.VPS_SSH_KEY }}
+        passphrase: ${{ secrets.VPS_SSH_PASSPHRASE }}
+        script: |
+          cd /apps/${{ env.APP_NAME }}
+          docker compose down || echo "App wasn't running..."
+          docker compose up -d --build
