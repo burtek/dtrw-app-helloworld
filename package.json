@@ -23,5 +23,12 @@
     "test": "lerna run test",
     "prepare": "husky",
     "release": "standard-version"
+  },
+  "standard-version": {
+    "bumpFiles": [
+      "package.json",
+      "backend/package.json",
+      "frontend/package.json"
+    ]
   }
 }
