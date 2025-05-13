@@ -2,8 +2,8 @@ name: Deploy App to VPS
 
 on:
   push:
-    branches:
-      - master
+    tags:
+      - 'v*'
 
 env:
   APP_NAME: helloworld
@@ -69,7 +69,7 @@ jobs:
         source: "docker,docker-compose.yml"
         target: "/apps/${{ env.APP_NAME }}"
 
-    - name: Restart Docker containers
+    - name: Restart Docker containers and reload NPM
       uses: appleboy/ssh-action@v1
       with:
         host: ${{ secrets.VPS_HOST }}
@@ -81,3 +81,4 @@ jobs:
           cd /apps/${{ env.APP_NAME }}
           docker compose down || echo "App wasn't running..."
           docker compose up -d --build
+          docker exec nginx-proxy-manager nginx -s reload

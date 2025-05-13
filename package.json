@@ -14,12 +14,14 @@
     "@commitlint/cli": "^19.8.1",
     "@commitlint/config-conventional": "^19.8.1",
     "husky": "^9.1.7",
-    "lerna": "^8.2.2"
+    "lerna": "^8.2.2",
+    "standard-version": "^9.5.0"
   },
   "scripts": {
     "dev": "lerna run start:dev",
     "build": "lerna run build",
     "test": "lerna run test",
-    "prepare": "husky"
+    "prepare": "husky",
+    "release": "standard-version"
   }
 }
