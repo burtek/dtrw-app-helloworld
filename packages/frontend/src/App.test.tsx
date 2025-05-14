@@ -1,29 +1,29 @@
-import { act, render, waitFor } from '@testing-library/react';
+import { act, render, waitFor, screen } from '@testing-library/react';
+
 import App from './App';
 
 
 test('App renders', async () => {
-    let resolve: (value: Response) => void;
-    global.fetch = vitest.fn(() => {
-        return new Promise<Response>(res => {
-            resolve = res;
-        })
-    });
+    let resolve: ((value: Response) => void) | undefined;
+    global.fetch = vitest.fn(() => new Promise<Response>(res => {
+        resolve = res;
+    }));
 
-    const { container, getByText } = render(<App />);
+    const { container } = render(<App />);
 
     expect(container).not.toBeEmptyDOMElement();
 
-    expect(getByText(/Loading/)).toBeInTheDocument();
+    expect(screen.getByText(/Loading/)).toBeInTheDocument();
 
     act(() => {
-        resolve!({
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion
+        resolve?.({
             ok: true,
-            text: () => Promise.resolve('Hello, world!'),
+            text: () => Promise.resolve('Hello, world!')
         } as unknown as Response);
     });
 
     await waitFor(() => {
-        expect(getByText(/Hello, world!/)).toBeInTheDocument();
+        expect(screen.getByText(/Hello, world!/)).toBeInTheDocument();
     });
-})
+});
