@@ -19,6 +19,7 @@
   "scripts": {
     "dev": "lerna run start:dev",
     "build": "lerna run build",
+    "lint": "lerna run lint",
     "test": "lerna run test",
     "prepare": "husky",
     "release": "standard-version"
