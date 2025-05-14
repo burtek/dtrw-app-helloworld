@@ -1,11 +1,13 @@
 {
   "name": "dtrw-app-helloworld",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "repository": "git@github.com:burtek/dtrw-app-helloworld.git",
   "author": "Bartosz <burtekdotryw@gmail.com>",
   "license": "MIT",
   "private": true,
-  "workspaces": ["packages/*"],
+  "workspaces": [
+    "packages/*"
+  ],
   "dependencies": {},
   "devDependencies": {
     "@commitlint/cli": "^19.8.1",
