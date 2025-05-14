@@ -13,72 +13,73 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: '22'
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'yarn'
 
-    - name: Install dependencies
-      run: yarn install
+      - name: Install dependencies
+        run: yarn install
 
-    - name: Run tests
-      run: yarn test
+      - name: Run tests
+        run: yarn test
 
-    - name: Build frontend and backend
-      run: yarn build
+      - name: Build frontend and backend
+        run: yarn build
 
-    - name: Setup build envs
-      run: |
-        echo "COMMIT_SHA=${{ github.sha }}" >> docker/backend/env
+      - name: Setup build envs
+        run: |
+          echo "COMMIT_SHA=${{ github.sha }}" >> docker/backend/env
 
-    - name: Deploy frontend
-      uses: appleboy/scp-action@v1
-      with:
-        host: ${{ secrets.VPS_HOST }}
-        port: ${{ secrets.VPS_PORT }}
-        username: ${{ secrets.VPS_USER }}
-        key: ${{ secrets.VPS_SSH_KEY }}
-        passphrase: ${{ secrets.VPS_SSH_PASSPHRASE }}
-        source: "packages/frontend/dist/*"
-        target: "/apps/${{ env.APP_NAME }}/frontend"
-        strip_components: 2
+      - name: Deploy frontend
+        uses: appleboy/scp-action@v1
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          port: ${{ secrets.VPS_PORT }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          passphrase: ${{ secrets.VPS_SSH_PASSPHRASE }}
+          source: "packages/frontend/dist/*"
+          target: "/apps/${{ env.APP_NAME }}/frontend"
+          strip_components: 2
 
-    - name: Deploy backend
-      uses: appleboy/scp-action@v1
-      with:
-        host: ${{ secrets.VPS_HOST }}
-        port: ${{ secrets.VPS_PORT }}
-        username: ${{ secrets.VPS_USER }}
-        key: ${{ secrets.VPS_SSH_KEY }}
-        passphrase: ${{ secrets.VPS_SSH_PASSPHRASE }}
-        source: "packages/backend/dist/*"
-        target: "/apps/${{ env.APP_NAME }}/backend"
-        strip_components: 2
+      - name: Deploy backend
+        uses: appleboy/scp-action@v1
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          port: ${{ secrets.VPS_PORT }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          passphrase: ${{ secrets.VPS_SSH_PASSPHRASE }}
+          source: "packages/backend/dist/*"
+          target: "/apps/${{ env.APP_NAME }}/backend"
+          strip_components: 2
 
-    - name: Deploy docker configs
-      uses: appleboy/scp-action@v1
-      with:
-        host: ${{ secrets.VPS_HOST }}
-        port: ${{ secrets.VPS_PORT }}
-        username: ${{ secrets.VPS_USER }}
-        key: ${{ secrets.VPS_SSH_KEY }}
-        passphrase: ${{ secrets.VPS_SSH_PASSPHRASE }}
-        source: "docker,docker-compose.yml"
-        target: "/apps/${{ env.APP_NAME }}"
+      - name: Deploy docker configs
+        uses: appleboy/scp-action@v1
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          port: ${{ secrets.VPS_PORT }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          passphrase: ${{ secrets.VPS_SSH_PASSPHRASE }}
+          source: "docker,docker-compose.yml"
+          target: "/apps/${{ env.APP_NAME }}"
 
-    - name: Restart Docker containers and reload NPM
-      uses: appleboy/ssh-action@v1
-      with:
-        host: ${{ secrets.VPS_HOST }}
-        port: ${{ secrets.VPS_PORT }}
-        username: ${{ secrets.VPS_USER }}
-        key: ${{ secrets.VPS_SSH_KEY }}
-        passphrase: ${{ secrets.VPS_SSH_PASSPHRASE }}
-        script: |
-          cd /apps/${{ env.APP_NAME }}
-          docker compose down || echo "App wasn't running..."
-          docker compose up -d --build
-          docker exec nginx-proxy-manager nginx -s reload
+      - name: Restart Docker containers and reload NPM
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          port: ${{ secrets.VPS_PORT }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          passphrase: ${{ secrets.VPS_SSH_PASSPHRASE }}
+          script: |
+            cd /apps/${{ env.APP_NAME }}
+            docker compose down || echo "App wasn't running..."
+            docker compose up -d --build
+            docker exec nginx-proxy-manager nginx -s reload
