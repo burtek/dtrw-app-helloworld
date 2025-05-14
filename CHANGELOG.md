@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.2.0](https://github.com/burtek/dtrw-app-helloworld/compare/v1.1.0...v1.2.0) (2025-05-14)
+
+
+### Features
+
+* add eslint config ([7e39b8c](https://github.com/burtek/dtrw-app-helloworld/commit/7e39b8c4fcdda50d5580c9d669d8f228dc62fd74))
+* **template:** add README ([cea6b23](https://github.com/burtek/dtrw-app-helloworld/commit/cea6b231aa1134ceff69876eb0bc11afb37e4e17))
+
+
+### Bug Fixes
+
+* don't autofix eslint in backend ([e49a21a](https://github.com/burtek/dtrw-app-helloworld/commit/e49a21abd5f3aee5946fb24fc873ca3834bd9dc6))
+* fix code based on eslint output ([10b02a1](https://github.com/burtek/dtrw-app-helloworld/commit/10b02a14273ce3e29d489e5e94eba629e55b58b9))
+
 ## [1.1.0](https://github.com/burtek/dtrw-app-helloworld/compare/v1.0.5...v1.1.0) (2025-05-14)
 
 
