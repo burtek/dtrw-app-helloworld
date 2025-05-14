@@ -5,10 +5,7 @@
   "author": "Bartosz <burtekdotryw@gmail.com>",
   "license": "MIT",
   "private": true,
-  "workspaces": [
-    "backend",
-    "frontend"
-  ],
+  "workspaces": ["packages/*"],
   "dependencies": {},
   "devDependencies": {
     "@commitlint/cli": "^19.8.1",
@@ -27,8 +24,8 @@
   "standard-version": {
     "bumpFiles": [
       "package.json",
-      "backend/package.json",
-      "frontend/package.json"
+      "packages/backend/package.json",
+      "packages/frontend/package.json"
     ]
   }
 }
