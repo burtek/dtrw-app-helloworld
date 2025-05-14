@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.1.0](https://github.com/burtek/dtrw-app-helloworld/compare/v1.0.5...v1.1.0) (2025-05-14)
+
+
+### Features
+
+* **docker:** remove unnecessary docker compose down step ([c64e3ce](https://github.com/burtek/dtrw-app-helloworld/commit/c64e3ceafc14ce613df015da752b13a51a981da0))
+* **template:** prepare init.sh ([f5ce6b6](https://github.com/burtek/dtrw-app-helloworld/commit/f5ce6b638e26ad78728894e4895b642942741d8a))
+
 ### [1.0.5](https://github.com/burtek/dtrw-app-helloworld/compare/v1.0.4...v1.0.5) (2025-05-14)
 
 
