@@ -24,6 +24,8 @@ services:
     environment:
       NODE_ENV: production
       PORT: 4000
+    expose:
+      - 4000
     restart: always
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:4000/health"]
