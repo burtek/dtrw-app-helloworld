@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.2.5](https://github.com/burtek/dtrw-app-helloworld/compare/v1.2.4...v1.2.5) (2025-05-18)
+
+
+### Bug Fixes
+
+* fix healthcheck on backend service ([dc26f88](https://github.com/burtek/dtrw-app-helloworld/commit/dc26f88cb7fa9e0e0673bcb03c3cda95ff795d7e))
+
 ### [1.2.4](https://github.com/burtek/dtrw-app-helloworld/compare/v1.2.3...v1.2.4) (2025-05-18)
 
 
