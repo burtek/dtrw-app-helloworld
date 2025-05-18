@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.2.3](https://github.com/burtek/dtrw-app-helloworld/compare/v1.2.2...v1.2.3) (2025-05-18)
+
+
+### Bug Fixes
+
+*  install backend deps in CI ([aa16dcb](https://github.com/burtek/dtrw-app-helloworld/commit/aa16dcbd8bb519f82e82bd3af9c1e649dee818fa))
+
 ### [1.2.2](https://github.com/burtek/dtrw-app-helloworld/compare/v1.2.1...v1.2.2) (2025-05-18)
 
 
