@@ -13,12 +13,12 @@ services:
       retries: 2
 
   backend:
+    image: node:22-alpine
     container_name: helloworld_backend
     working_dir: /app
-    build:
-      context: ./backend
-      dockerfile: ../docker/backend/Dockerfile
-    command: node src/main.js
+    volumes:
+      - ./backend:/app
+    command: yarn install --production && yarn start:prod
     env_file:
       - docker/backend/env
     environment:
