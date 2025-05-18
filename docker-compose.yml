@@ -18,7 +18,7 @@ services:
     working_dir: /app
     volumes:
       - ./backend:/app
-    command: yarn install --production && yarn start:prod
+    command: "yarn install --production && yarn start:prod"
     env_file:
       - docker/backend/env
     environment:
