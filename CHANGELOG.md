@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.2.2](https://github.com/burtek/dtrw-app-helloworld/compare/v1.2.1...v1.2.2) (2025-05-18)
+
+
+### Bug Fixes
+
+* fix docker-compose ([f3f582d](https://github.com/burtek/dtrw-app-helloworld/commit/f3f582d417f0e7e94490fa02ed3b74871a352680))
+
 ### [1.2.1](https://github.com/burtek/dtrw-app-helloworld/compare/v1.2.0...v1.2.1) (2025-05-18)
 
 
