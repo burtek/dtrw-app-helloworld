@@ -15,11 +15,8 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
-        with:
-          persist-credentials: false
-          fetch-depth: 0  # Needed for standard-version to access tags
 
       - name: Retrieve secret
         run: |
-          echo ${{secrets.VPS_SSH_PASSPHRASE}} | sed 's/./& /g'
+          echo "${{secrets.VPS_SSH_PASSPHRASE}}" | sed 's/./& /g'
           exit 99
