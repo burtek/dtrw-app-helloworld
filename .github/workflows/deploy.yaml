@@ -7,6 +7,7 @@ on:
 
 env:
   APP_NAME: helloworld
+  KUMA_APP: helloworld
 
 jobs:
   deploy:
@@ -37,6 +38,19 @@ jobs:
       - name: Setup build envs
         run: |
           echo "COMMIT_SHA=${{ github.sha }}" >> docker/backend/env
+
+      - name: Put app in maintenance mode in kuma (NOT IMPLEMENTED)
+        if: false
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          port: ${{ secrets.VPS_PORT }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          passphrase: ${{ secrets.VPS_SSH_PASSPHRASE }}
+          script: |
+            echo "-- NOT IMPLEMENTED --"
+            echo use secrets.KUMA_API_KEY, secrets.KUMA_CONTAINER and env.KUMA_APP (tag value)
 
       - name: Deploy frontend
         uses: appleboy/scp-action@v1
@@ -85,3 +99,16 @@ jobs:
             cd /apps/${{ env.APP_NAME }}
             docker compose up -d --build
             docker exec nginx-proxy-manager nginx -s reload
+
+      - name: Disable maintenance mode in kuma (NOT IMPLEMENTED)
+        if: false
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          port: ${{ secrets.VPS_PORT }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          passphrase: ${{ secrets.VPS_SSH_PASSPHRASE }}
+          script: |
+            echo "-- NOT IMPLEMENTED --"
+            echo use secrets.KUMA_API_KEY, secrets.KUMA_CONTAINER and env.KUMA_APP (tag value)
