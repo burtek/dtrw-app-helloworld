@@ -8,7 +8,7 @@ if [[ -z "$APP_NAME" ]]; then
 fi
 
 # Replace placeholder app name
-sed -i "s/helloworld/$APP_NAME/g" package.json .github/workflows/deploy.yml docker-compose.yml
+sed -i "s/helloworld/$APP_NAME/g" package.json .github/workflows/deploy.yaml docker-compose.yml
 
 # Reset version to 1.0.0 in all package.json files
 sed -i -r 's/"version": "[[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+"/"version": "1.0.0"/g' package.json packages/*/package.json
