@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.4.0](https://github.com/burtek/dtrw-app-helloworld/compare/v1.2.9...v1.4.0) (2025-07-23)
+
+
+### Features
+
+* bump node version to 24, use node:24-slim ([41c42a2](https://github.com/burtek/dtrw-app-helloworld/commit/41c42a2581f1635310d5f03b82fee65380c15383))
+* github workflow for PR testing ([a48965d](https://github.com/burtek/dtrw-app-helloworld/commit/a48965d35423d77133dbced4806d1659acc416f0))
+
 ### [1.3.1](https://github.com/burtek/dtrw-app-helloworld/compare/v1.3.0...v1.3.1) (2025-07-23)
 
 
