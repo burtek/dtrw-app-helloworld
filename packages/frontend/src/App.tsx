@@ -28,7 +28,9 @@ function App() {
     return (
         <>
             <div>Test</div>
-            <p>Response: {response}</p>
+            <p>
+                {`Response: ${response}`}
+            </p>
         </>
     );
 }

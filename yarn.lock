@@ -561,10 +561,10 @@
   resolved "https://registry.yarnpkg.com/@csstools/css-tokenizer/-/css-tokenizer-3.0.3.tgz#a5502c8539265fecbd873c1e395a890339f119c2"
   integrity sha512-UJnjoFsmxfKUdNYdWgOB0mWUypuLvAfQPH1+pyvRJs6euowbFkFC6P13w1l8mJyi3vxYMxc9kld5jZEGRQs6bw==
 
-"@dtrw/eslint-config@~5.9.2":
-  version "5.9.2"
-  resolved "https://registry.yarnpkg.com/@dtrw/eslint-config/-/eslint-config-5.9.2.tgz#40ed402641dfd92cbcb343c4505dbd065f49b168"
-  integrity sha512-GZ90/m7Q3IEDhxqYDzavEk0bK21WK4/iO0xjB3QVcHWWuFAZX4W+Ini4c+guHv2KnOb9NSGuKd/PlzlgL7pEQw==
+"@dtrw/eslint-config@~5.9.4":
+  version "5.9.4"
+  resolved "https://registry.yarnpkg.com/@dtrw/eslint-config/-/eslint-config-5.9.4.tgz#207c51c7fe517388dffe7ed572ad3505ea8f7db3"
+  integrity sha512-zTywCutILSpJt0LMgBenThdIwnvdU171HplQolZXqtYrnbfXmz9auiHJwuhW/wSdibe0PcK6t3fIXYxtgRPBAg==
   dependencies:
     "@eslint/json" "0.13.1"
     "@next/eslint-plugin-next" "~15.4.0"
