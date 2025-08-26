@@ -31,13 +31,8 @@ jobs:
 
       - name: Build frontend and backend
         run: |
-          yarn build
-          cd packages/backend/dist
-          yarn install --production --no-lockfile --non-interactive
-
-      - name: Setup build envs
-        run: |
           echo "COMMIT_SHA=${{ github.sha }}" >> docker/backend/env
+          VITE_COMMIT=${{ github.sha }} yarn build
 
       - name: Put app in maintenance mode in kuma (NOT IMPLEMENTED)
         if: false

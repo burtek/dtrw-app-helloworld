@@ -15,12 +15,12 @@ services:
       start_interval: 5s
 
   backend:
-    image: node:24-slim
+    image: node:24-alpine
     container_name: helloworld_backend
     working_dir: /app
     volumes:
       - ./backend:/app:ro
-    command: yarn start:prod
+    command: node --enable-source-maps index.js
     env_file:
       - docker/backend/env
     environment:
@@ -29,13 +29,14 @@ services:
     expose:
       - 4000
     restart: always
+    restart: on-failure:5
     healthcheck:
-      test: ["CMD", "bash", "/app/scripts/healthcheck.sh"]
+      test: wget --no-verbose --tries=1 --spider http://127.0.0.1:4000/health || exit 1
       interval: 30s
       timeout: 5s
       retries: 2
-      start_period: 5s
-      start_interval: 5s
+      start_period: 25s
+      start_interval: 10s
 
 networks:
   default:
