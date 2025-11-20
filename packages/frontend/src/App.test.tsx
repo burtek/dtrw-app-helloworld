@@ -5,9 +5,10 @@ import App from './App';
 
 test('App renders', async () => {
     let resolve: ((value: Response) => void) | undefined;
-    global.fetch = vitest.fn(() => new Promise<Response>(res => {
+
+    vitest.stubGlobal('fetch', vitest.fn(() => new Promise<Response>(res => {
         resolve = res;
-    }));
+    })));
 
     const { container } = render(<App />);
 
