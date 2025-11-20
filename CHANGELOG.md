@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.5.0](https://github.com/burtek/dtrw-app-helloworld/compare/v1.4.2...v1.5.0) (2025-11-20)
+
+
+### Features
+
+* **backend:** switch to fastify, switch to node:24-alpine ([c3194c3](https://github.com/burtek/dtrw-app-helloworld/commit/c3194c35f6673e264e07f7fcd52a03c35e4bff7d))
+
+
+### Bug Fixes
+
+* **test:** vitest config name fix ([4ff0485](https://github.com/burtek/dtrw-app-helloworld/commit/4ff0485b06b315b39f26f908a83a0e838a54d0fc))
+
 ### [1.4.2](https://github.com/burtek/dtrw-app-helloworld/compare/v1.4.1...v1.4.2) (2025-07-29)
 
 
