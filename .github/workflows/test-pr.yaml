@@ -30,9 +30,6 @@ jobs:
           node-version: '24'
           cache: 'yarn'
 
-      - name: Install dependencies
-        run: yarn install --frozen-lockfile
-
       - name: Apply sqlite 
         if: matrix.mode == 'sqlite'
         run: |
