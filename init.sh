@@ -7,6 +7,17 @@ if [[ -z "$APP_NAME" ]]; then
   exit 1
 fi
 
+read -p "Configure SQLite for this app? (y/N): " USE_SQLITE
+USE_SQLITE=${USE_SQLITE,,}   # normalize to lowercase
+
+if [[ "$USE_SQLITE" == "y" || "$USE_SQLITE" == "yes" ]]; then
+  mkdir -p packages/backend/development
+  mkdir -p packages/backend/src/assets
+  touch packages/backend/development/db.db
+  mv init-sqlite/*.node packages/backend/src/assets/
+  git apply init-sqlite/patch.patch
+fi
+
 # Replace placeholder app name
 sed -i "s/helloworld/$APP_NAME/g" package.json .github/workflows/deploy.yaml docker-compose.yml
 
@@ -16,6 +27,7 @@ sed -i -r 's/"version": "[[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+"/"version": "1
 # Reinstall deps and clean up
 yarn
 rm CHANGELOG.md init.sh
+rm -r init-sqlite
 
 # Commit and create first release
 git add -A
