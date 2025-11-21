@@ -1,5 +1,8 @@
 name: Deploy App to VPS
 
+permissions:
+  contents: read
+
 on:
   push:
     tags:
