@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.6.0](https://github.com/burtek/dtrw-app-helloworld/compare/v1.5.4...v1.6.0) (2025-11-21)
+
+
+### Features
+
+* **template:** add sqlite variant ([#8](https://github.com/burtek/dtrw-app-helloworld/issues/8)) ([0f04769](https://github.com/burtek/dtrw-app-helloworld/commit/0f04769a1c7eb15df23d2a02957e6e714b3eb4a1))
+
 ### [1.5.4](https://github.com/burtek/dtrw-app-helloworld/compare/v1.5.3...v1.5.4) (2025-11-21)
 
 ### [1.5.3](https://github.com/burtek/dtrw-app-helloworld/compare/v1.5.2...v1.5.3) (2025-11-21)
