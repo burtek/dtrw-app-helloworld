@@ -10,10 +10,13 @@ export default config(
         testingLibrary: true
     }),
     {
-        files: ['**/*.{js,jsx,ts,tsx,mts}'],
+        files: ['**/*.{mjs,js,jsx,ts,tsx,mts}'],
         languageOptions: {
             globals: { JSX: 'readonly' },
-            parserOptions: { projectService: true }
+            parserOptions: {
+                projectService: true,
+                tsconfigRootDir: import.meta.dirname
+            }
         },
         settings: { 'import/resolver': { typescript: true } }
     },

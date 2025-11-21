@@ -9,8 +9,13 @@ export default config(
         json: { additionalFiles: { jsonc: ['tsconfig.*.json'] } }
     }),
     {
-        files: ['**/*.{js,jsx,ts,tsx,mts}'],
-        languageOptions: { parserOptions: { projectService: true } },
+        files: ['**/*.{mjs,js,jsx,ts,tsx,mts}'],
+        languageOptions: {
+            parserOptions: {
+                projectService: true,
+                tsconfigRootDir: import.meta.dirname
+            }
+        },
         settings: { 'import/resolver': { typescript: true } }
     },
     { rules: { 'new-cap': 'off' } }, // for nestjs decorators
