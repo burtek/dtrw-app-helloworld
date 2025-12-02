@@ -28,7 +28,6 @@ services:
       PORT: 4000
     expose:
       - 4000
-    restart: always
     restart: on-failure:5
     healthcheck:
       test: wget --no-verbose --tries=1 --spider http://127.0.0.1:4000/health || exit 1
