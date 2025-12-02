@@ -11,6 +11,85 @@ index 0ad2af6..32fcdbf 100644
              cd /apps/${{ env.APP_NAME }}
              docker compose up -d --build
              docker exec nginx-proxy-manager nginx -s reload
+diff --git a/.github/workflows/release.yaml b/.github/workflows/release.yaml
+index ebc09ca..e2e661c 100644
+--- a/.github/workflows/release.yaml
++++ b/.github/workflows/release.yaml
+@@ -7,7 +7,7 @@ on:
+ 
+ jobs:
+   test:
+-    name: test (${{ matrix.mode }})
++    name: test
+ 
+     runs-on: ubuntu-latest
+ 
+@@ -16,10 +16,6 @@ jobs:
+     permissions:
+       contents: read
+ 
+-    strategy:
+-      matrix:
+-        mode: [standard, sqlite]
+-
+     steps:
+       - name: Checkout repo
+         uses: actions/checkout@v4
+@@ -32,15 +28,6 @@ jobs:
+           node-version: '24'
+           cache: 'yarn'
+ 
+-      - name: Apply sqlite 
+-        if: matrix.mode == 'sqlite'
+-        run: |
+-          mkdir -p packages/backend/development
+-          mkdir -p packages/backend/src/assets
+-          touch packages/backend/development/db.db
+-          mv init-sqlite/*.node packages/backend/src/assets/
+-          git apply init-sqlite/patch.patch
+-
+       - name: Install dependencies
+         run: yarn install --frozen-lockfile
+ 
+diff --git a/.github/workflows/test-pr.yaml b/.github/workflows/test-pr.yaml
+index b1fe2b6..bab7957 100644
+--- a/.github/workflows/test-pr.yaml
++++ b/.github/workflows/test-pr.yaml
+@@ -7,17 +7,13 @@ on:
+ 
+ jobs:
+   test:
+-    name: test (${{ matrix.mode }})
++    name: test
+ 
+     runs-on: ubuntu-latest
+ 
+     permissions:
+       contents: read
+ 
+-    strategy:
+-      matrix:
+-        mode: [standard, sqlite]
+-
+     steps:
+       - name: Checkout repo
+         uses: actions/checkout@v4
+@@ -30,15 +26,6 @@ jobs:
+           node-version: '24'
+           cache: 'yarn'
+ 
+-      - name: Apply sqlite 
+-        if: matrix.mode == 'sqlite'
+-        run: |
+-          mkdir -p packages/backend/development
+-          mkdir -p packages/backend/src/assets
+-          touch packages/backend/development/db.db
+-          mv init-sqlite/*.node packages/backend/src/assets/
+-          git apply init-sqlite/patch.patch
+-
+       - name: Install dependencies
+         run: yarn install --frozen-lockfile
+ 
 diff --git a/.gitignore b/.gitignore
 index 40b878d..ce0a048 100644
 --- a/.gitignore
@@ -27,7 +106,7 @@ index e69de29..ec9b79b 100644
 @@ -0,0 +1 @@
 +USE_BS3_BIN=true
 diff --git a/package.json b/package.json
-index e8df6c2..83021be 100644
+index dba9dee..e28fd6f 100644
 --- a/package.json
 +++ b/package.json
 @@ -23,7 +23,10 @@
@@ -61,7 +140,7 @@ diff --git a/packages/backend/drizzle/.gitkeep b/packages/backend/drizzle/.gitke
 new file mode 100644
 index 0000000..e69de29
 diff --git a/packages/backend/package.json b/packages/backend/package.json
-index 4263489..b98f4a2 100644
+index bb6d748..5d137b0 100644
 --- a/packages/backend/package.json
 +++ b/packages/backend/package.json
 @@ -13,10 +13,16 @@
