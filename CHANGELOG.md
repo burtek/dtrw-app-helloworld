@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.6.2](https://github.com/burtek/dtrw-app-helloworld/compare/v1.6.1...v1.6.2) (2025-12-02)
+
+
+### Bug Fixes
+
+* **workflow:** secrets.PAT is required ([874d961](https://github.com/burtek/dtrw-app-helloworld/commit/874d961c00da0e0acb81a4aa7fad4ebe43179e9c))
+
 ### [1.6.1](https://github.com/burtek/dtrw-app-helloworld/compare/v1.6.0...v1.6.1) (2025-12-02)
 
 
