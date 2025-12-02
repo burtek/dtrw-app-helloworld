@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.6.1](https://github.com/burtek/dtrw-app-helloworld/compare/v1.6.0...v1.6.1) (2025-12-02)
+
+
+### Bug Fixes
+
+* **workflow:** don't yarn install twice ([f66021d](https://github.com/burtek/dtrw-app-helloworld/commit/f66021dd6c0c9297b2318e6d9d08b17986ce6222))
+* **workflow:** sqlite patch ([c73821d](https://github.com/burtek/dtrw-app-helloworld/commit/c73821ded96596394090db6d72ca3c7e453592a7))
+
 ## [1.6.0](https://github.com/burtek/dtrw-app-helloworld/compare/v1.5.4...v1.6.0) (2025-11-21)
 
 
