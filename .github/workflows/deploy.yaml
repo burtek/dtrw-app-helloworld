@@ -96,7 +96,6 @@ jobs:
           script: |
             cd /apps/${{ env.APP_NAME }}
             docker compose up -d --build
-            docker exec nginx-proxy-manager nginx -s reload
 
       - name: Disable maintenance mode in kuma (NOT IMPLEMENTED)
         if: false
