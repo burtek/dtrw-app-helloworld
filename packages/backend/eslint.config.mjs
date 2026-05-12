@@ -4,7 +4,7 @@ import { prepareConfig, config } from '@dtrw/eslint-config';
 
 export default config(
     ...prepareConfig({
-        jest: true,
+        jest: { mode: 'vitest' },
         node: true,
         json: { additionalFiles: { jsonc: ['tsconfig.*.json'] } }
     }),
