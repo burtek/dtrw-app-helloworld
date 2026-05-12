@@ -14,8 +14,8 @@ Server defaults to `http://localhost:4000`.
 
 Use one of:
 
-- `/home/runner/work/dtrw-app-helloworld/dtrw-app-helloworld/packages/backend/.env.example`
-- `/home/runner/work/dtrw-app-helloworld/dtrw-app-helloworld/packages/backend/.env.sqlite.example`
+- `./packages/backend/.env.example`
+- `./packages/backend/.env.sqlite.example`
 
 Important variables:
 

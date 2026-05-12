@@ -66,6 +66,6 @@ function copyFilesForLibrary(library, files) {
 
     return files.map(file => ({
         src: join(libraryPath, file),
-        dest: join('dist', 'node_modules', file && library)
+        dest: join('dist', 'node_modules', library)
     }));
 }

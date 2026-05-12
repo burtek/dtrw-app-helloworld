@@ -13,7 +13,7 @@ This repository is a working application and a reusable template for DTRW-hosted
   - `POST /hello/messages`
 - Optional database mode in one committed codebase:
   - `DB_MODE=none` (in-memory repository)
-  - `DB_MODE=sqlite` (SQLite repository using Node's built-in `node:sqlite`)
+  - `DB_MODE=sqlite` (SQLite repository using `better-sqlite3`, with native binaries copied at build time)
 
 ## Quick start
 
@@ -30,8 +30,8 @@ Frontend runs on `http://localhost:3000` and proxies `/api/*` to backend `http:/
 
 Backend env files are documented in:
 
-- `/home/runner/work/dtrw-app-helloworld/dtrw-app-helloworld/packages/backend/.env.example`
-- `/home/runner/work/dtrw-app-helloworld/dtrw-app-helloworld/packages/backend/.env.sqlite.example`
+- `./packages/backend/.env.example`
+- `./packages/backend/.env.sqlite.example`
 
 Main backend env variables:
 
