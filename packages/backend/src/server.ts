@@ -1,8 +1,8 @@
 import { createApp } from './app';
-import { env } from './config';
+import { env, runtimeConfig } from './config';
 
 
-const { app, shutdown } = createApp({ logger: true });
+const { app, shutdown } = createApp({ logger: true }, runtimeConfig);
 
 process.on('SIGINT', () => shutdown('SIGINT'));
 process.on('SIGTERM', () => shutdown('SIGTERM'));

@@ -7,7 +7,7 @@ on:
 
 jobs:
   test:
-    name: test (${{ matrix.mode }})
+    name: test (${{ matrix.db_mode }})
 
     runs-on: ubuntu-latest
 
@@ -18,7 +18,12 @@ jobs:
 
     strategy:
       matrix:
-        mode: [standard, sqlite]
+        db_mode: [none, sqlite]
+
+    env:
+      APP_NAME: helloworld
+      DB_MODE: ${{ matrix.db_mode }}
+      DB_FILE_NAME: /tmp/dtrw-template-${{ matrix.db_mode }}.db
 
     steps:
       - name: Checkout repo
@@ -31,15 +36,6 @@ jobs:
         with:
           node-version: '24'
           cache: 'yarn'
-
-      - name: Apply sqlite 
-        if: matrix.mode == 'sqlite'
-        run: |
-          mkdir -p packages/backend/development
-          mkdir -p packages/backend/src/assets
-          touch packages/backend/development/db.db
-          mv init-sqlite/*.node packages/backend/src/assets/
-          git apply init-sqlite/patch.patch
 
       - name: Install dependencies
         run: yarn install --frozen-lockfile

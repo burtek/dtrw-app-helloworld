@@ -1,3 +1,6 @@
+import { existsSync } from 'node:fs';
+import { dirname, join } from 'node:path';
+
 import alias from '@rollup/plugin-alias';
 import commonjs from '@rollup/plugin-commonjs';
 import json from '@rollup/plugin-json';
@@ -9,10 +12,7 @@ import typescript2 from 'rollup-plugin-typescript2';
 
 
 export default defineConfig({
-    input: {
-        index: 'index.ts'
-        // 'drizzle.config': 'drizzle.config.ts'
-    },
+    input: { index: 'index.ts' },
     output: {
         dir: 'dist',
         format: 'cjs',
@@ -24,12 +24,7 @@ export default defineConfig({
         preserveModulesRoot: '.'
     },
     plugins: [
-        alias({
-            entries: [
-                // pdf-lib esm version get transpilled to cjs with breaking circular dependency tree
-                // { find: 'pdf-lib', replacement: 'pdf-lib/cjs' }
-            ]
-        }),
+        alias({ entries: [] }),
         sourcemaps(),
         resolve({
             extensions: ['.mjs', '.js', '.json', '.ts', '.node'],
@@ -48,7 +43,6 @@ export default defineConfig({
         }),
         copy({
             targets: [
-                // { src: 'src/assets/*', dest: 'dist/src/assets' },
                 {
                     src: 'package.json',
                     dest: 'dist',
@@ -56,8 +50,22 @@ export default defineConfig({
                         const pkg = JSON.parse(contents.toString());
                         return JSON.stringify({ ...pkg, type: 'commonjs' }, null, 2);
                     }
-                }
+                },
+                ...copyFilesForLibrary('better-sqlite3', ['build', 'package.json']),
+                ...copyFilesForLibrary('bindings', ['package.json'])
             ]
         })
     ]
 });
+
+function copyFilesForLibrary(library, files) {
+    let libraryPath = import.meta.resolve(library).replace('file://', '');
+    do {
+        libraryPath = dirname(libraryPath);
+    } while (!existsSync(join(libraryPath, 'package.json')));
+
+    return files.map(file => ({
+        src: join(libraryPath, file),
+        dest: join('dist', 'node_modules', file && library)
+    }));
+}

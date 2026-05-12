@@ -1,14 +1,13 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { fastify } from 'fastify';
 
 import packageJson from '../../package.json';
 
-import { healthController } from './health.controller';
+import { createHealthController } from './health.controller';
 
 
 describe('HealthController', () => {
     const app = fastify();
-    app.register(healthController, { prefix: '/health' });
+    app.register(createHealthController({ appName: 'helloworld', databaseMode: 'none' }), { prefix: '/health' });
 
     afterAll(async () => {
         await app.close();
@@ -27,6 +26,8 @@ describe('HealthController', () => {
             uptime: expect.any(Number),
             commit: 'dev',
             version: packageJson.version,
+            appName: 'helloworld',
+            databaseMode: 'none',
             nodeVersion: expect.any(String),
             memoryUsage: expect.anything(),
             cpuUsage: expect.anything(),

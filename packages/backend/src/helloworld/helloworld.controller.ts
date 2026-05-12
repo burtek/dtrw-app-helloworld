@@ -1,14 +1,35 @@
 import type { FastifyPluginCallback } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
+import { z } from 'zod/v4';
+
+import type { HelloWorldService } from './helloworld.service';
 
 
-export const helloWorldController: FastifyPluginCallback = (instance, options, done) => {
-    const f = instance.withTypeProvider<ZodTypeProvider>();
+const createMessageSchema = z.object({
+    message: z.string().trim().min(1)
+        .max(120)
+});
 
-    f.get(
-        '/',
-        () => 'Hello world'
-    );
+export function createHelloWorldController(service: HelloWorldService): FastifyPluginCallback {
+    return (instance, options, done) => {
+        const f = instance.withTypeProvider<ZodTypeProvider>();
 
-    done();
-};
+        f.get(
+            '/',
+            () => service.getGreeting()
+        );
+
+        f.get(
+            '/messages',
+            () => service.listMessages()
+        );
+
+        f.post(
+            '/messages',
+            { schema: { body: createMessageSchema } },
+            request => service.createMessage(request.body.message)
+        );
+
+        done();
+    };
+}

@@ -1,30 +1,56 @@
-import { act, render, waitFor, screen } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 
 import App from './App';
 
 
-test('App renders', async () => {
-    let resolve: ((value: Response) => void) | undefined;
+const jsonResponse = (body: unknown) => new Response(JSON.stringify(body), {
+    status: 200,
+    headers: { 'Content-Type': 'application/json' }
+});
 
-    vitest.stubGlobal('fetch', vitest.fn(() => new Promise<Response>(res => {
-        resolve = res;
-    })));
+test('App renders and supports message save flow', async () => {
+    const fetchMock = vitest.fn()
+        .mockResolvedValueOnce(new Response('Hello from helloworld', { status: 200 }))
+        .mockResolvedValueOnce(jsonResponse({
+            appName: 'helloworld',
+            databaseMode: 'none',
+            messages: []
+        }))
+        .mockResolvedValueOnce(jsonResponse({
+            appName: 'helloworld',
+            databaseMode: 'none',
+            message: {
+                id: 1,
+                message: 'Stored from UI',
+                createdAt: new Date().toISOString()
+            }
+        }))
+        .mockResolvedValueOnce(jsonResponse({
+            appName: 'helloworld',
+            databaseMode: 'none',
+            messages: [
+                {
+                    id: 1,
+                    message: 'Stored from UI',
+                    createdAt: new Date().toISOString()
+                }
+            ]
+        }));
 
-    const { container } = render(<App />);
+    vitest.stubGlobal('fetch', fetchMock);
 
-    expect(container).not.toBeEmptyDOMElement();
-
-    expect(screen.getByText(/Loading/)).toBeInTheDocument();
-
-    act(() => {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion
-        resolve?.({
-            ok: true,
-            text: () => Promise.resolve('Hello, world!')
-        } as unknown as Response);
-    });
+    render(<App />);
 
     await waitFor(() => {
-        expect(screen.getByText(/Hello, world!/)).toBeInTheDocument();
+        expect(screen.getByText('Hello from helloworld')).toBeInTheDocument();
+    });
+
+    expect(screen.getByText('Database mode: none')).toBeInTheDocument();
+
+    fireEvent.change(screen.getByLabelText('Add sample message'), { target: { value: 'Stored from UI' } });
+    fireEvent.click(screen.getByRole('button', { name: 'Save' }));
+
+    await waitFor(() => {
+        expect(screen.getByText('Stored from UI')).toBeInTheDocument();
     });
 });

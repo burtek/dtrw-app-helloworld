@@ -1,50 +1,66 @@
 #!/bin/bash
-set -e
+set -euo pipefail
 
-read -p "Enter the new app name: " APP_NAME
-if [[ -z "$APP_NAME" ]]; then
+ROOT_DIR="$(cd "$(dirname "$0")" && pwd)"
+cd "$ROOT_DIR"
+
+APP_NAME_INPUT="${1:-}"
+if [[ -z "$APP_NAME_INPUT" ]]; then
+  read -r -p "Enter the new app name: " APP_NAME_INPUT
+fi
+
+if [[ -z "$APP_NAME_INPUT" ]]; then
   echo "❌ App name is required. Exiting."
   exit 1
 fi
 
-read -p "Configure SQLite for this app? (y/N): " USE_SQLITE
-USE_SQLITE=${USE_SQLITE,,}   # normalize to lowercase
-
-if [[ "$USE_SQLITE" == "y" || "$USE_SQLITE" == "yes" ]]; then
-  mkdir -p packages/backend/development
-  mkdir -p packages/backend/src/assets
-  touch packages/backend/development/db.db
-  mv init-sqlite/*.node packages/backend/src/assets/
-  git apply init-sqlite/patch.patch
+read -r -p "Default database mode (none/sqlite) [none]: " DB_MODE_INPUT
+DB_MODE_INPUT=${DB_MODE_INPUT,,}
+if [[ -z "$DB_MODE_INPUT" ]]; then
+  DB_MODE_INPUT="none"
 fi
 
-# Replace placeholder app name
-sed -i "s/helloworld/$APP_NAME/g" package.json .github/workflows/deploy.yaml docker-compose.yml
+if [[ "$DB_MODE_INPUT" != "none" && "$DB_MODE_INPUT" != "sqlite" ]]; then
+  echo "❌ Invalid database mode. Use 'none' or 'sqlite'."
+  exit 1
+fi
 
-# Reset version to 1.0.0 in all package.json files
-sed -i -r 's/"version": "[[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+"/"version": "1.0.0"/g' package.json packages/*/package.json
+cat > .github/template.env <<EOT
+APP_NAME=${APP_NAME_INPUT}
+KUMA_APP=${APP_NAME_INPUT}
+EOT
 
-# Reinstall deps and clean up
-yarn
-rm CHANGELOG.md init.sh
-rm -r init-sqlite
+if grep -q '^APP_NAME=' docker/backend/env; then
+  sed -i "s/^APP_NAME=.*/APP_NAME=${APP_NAME_INPUT}/" docker/backend/env
+else
+  echo "APP_NAME=${APP_NAME_INPUT}" >> docker/backend/env
+fi
 
-# Commit and create first release
-git add -A
-git commit -m "chore: init $APP_NAME"
-yarn release --first-release
+if grep -q '^DB_MODE=' docker/backend/env; then
+  sed -i "s/^DB_MODE=.*/DB_MODE=${DB_MODE_INPUT}/" docker/backend/env
+else
+  echo "DB_MODE=${DB_MODE_INPUT}" >> docker/backend/env
+fi
 
-# Reminder for secrets
-cat <<EOF
+if ! grep -q '^DB_FILE_NAME=' docker/backend/env; then
+  echo 'DB_FILE_NAME=./packages/backend/development/db.db' >> docker/backend/env
+fi
 
-✅ Initialized app: $APP_NAME
+mkdir -p packages/backend/development
 
-🚨 Remember to set the following GitHub secrets for this repo:
-  - PAT
-  - VPS_HOST
-  - VPS_PORT
-  - VPS_SSH_KEY
-  - VPS_SSH_PASSPHRASE
-  - VPS_USER
+sed -i "s/\"name\": \"dtrw-app-[^\"]*\"/\"name\": \"dtrw-app-${APP_NAME_INPUT}\"/" package.json
+sed -i "s|\"repository\": \"git@github.com:[^\"]*\"|\"repository\": \"git@github.com:<owner>/dtrw-app-${APP_NAME_INPUT}.git\"|" package.json
 
-EOF
+cat <<EOFMSG
+
+✅ Initialized template configuration.
+
+- APP_NAME: ${APP_NAME_INPUT}
+- Default DB_MODE: ${DB_MODE_INPUT}
+
+Next steps:
+1) Update package.json repository owner and any deployment secrets.
+2) Review .github/template.env and docker/backend/env.
+3) Run yarn install, yarn test, and yarn build.
+
+EOFMSG
