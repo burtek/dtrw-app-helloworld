@@ -47,6 +47,7 @@ jobs:
       - name: Run tests and build
         run: |
           yarn test
+          yarn lint
           yarn build
 
   release:
