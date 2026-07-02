@@ -1,4 +1,4 @@
-import type { ErrorType } from './type';
+import type { ErrorType } from './type.js';
 
 
 export class AppError extends Error {
@@ -7,4 +7,4 @@ export class AppError extends Error {
     }
 }
 
-export { ErrorType } from './type';
+export { ErrorType } from './type.js';

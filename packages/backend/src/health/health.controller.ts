@@ -1,7 +1,7 @@
 import type { FastifyPluginCallback } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 
-import { HealthService } from './health.service';
+import { HealthService } from './health.service.js';
 
 
 export const healthController: FastifyPluginCallback = (instance, options, done) => {

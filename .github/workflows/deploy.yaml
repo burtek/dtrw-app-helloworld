@@ -18,24 +18,27 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v6.0.9
 
       - name: Set up Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
-          node-version: 24
-          cache: yarn
+          node-version: 24.15
+          cache: pnpm
 
       - name: Install dependencies
-        run: yarn install
+        run: pnpm ci
 
       - name: Run tests
-        run: yarn test
+        run: pnpm test
 
       - name: Build frontend and backend
         run: |
           echo "COMMIT_SHA=${{ github.sha }}" >> docker/backend/env
-          VITE_COMMIT=${{ github.sha }} yarn build
+          VITE_COMMIT=${{ github.sha }} pnpm build
 
       - name: Put app in maintenance mode in kuma (NOT IMPLEMENTED)
         if: false
@@ -58,7 +61,7 @@ jobs:
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_SSH_KEY }}
           passphrase: ${{ secrets.VPS_SSH_PASSPHRASE }}
-          source: "packages/frontend/dist/*"
+          source: "dist-frontend/*"
           target: "/apps/${{ env.APP_NAME }}/frontend"
           strip_components: 3
 
@@ -70,7 +73,7 @@ jobs:
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_SSH_KEY }}
           passphrase: ${{ secrets.VPS_SSH_PASSPHRASE }}
-          source: "packages/backend/dist/*"
+          source: "dist-backend/*"
           target: "/apps/${{ env.APP_NAME }}/backend"
           strip_components: 3
 

@@ -1,9 +1,8 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { fastify } from 'fastify';
 
-import packageJson from '../../package.json';
+import packageJson from '../../package.json' with { type: 'json' };
 
-import { healthController } from './health.controller';
+import { healthController } from './health.controller.js';
 
 
 describe('HealthController', () => {

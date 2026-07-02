@@ -1,5 +1,5 @@
-import { createApp } from './app';
-import { env } from './config';
+import { createApp } from './app.js';
+import { env } from './config.js';
 
 
 const { app, shutdown } = createApp({ logger: true });

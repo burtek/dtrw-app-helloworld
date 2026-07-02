@@ -2,10 +2,10 @@ import type { FastifyServerOptions } from 'fastify';
 import { fastify } from 'fastify';
 import { serializerCompiler, validatorCompiler } from 'fastify-type-provider-zod';
 
-import { decorateRequestUser } from './decorators/auth.decorator';
-import { decorateErrorHandler } from './decorators/error.decorator';
-import { healthController } from './health/health.controller';
-import { helloWorldController } from './helloworld/helloworld.controller';
+import { decorateRequestUser } from './decorators/auth.decorator.js';
+import { decorateErrorHandler } from './decorators/error.decorator.js';
+import { healthController } from './health/health.controller.js';
+import { helloWorldController } from './helloworld/helloworld.controller.js';
 
 
 export function createApp(opts: FastifyServerOptions = {}) {

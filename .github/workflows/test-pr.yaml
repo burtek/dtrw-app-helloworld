@@ -7,46 +7,32 @@ on:
 
 jobs:
   test:
-    name: test (${{ matrix.mode }})
-
     runs-on: ubuntu-latest
 
     permissions:
       contents: read
 
-    strategy:
-      matrix:
-        mode: [standard, sqlite]
-
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
-        with:
-          persist-credentials: false
+      - name: Checkout code
+        uses: actions/checkout@v7
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v6.0.9
 
       - name: Set up Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
-          node-version: '24'
-          cache: 'yarn'
-
-      - name: Apply sqlite 
-        if: matrix.mode == 'sqlite'
-        run: |
-          mkdir -p packages/backend/development
-          mkdir -p packages/backend/src/assets
-          touch packages/backend/development/db.db
-          mv init-sqlite/*.node packages/backend/src/assets/
-          git apply init-sqlite/patch.patch
+          node-version: 24.15
+          cache: pnpm
 
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run: pnpm ci
 
       - name: Run tests
-        run: yarn test
+        run: pnpm test
 
       - name: Run lint
-        run: yarn lint
+        run: pnpm lint
 
       - name: Build
-        run: yarn build
+        run: pnpm build
