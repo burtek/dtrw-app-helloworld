@@ -100,7 +100,7 @@ pnpm --filter frontend dev
 
 ## Template placeholders to change
 
-This template currently contains default app identifiers (`qwerty`). Update them after creating your new app:
+This template currently contains default app identifiers (`helloworld`). Update them after creating your new app:
 
 - `package.json`: `name`, `repository`
 - `.github/workflows/deploy.yaml`: `env.APP_NAME`, `env.KUMA_APP`
