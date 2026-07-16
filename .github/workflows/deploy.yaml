@@ -59,7 +59,7 @@ jobs:
           key: ${{ secrets.VPS_SSH_KEY }}
           passphrase: ${{ secrets.VPS_SSH_PASSPHRASE }}
           source: "dist-frontend/*"
-          target: "apps/${{ env.APP_NAME }}/frontend.new"
+          target: "/apps/${{ env.APP_NAME }}/frontend.new"
           strip_components: 1
 
       - name: Deploy backend
@@ -71,7 +71,7 @@ jobs:
           key: ${{ secrets.VPS_SSH_KEY }}
           passphrase: ${{ secrets.VPS_SSH_PASSPHRASE }}
           source: "dist-backend/*"
-          target: "apps/${{ env.APP_NAME }}/backend.new"
+          target: "/apps/${{ env.APP_NAME }}/backend.new"
           strip_components: 1
 
       - name: Swap new and old directories and start docker containers
