@@ -10,7 +10,6 @@ on:
 
 env:
   APP_NAME: helloworld
-  KUMA_APP: helloworld
 
 jobs:
   deploy:
@@ -35,47 +34,10 @@ jobs:
       - name: Run tests
         run: pnpm test
 
-      - name: Build frontend and backend
+      - name: Build all packages
         run: |
           echo "COMMIT_SHA=${{ github.sha }}" >> docker/backend/env
-          VITE_COMMIT=${{ github.sha }} pnpm build
-
-      - name: Put app in maintenance mode in kuma (NOT IMPLEMENTED)
-        if: false
-        uses: appleboy/ssh-action@v1
-        with:
-          host: ${{ secrets.VPS_HOST }}
-          port: ${{ secrets.VPS_PORT }}
-          username: ${{ secrets.VPS_USER }}
-          key: ${{ secrets.VPS_SSH_KEY }}
-          passphrase: ${{ secrets.VPS_SSH_PASSPHRASE }}
-          script: |
-            echo "-- NOT IMPLEMENTED --"
-            echo use secrets.KUMA_API_KEY, secrets.KUMA_CONTAINER and env.KUMA_APP (tag value)
-
-      - name: Deploy frontend
-        uses: appleboy/scp-action@v1
-        with:
-          host: ${{ secrets.VPS_HOST }}
-          port: ${{ secrets.VPS_PORT }}
-          username: ${{ secrets.VPS_USER }}
-          key: ${{ secrets.VPS_SSH_KEY }}
-          passphrase: ${{ secrets.VPS_SSH_PASSPHRASE }}
-          source: "dist-frontend/*"
-          target: "/apps/${{ env.APP_NAME }}/frontend"
-          strip_components: 3
-
-      - name: Deploy backend
-        uses: appleboy/scp-action@v1
-        with:
-          host: ${{ secrets.VPS_HOST }}
-          port: ${{ secrets.VPS_PORT }}
-          username: ${{ secrets.VPS_USER }}
-          key: ${{ secrets.VPS_SSH_KEY }}
-          passphrase: ${{ secrets.VPS_SSH_PASSPHRASE }}
-          source: "dist-backend/*"
-          target: "/apps/${{ env.APP_NAME }}/backend"
-          strip_components: 3
+          VITE_COMMIT=${{ github.sha }} pnpm deploy
 
       - name: Deploy docker configs
         uses: appleboy/scp-action@v1
@@ -86,9 +48,33 @@ jobs:
           key: ${{ secrets.VPS_SSH_KEY }}
           passphrase: ${{ secrets.VPS_SSH_PASSPHRASE }}
           source: "docker,docker-compose.yml"
-          target: "/apps/${{ env.APP_NAME }}"
+          target: "/apps/${{ env.APP_NAME }}/docker.new"
 
-      - name: Restart Docker containers and reload NPM
+      - name: Deploy frontend
+        uses: appleboy/scp-action@v1
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          port: ${{ secrets.VPS_PORT }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          passphrase: ${{ secrets.VPS_SSH_PASSPHRASE }}
+          source: "dist-frontend/*"
+          target: "apps/${{ env.APP_NAME }}/frontend.new"
+          strip_components: 1
+
+      - name: Deploy backend
+        uses: appleboy/scp-action@v1
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          port: ${{ secrets.VPS_PORT }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          passphrase: ${{ secrets.VPS_SSH_PASSPHRASE }}
+          source: "dist-backend/*"
+          target: "apps/${{ env.APP_NAME }}/backend.new"
+          strip_components: 1
+
+      - name: Swap new and old directories and start docker containers
         uses: appleboy/ssh-action@v1
         with:
           host: ${{ secrets.VPS_HOST }}
@@ -97,18 +83,26 @@ jobs:
           key: ${{ secrets.VPS_SSH_KEY }}
           passphrase: ${{ secrets.VPS_SSH_PASSPHRASE }}
           script: |
+            mkdir -p /apps/${{ env.APP_NAME }}
             cd /apps/${{ env.APP_NAME }}
-            docker compose up -d --build
+            if [ -f docker-compose.yml ]
+            then
+              docker compose stop
+            fi
 
-      - name: Disable maintenance mode in kuma (NOT IMPLEMENTED)
-        if: false
-        uses: appleboy/ssh-action@v1
-        with:
-          host: ${{ secrets.VPS_HOST }}
-          port: ${{ secrets.VPS_PORT }}
-          username: ${{ secrets.VPS_USER }}
-          key: ${{ secrets.VPS_SSH_KEY }}
-          passphrase: ${{ secrets.VPS_SSH_PASSPHRASE }}
-          script: |
-            echo "-- NOT IMPLEMENTED --"
-            echo use secrets.KUMA_API_KEY, secrets.KUMA_CONTAINER and env.KUMA_APP (tag value)
+            rm -rf docker.old frontend.old backend.old docker-compose.old.yml
+
+            [ -f docker-compose.yml ] && mv docker-compose.yml docker-compose.old.yml
+            [ -d docker ] && mv docker docker.old
+            [ -d frontend ] && mv frontend frontend.old
+            [ -d backend ] && mv backend backend.old
+            
+            mv docker.new/docker-compose.yml .
+            mv docker.new/docker .
+            rmdir docker.new
+            mv frontend.new frontend
+            mv backend.new backend
+
+            docker compose up -d
+
+            rm -rf docker.old frontend.old backend.old docker-compose.old.yml

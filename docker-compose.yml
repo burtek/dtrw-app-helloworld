@@ -20,7 +20,7 @@ services:
     working_dir: /app
     volumes:
       - ./backend:/app:ro
-    command: node --enable-source-maps index.js
+    command: node --enable-source-maps dist/index.mjs
     env_file:
       - docker/backend/env
     environment:
