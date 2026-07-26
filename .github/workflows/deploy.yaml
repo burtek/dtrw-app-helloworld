@@ -102,6 +102,25 @@ jobs:
         with:
           ref: ${{ needs.release.outputs.release_commit_sha }}
 
+      - id: setup-ssh
+        name: Setup SSH
+        run: |
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+          printf "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          echo "${{ secrets.SSH_KNOWN_HOSTS }}" > ~/.ssh/known_hosts
+          chmod 644 ~/.ssh/known_hosts
+          cat >> ~/.ssh/config <<EOF
+          Host production
+              HostName ${{ secrets.SSH_HOST }}
+              Port ${{ secrets.SSH_PORT }}
+              User ${{ secrets.SSH_USER }}
+              IdentityFile ~/.ssh/id_ed25519
+              StrictHostKeyChecking yes
+          EOF
+          ssh-keygen -yf ~/.ssh/id_ed25519
+
       - name: Install pnpm
         uses: pnpm/action-setup@v6.0.9
 
@@ -122,31 +141,6 @@ jobs:
           COMMIT_SHA=$(git rev-parse HEAD)
           echo "COMMIT_SHA=$COMMIT_SHA" >> docker/backend/env
           VITE_COMMIT="$COMMIT_SHA" pnpm deploy
-
-      - id: setup-ssh
-        name: Setup SSH
-        run: |
-          mkdir -p ~/.ssh
-          chmod 700 ~/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_ed25519
-          chmod 600 ~/.ssh/id_ed25519
-          echo "${{ secrets.SSH_KNOWN_HOSTS }}" > ~/.ssh/known_hosts
-          chmod 644 ~/.ssh/known_hosts
-          cat >> ~/.ssh/config <<EOF
-          Host production
-              HostName ${{ secrets.SSH_HOST }}
-              Port ${{ secrets.SSH_PORT }}
-              User ${{ secrets.SSH_USER }}
-              IdentityFile ~/.ssh/id_ed25519
-              StrictHostKeyChecking yes
-          EOF
-
-          echo ""
-          echo "SSH setup complete. Debugging information:"
-          file ~/.ssh/id_ed25519
-          head -1 ~/.ssh/id_ed25519
-          tail -1 ~/.ssh/id_ed25519
-          ssh-keygen -yf ~/.ssh/id_ed25519
 
       - id: deploy-files
         name: Deploy build files
