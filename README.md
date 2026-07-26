@@ -89,14 +89,11 @@ pnpm --filter frontend dev
 
 ### Required GitHub secrets
 
-- `PAT`
-- `VPS_HOST`
-- `VPS_PORT`
-- `VPS_USER`
-- `VPS_SSH_KEY`
-- `VPS_SSH_PASSPHRASE`
-- `KUMA_API_KEY` (reserved for future maintenance mode step)
-- `KUMA_CONTAINER` (reserved for future maintenance mode step)
+- `SSH_HOST`
+- `SSH_PORT`
+- `SSH_USER`
+- `SSH_PRIVATE_KEY`
+- `SSH_KNOWN_HOSTS`
 
 ## Template placeholders to change
 

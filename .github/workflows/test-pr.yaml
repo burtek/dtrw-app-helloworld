@@ -28,11 +28,20 @@ jobs:
       - name: Install dependencies
         run: pnpm ci
 
-      - name: Run tests
+      - id: tests
+        name: Run tests
         run: pnpm test
+        background: true
 
-      - name: Run lint
+      - id: lint
+        name: Run lint
         run: pnpm lint
+        background: true
 
-      - name: Build
+      - id: build
+        name: Build
         run: pnpm build
+        background: true
+
+      - name: Wait for background jobs to finish
+        wait: [tests, lint, build]
