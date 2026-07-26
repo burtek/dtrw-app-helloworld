@@ -6,7 +6,7 @@
   "private": true,
   "license": "UNLICENSED",
   "type": "module",
-  "main": "index.mjs",
+  "main": "dist/index.mjs",
   "scripts": {
     "dev:tsx": "tsx watch --env-file=.env.development --clear-screen=false src/server.ts",
     "dev:typecheck": "tsc --watch",
