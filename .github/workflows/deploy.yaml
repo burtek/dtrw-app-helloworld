@@ -17,26 +17,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Setup SSH
-        run: |
-          mkdir -p ~/.ssh
-          chmod 700 ~/.ssh
-          printf '%s\n' "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_ed25519
-          chmod 600 ~/.ssh/id_ed25519
-          echo "${{ secrets.SSH_KNOWN_HOSTS }}" > ~/.ssh/known_hosts
-          chmod 644 ~/.ssh/known_hosts
-          cat >> ~/.ssh/config <<EOF
-          Host production
-              HostName ${{ secrets.SSH_HOST }}
-              Port ${{ secrets.SSH_PORT }}
-              User ${{ secrets.SSH_USER }}
-              IdentityFile ~/.ssh/id_ed25519
-              StrictHostKeyChecking yes
-          EOF
-
-      - name: Test SSH connection
-        run: |
-          ssh production 'echo "SSH connection successful!"'
+      - name: Test SSH
+        uses: burtek/setup-ssh@v1
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          port: ${{ secrets.SSH_PORT }}
+          user: ${{ secrets.SSH_USER }}
+          private_key: ${{ secrets.SSH_PRIVATE_KEY }}
+          known_hosts: ${{ secrets.SSH_KNOWN_HOSTS }}
+          alias: production
+          test_connection: true
 
   release:
     name: Create release commit and tag
@@ -151,22 +141,16 @@ jobs:
           VITE_COMMIT="$COMMIT_SHA" pnpm deploy
 
       - id: setup-ssh
-        name: Setup SSH
-        run: |
-          mkdir -p ~/.ssh
-          chmod 700 ~/.ssh
-          printf '%s\n' "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_ed25519
-          chmod 600 ~/.ssh/id_ed25519
-          echo "${{ secrets.SSH_KNOWN_HOSTS }}" > ~/.ssh/known_hosts
-          chmod 644 ~/.ssh/known_hosts
-          cat >> ~/.ssh/config <<EOF
-          Host production
-              HostName ${{ secrets.SSH_HOST }}
-              Port ${{ secrets.SSH_PORT }}
-              User ${{ secrets.SSH_USER }}
-              IdentityFile ~/.ssh/id_ed25519
-              StrictHostKeyChecking yes
-          EOF
+        name: Test SSH
+        uses: burtek/setup-ssh@v1
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          port: ${{ secrets.SSH_PORT }}
+          user: ${{ secrets.SSH_USER }}
+          private_key: ${{ secrets.SSH_PRIVATE_KEY }}
+          known_hosts: ${{ secrets.SSH_KNOWN_HOSTS }}
+          alias: production
+          test_connection: true
 
       - id: deploy-files
         name: Deploy build files
