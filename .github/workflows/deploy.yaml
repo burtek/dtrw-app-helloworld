@@ -16,6 +16,18 @@ jobs:
     name: Test SSH connection to VPS
     runs-on: ubuntu-latest
 
+    concurrency:
+      group: deploy1-${{ github.ref }}
+      cancel-in-progress: true
+  
+    if: >
+      !contains(github.event.head_commit.message, 'chore(release)') &&
+      !contains(github.event.head_commit.message, 'chore: release') &&
+      !contains(github.event.head_commit.message, '[skip-ci]') &&
+      !contains(github.event.head_commit.message, '[skip ci]') &&
+      !contains(github.event.head_commit.message, '[ci-skip]') &&
+      !contains(github.event.head_commit.message, '[ci skip]')
+
     steps:
       - name: Test SSH
         uses: burtek/setup-ssh@v1
@@ -32,14 +44,10 @@ jobs:
     name: Create release commit and tag
     runs-on: ubuntu-latest
     needs: test_ssh
-  
-    if: >
-      !contains(github.event.head_commit.message, 'chore(release)') &&
-      !contains(github.event.head_commit.message, 'chore: release') &&
-      !contains(github.event.head_commit.message, 'skip-ci') &&
-      !contains(github.event.head_commit.message, 'skip ci') &&
-      !contains(github.event.head_commit.message, 'ci-skip') &&
-      !contains(github.event.head_commit.message, 'ci skip')
+
+    concurrency:
+      group: deploy2-${{ github.ref }}
+      cancel-in-progress: true
 
     permissions:
       contents: write
@@ -112,6 +120,9 @@ jobs:
     name: Deploy to VPS
     needs: release
     runs-on: ubuntu-latest
+
+    concurrency:
+      group: deploy3-${{ github.ref }}
 
     steps:
       - name: Checkout code
