@@ -86,11 +86,15 @@ jobs:
           echo "release_commit_sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
 
   deploy:
+    name: Deploy to VPS
+    needs: release
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v7
+        with:
+          ref: ${{ needs.release.outputs.release_commit_sha }}
 
       - name: Install pnpm
         uses: pnpm/action-setup@v6.0.9
@@ -109,80 +113,65 @@ jobs:
 
       - name: Build all packages
         run: |
-          echo "COMMIT_SHA=${{ github.sha }}" >> docker/backend/env
-          VITE_COMMIT=${{ github.sha }} pnpm deploy
+          COMMIT_SHA=$(git rev-parse HEAD)
+          echo "COMMIT_SHA=$COMMIT_SHA" >> docker/backend/env
+          VITE_COMMIT="$COMMIT_SHA" pnpm deploy
 
-      - id: deploy-docker
-        name: Deploy docker configs
-        uses: appleboy/scp-action@v1
-        with:
-          host: ${{ secrets.VPS_HOST }}
-          port: ${{ secrets.VPS_PORT }}
-          username: ${{ secrets.VPS_USER }}
-          key: ${{ secrets.VPS_SSH_KEY }}
-          passphrase: ${{ secrets.VPS_SSH_PASSPHRASE }}
-          source: "docker,docker-compose.yml"
-          target: "/apps/${{ env.APP_NAME }}/docker.new"
-        background: true
+      - id: setup-ssh
+        name: Setup SSH
+        run: |
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          echo "${{ secrets.SSH_KNOWN_HOSTS }}" > ~/.ssh/known_hosts
+          chmod 644 ~/.ssh/known_hosts
+          cat >> ~/.ssh/config <<EOF
+          Host production
+              HostName ${{ secrets.SSH_HOST }}
+              Port ${{ secrets.SSH_PORT }}
+              User ${{ secrets.SSH_USER }}
+              IdentityFile ~/.ssh/id_ed25519
+              StrictHostKeyChecking yes
+          EOF
 
-      - id: deploy-frontend
-        name: Deploy frontend
-        uses: appleboy/scp-action@v1
-        with:
-          host: ${{ secrets.VPS_HOST }}
-          port: ${{ secrets.VPS_PORT }}
-          username: ${{ secrets.VPS_USER }}
-          key: ${{ secrets.VPS_SSH_KEY }}
-          passphrase: ${{ secrets.VPS_SSH_PASSPHRASE }}
-          source: "dist-frontend/*"
-          target: "/apps/${{ env.APP_NAME }}/frontend.new"
-          strip_components: 1
+      - id: deploy-files
+        name: Deploy build files
+        run: |
+          tar czf - dist-frontend dist-backend docker docker-compose.yml |
+          ssh production '
+              set -eu
 
-      - id: deploy-backend
-        name: Deploy backend
-        uses: appleboy/scp-action@v1
-        with:
-          host: ${{ secrets.VPS_HOST }}
-          port: ${{ secrets.VPS_PORT }}
-          username: ${{ secrets.VPS_USER }}
-          key: ${{ secrets.VPS_SSH_KEY }}
-          passphrase: ${{ secrets.VPS_SSH_PASSPHRASE }}
-          source: "dist-backend/*"
-          target: "/apps/${{ env.APP_NAME }}/backend.new"
-          strip_components: 1
+              rm -rf /apps/${{ env.APP_NAME }}/upload /apps/${{ env.APP_NAME }}/old
+              mkdir -p /apps/${{ env.APP_NAME }}/upload
+              tar xzf - -C /apps/${{ env.APP_NAME }}/upload
+          '
 
-      - name: Wait for deploy jobs to finish
-        wait: [deploy-docker, deploy-frontend, deploy-backend]
+      - id: start-app
+        name: Replace files and start new version of the app
+        run: |
+          ssh production '
+              set -euo pipefail
+              
+              cd /apps/${{ env.APP_NAME }}
+              if [ -f docker-compose.yml ]
+              then
+                docker compose stop
+              fi
 
-      - name: Swap new and old directories and start docker containers
-        uses: appleboy/ssh-action@v1
-        with:
-          host: ${{ secrets.VPS_HOST }}
-          port: ${{ secrets.VPS_PORT }}
-          username: ${{ secrets.VPS_USER }}
-          key: ${{ secrets.VPS_SSH_KEY }}
-          passphrase: ${{ secrets.VPS_SSH_PASSPHRASE }}
-          script: |
-            mkdir -p /apps/${{ env.APP_NAME }}
-            cd /apps/${{ env.APP_NAME }}
-            if [ -f docker-compose.yml ]
-            then
-              docker compose stop
-            fi
+              rm -rf old
+              mkdir -p old
 
-            rm -rf docker.old frontend.old backend.old docker-compose.old.yml
+              [ -f docker-compose.yml ] && mv docker-compose.yml old/
+              [ -d docker ] && mv docker old/
+              [ -d frontend ] && mv frontend old/
+              [ -d backend ] && mv backend old/
 
-            [ -f docker-compose.yml ] && mv docker-compose.yml docker-compose.old.yml
-            [ -d docker ] && mv docker docker.old
-            [ -d frontend ] && mv frontend frontend.old
-            [ -d backend ] && mv backend backend.old
-            
-            mv docker.new/docker-compose.yml .
-            mv docker.new/docker .
-            rmdir docker.new
-            mv frontend.new frontend
-            mv backend.new backend
+              mv upload/docker-compose.yml docker-compose.yml
+              mv upload/docker docker
+              mv upload/dist-frontend frontend
+              mv upload/dist-backend backend
+              rmdir upload
 
-            docker compose up -d
-
-            rm -rf docker.old frontend.old backend.old docker-compose.old.yml
+              docker compose up -d
+          '
