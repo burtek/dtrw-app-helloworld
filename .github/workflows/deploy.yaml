@@ -73,17 +73,23 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           pnpm release
 
-      - name: Push release commit and tags
+      - id: push
+        name: Push release commit and tags
         uses: ad-m/github-push-action@master
         with:
           branch: master
           tags: true
+        background: true
 
-      - name: Output new version and release commit sha
-        id: output_version
+      - id: output_version
+        name: Output new version and release commit sha
         run: |
           echo "version=$(node -p "require('./package.json').version")" >> "$GITHUB_OUTPUT"
           echo "release_commit_sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+        background: true
+
+      - name: Wait for background jobs to finish
+        wait: [push, output_version]
 
   deploy:
     name: Deploy to VPS
@@ -134,6 +140,13 @@ jobs:
               IdentityFile ~/.ssh/id_ed25519
               StrictHostKeyChecking yes
           EOF
+
+          echo ""
+          echo "SSH setup complete. Debugging information:"
+          ssh-keygen -yf ~/.ssh/id_ed25519
+          file ~/.ssh/id_ed25519
+          head -1 ~/.ssh/id_ed25519
+          tail -1 ~/.ssh/id_ed25519
 
       - id: deploy-files
         name: Deploy build files
