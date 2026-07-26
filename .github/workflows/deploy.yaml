@@ -143,10 +143,10 @@ jobs:
 
           echo ""
           echo "SSH setup complete. Debugging information:"
-          ssh-keygen -yf ~/.ssh/id_ed25519
           file ~/.ssh/id_ed25519
           head -1 ~/.ssh/id_ed25519
           tail -1 ~/.ssh/id_ed25519
+          ssh-keygen -yf ~/.ssh/id_ed25519
 
       - id: deploy-files
         name: Deploy build files
