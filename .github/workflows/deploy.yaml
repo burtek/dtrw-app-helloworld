@@ -5,13 +5,86 @@ permissions:
 
 on:
   push:
-    tags:
-      - 'v*'
+    branches:
+      - master
 
 env:
   APP_NAME: helloworld
 
 jobs:
+  release:
+    name: Create release commit and tag
+    runs-on: ubuntu-latest
+  
+    if: >
+      !contains(github.event.head_commit.message, 'chore(release)') &&
+      !contains(github.event.head_commit.message, 'chore: release') &&
+      !contains(github.event.head_commit.message, 'skip-ci') &&
+      !contains(github.event.head_commit.message, 'skip ci') &&
+      !contains(github.event.head_commit.message, 'ci-skip') &&
+      !contains(github.event.head_commit.message, 'ci skip')
+
+    permissions:
+      contents: write
+
+    outputs:
+      version: ${{ steps.output_version.outputs.version }}
+      release_commit_sha: ${{ steps.output_version.outputs.release_commit_sha }}
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0  # Needed for standard-version to access tags
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v6.0.9
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 26.5
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm ci
+
+      - id: tests
+        name: Run tests
+        run: pnpm test
+        background: true
+
+      - id: lint
+        name: Run lint
+        run: pnpm lint
+        background: true
+
+      - id: build
+        name: Build
+        run: pnpm build
+        background: true
+
+      - name: Wait for background jobs to finish
+        wait: [tests, lint, build]
+
+      - name: Bump version and generate changelog
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          pnpm release
+
+      - name: Push release commit and tags
+        uses: ad-m/github-push-action@master
+        with:
+          branch: master
+          tags: true
+
+      - name: Output new version and release commit sha
+        id: output_version
+        run: |
+          echo "version=$(node -p "require('./package.json').version")" >> "$GITHUB_OUTPUT"
+          echo "release_commit_sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+
   deploy:
     runs-on: ubuntu-latest
 
@@ -39,7 +112,8 @@ jobs:
           echo "COMMIT_SHA=${{ github.sha }}" >> docker/backend/env
           VITE_COMMIT=${{ github.sha }} pnpm deploy
 
-      - name: Deploy docker configs
+      - id: deploy-docker
+        name: Deploy docker configs
         uses: appleboy/scp-action@v1
         with:
           host: ${{ secrets.VPS_HOST }}
@@ -49,8 +123,10 @@ jobs:
           passphrase: ${{ secrets.VPS_SSH_PASSPHRASE }}
           source: "docker,docker-compose.yml"
           target: "/apps/${{ env.APP_NAME }}/docker.new"
+        background: true
 
-      - name: Deploy frontend
+      - id: deploy-frontend
+        name: Deploy frontend
         uses: appleboy/scp-action@v1
         with:
           host: ${{ secrets.VPS_HOST }}
@@ -62,7 +138,8 @@ jobs:
           target: "/apps/${{ env.APP_NAME }}/frontend.new"
           strip_components: 1
 
-      - name: Deploy backend
+      - id: deploy-backend
+        name: Deploy backend
         uses: appleboy/scp-action@v1
         with:
           host: ${{ secrets.VPS_HOST }}
@@ -73,6 +150,9 @@ jobs:
           source: "dist-backend/*"
           target: "/apps/${{ env.APP_NAME }}/backend.new"
           strip_components: 1
+
+      - name: Wait for deploy jobs to finish
+        wait: [deploy-docker, deploy-frontend, deploy-backend]
 
       - name: Swap new and old directories and start docker containers
         uses: appleboy/ssh-action@v1
