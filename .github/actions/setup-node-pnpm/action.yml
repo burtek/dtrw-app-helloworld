@@ -12,6 +12,10 @@ inputs:
     description: Whether to install dependencies after setting up Node.js and pnpm
     required: false
     default: 'true'
+  shell:
+    description: The shell to use for running commands (bash, sh, zsh, etc.)
+    required: false
+    default: bash
 
 runs:
   using: "composite"
@@ -29,6 +33,6 @@ runs:
 
       - id: install-deps
         name: Install dependencies
-        shell: bash
+        shell: ${{ inputs.shell }}
         if: ${{ inputs.install-deps == 'true' }}
         run: pnpm ci

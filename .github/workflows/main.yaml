@@ -1,4 +1,4 @@
-name: Process changes
+name: Main workflow
 
 on:
   push:
@@ -165,6 +165,7 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
           install-deps: true
+          shell: ash
       - id: tests
         name: Run tests
         run: pnpm test
