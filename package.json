@@ -8,6 +8,8 @@
   "devDependencies": {
     "@commitlint/cli": "^21.2.1",
     "@commitlint/config-conventional": "^21.2.0",
+    "@playwright/test": "^1.62.0",
+    "@types/node": "catalog:",
     "commit-and-tag-version": "^13.1.0",
     "cpx2": "^9.0.0",
     "husky": "^9.1.7",
@@ -23,6 +25,8 @@
     "typecheck": "pnpm -r --parallel --aggregate-output --no-bail typecheck",
     "test": "vitest run",
     "test:watch": "vitest watch",
+    "test:playwright": "playwright test",
+    "test:all": "pnpm run --parallel --aggregate-output --no-bail /^test(:playwrigth)?$/",
     "prepare": "husky",
     "prerelease": "pnpm check-all",
     "release": "commit-and-tag-version",
