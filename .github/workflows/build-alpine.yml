@@ -1,0 +1,69 @@
+name: Build alpine artifact
+
+on:
+  workflow_call:
+    inputs:
+      ref:
+        required: true
+        type: string
+      node-version:
+        required: true
+        type: string
+      artifact-name:
+        required: false
+        type: string
+      artifact-retentions-days:
+        required: false
+        type: number
+        default: 3
+
+permissions:
+  contents: read
+
+jobs:
+  build-alpine:
+    name: Build assets on Alpine Linux
+    runs-on: ubuntu-latest
+    container:
+      image: node:26-alpine
+    steps:
+      - id: prepare-alpine
+        name: Add tar for caching and python to build dependencies
+        run: apk add --no-cache tar python3 py3-pip build-base
+      - id: checkout
+        name: Checkout code
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ inputs.ref }}
+      - id: setup-node
+        name: Setup node with pnpm
+        uses: ./.github/actions/setup-node-pnpm
+        with:
+          node-version: ${{ inputs.node-version }}
+          install-deps: true
+          shell: sh
+      - id: tests
+        name: Run tests
+        run: pnpm test
+        background: true
+      - id: build
+        name: Build
+        run: |
+          echo "COMMIT_SHA=${{ inputs.ref }}" >> docker/backend/env
+          VITE_COMMIT=${{ inputs.ref }} pnpm deploy
+        background: true
+      - id: wait
+        name: Wait for background jobs to finish
+        wait: [tests, build]
+      - id: upload-artifact
+        if: inputs.artifact-name
+        name: Upload artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: ${{ inputs.artifact-name }}
+          path: |
+            dist-frontend
+            dist-backend
+            docker
+            docker-compose.yml
+          retention-days: ${{ inputs.artifact-retentions-days }}
