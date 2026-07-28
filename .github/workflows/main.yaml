@@ -185,7 +185,7 @@ jobs:
         name: Download artifacts
         uses: actions/download-artifact@v8
         with:
-          name: build-output
+          name: alpine-build-output.tar.gz
       - id: deploy-files
         name: Deploy build files
         run: |
@@ -195,7 +195,7 @@ jobs:
               rm -rf /apps/${{ env.APP_NAME }}/upload /apps/${{ env.APP_NAME }}/old
               mkdir -p /apps/${{ env.APP_NAME }}/upload
               tar xzf - -C /apps/${{ env.APP_NAME }}/upload
-          ' < dist.tar.gz
+          ' < alpine-build-output.tar.gz
       - id: start-app
         name: Replace files and start new version of the app
         run: |
