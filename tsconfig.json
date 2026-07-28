@@ -6,9 +6,6 @@
     "lib": ["ESNext"],
 
     "noEmit": true,
-    "outDir": "./dist",
-    "declaration": true,
-    "sourceMap": true,
 
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
@@ -20,12 +17,9 @@
     "noImplicitAny": true,
     "strictBindCallApply": true,
     "noFallthroughCasesInSwitch": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+
+    "types": ["node"]
   },
-  "files": [],
-  "references": [
-    { "path": "./tsconfig.build.json" },
-    { "path": "./tsconfig.test.json" },
-    { "path": "./tsconfig.tools.json" }
-  ]
+  "files": ["playwright.config.ts", "vitest.config.ts", ".versionrc.mjs"],
 }
