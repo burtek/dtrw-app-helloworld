@@ -163,7 +163,7 @@ jobs:
     needs: [create-release, provide-env-to-alpine]
     uses: ./.github/workflows/build-alpine.yml
     with:
-      ref: ${{ github.sha }}
+      ref: ${{ needs.create-release.outputs.release-commit-sha }}
       node-version: ${{ needs.provide-env-to-alpine.outputs.node-version }}
       artifact-name: ${{ needs.provide-env-to-alpine.outputs.deploy-artifact-name }}
       artifact-retentions-days: 3
