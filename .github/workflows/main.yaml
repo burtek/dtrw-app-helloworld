@@ -165,7 +165,7 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
           install-deps: true
-          shell: ash
+          shell: sh
       - id: tests
         name: Run tests
         run: pnpm test
