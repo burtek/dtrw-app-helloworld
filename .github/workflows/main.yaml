@@ -80,13 +80,10 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       node-version: ${{ steps.output-env.outputs.node-version }}
-      deploy-artifact-name: ${{ steps.output-env.outputs.deploy-artifact-name }}
     steps:
       - id: output-env
         name: Output Node.js version
-        run: |
-          echo "node-version=${{ env.NODE_VERSION }}" >> "$GITHUB_OUTPUT"
-          echo "deploy-artifact-name=${{ env.DEPLOY_ARTIFACT_NAME }}" >> "$GITHUB_OUTPUT"
+        run: echo "node-version=${{ env.NODE_VERSION }}" >> "$GITHUB_OUTPUT"
 
   test-build-alpine:
     name: Test building assets on Alpine Linux
@@ -165,8 +162,7 @@ jobs:
     with:
       ref: ${{ needs.create-release.outputs.release-commit-sha }}
       node-version: ${{ needs.provide-env-to-alpine.outputs.node-version }}
-      artifact-name: ${{ needs.provide-env-to-alpine.outputs.deploy-artifact-name }}
-      artifact-retentions-days: 3
+      upload-artifact: true
 
   deploy:
     runs-on: ubuntu-latest
@@ -190,18 +186,17 @@ jobs:
         name: Download artifacts
         uses: actions/download-artifact@v8
         with:
-          name: ${{ env.DEPLOY_ARTIFACT_NAME }}
+          name: build-output
       - id: deploy-files
         name: Deploy build files
         run: |
-          tar czf - dist-frontend dist-backend docker docker-compose.yml |
           ssh production '
               set -eu
 
               rm -rf /apps/${{ env.APP_NAME }}/upload /apps/${{ env.APP_NAME }}/old
               mkdir -p /apps/${{ env.APP_NAME }}/upload
-              tar xzf - -C /apps/${{ env.APP_NAME }}/upload
-          '
+              tar and mostxzf - -C /apps/${{ env.APP_NAME }}/upload
+          ' < dist.tar.gz
       - id: start-app
         name: Replace files and start new version of the app
         run: |

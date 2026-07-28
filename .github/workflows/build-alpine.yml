@@ -9,9 +9,10 @@ on:
       node-version:
         required: true
         type: string
-      artifact-name:
+      upload-artifact:
         required: false
-        type: string
+        type: boolean
+        default: false
       artifact-retentions-days:
         required: false
         type: number
@@ -55,15 +56,15 @@ jobs:
       - id: wait
         name: Wait for background jobs to finish
         wait: [tests, build]
+      - id: pack-artifacts
+        name: Pack artifacts
+        run: |
+          tar -czf dist.tar.gz -C dist-frontend dist-backend docker docker-compose.yml
       - id: upload-artifact
-        if: inputs.artifact-name
+        if: inputs.upload-artifact == 'true'
         name: Upload artifact
         uses: actions/upload-artifact@v7
         with:
-          name: ${{ inputs.artifact-name }}
-          path: |
-            dist-frontend
-            dist-backend
-            docker
-            docker-compose.yml
+          name: build-output
+          path: dist.tar.gz
           retention-days: ${{ inputs.artifact-retentions-days }}
