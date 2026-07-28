@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [2.2.0](https://github.com/burtek/dtrw-app-helloworld/compare/v2.1.0...v2.2.0) (2026-07-28)
+
+### Features
+
+* use playwright container for running tests ([#48](https://github.com/burtek/dtrw-app-helloworld/issues/48)) ([d1f252d](https://github.com/burtek/dtrw-app-helloworld/commit/d1f252d1c909d9d682051f49c185b07eb5744cf3))
+
+### Bug Fixes
+
+* use correct commit for deploy build ([5800164](https://github.com/burtek/dtrw-app-helloworld/commit/5800164c71a5e56e33fb27c00cbb2383714b55ff))
 ## [2.1.0](https://github.com/burtek/dtrw-app-helloworld/compare/v2.0.13...v2.1.0) (2026-07-28)
 
 ### Features
