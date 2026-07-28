@@ -17,7 +17,7 @@
     "vitest": "catalog:"
   },
   "scripts": {
-    "check-all": "pnpm -r --parallel --aggregate-output --no-bail '/^(lint|typecheck)$/' && pnpm test",
+    "check-all": "pnpm -r --parallel --aggregate-output --no-bail '/^(lint|typecheck|test)$/'",
     "dev": "pnpm -r --parallel /^dev/",
     "build": "pnpm -r --parallel --aggregate-output --no-bail build",
     "deploy": "pnpm -F . --parallel --aggregate-output --no-bail /^deploy:/",
