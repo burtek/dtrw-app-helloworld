@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [2.1.0](https://github.com/burtek/dtrw-app-helloworld/compare/v2.0.13...v2.1.0) (2026-07-28)
+
+### Features
+
+* setup playwright ([#45](https://github.com/burtek/dtrw-app-helloworld/issues/45)) ([da3f1ab](https://github.com/burtek/dtrw-app-helloworld/commit/da3f1ab188144ebb2ee6caacfc3f925c38e0c0c7))
+
+### Bug Fixes
+
+* **backend:** tsconfig ([fa9318b](https://github.com/burtek/dtrw-app-helloworld/commit/fa9318b0fe3cc51659278d9e89a3fc46d1103475))
 ## [2.0.13](https://github.com/burtek/dtrw-app-helloworld/compare/v2.0.12...v2.0.13) (2026-07-26)
 ## [2.0.12](https://github.com/burtek/dtrw-app-helloworld/compare/v2.0.11...v2.0.12) (2026-07-26)
 ## [2.0.11](https://github.com/burtek/dtrw-app-helloworld/compare/v2.0.10...v2.0.11) (2026-07-26)
