@@ -64,7 +64,7 @@ jobs:
         name: Run Playwright tests
         run: pnpm exec playwright test
       - id: upload-playwright-report
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         if: ${{ !cancelled() }}
         with:
             name: playwright-report
@@ -182,7 +182,7 @@ jobs:
       - id: upload-artifact
         if: github.event_name == 'push'
         name: Upload artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: ${{ env.ARTIFACT_NAME }}
           path: |
@@ -212,7 +212,7 @@ jobs:
           test_connection: true
       - id: download-artifact
         name: Download artifacts
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: ${{ needs.build-alpine.outputs.artifact-name }}
       - id: deploy-files
