@@ -60,9 +60,6 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
           install-deps: true
-      - id: install-playwright
-        name: Install Playwright Browsers
-        run: pnpm exec playwright install --with-deps
       - id: run-playwirght
         name: Run Playwright tests
         run: pnpm exec playwright test
