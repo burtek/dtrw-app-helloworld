@@ -12,7 +12,7 @@
     "dev:typecheck": "tsc --watch",
     "prebuild": "tsc",
     "predeploy": "node scripts/predeploy.mjs",
-    "deploy": "pnpm pm --filter . --prod deploy ../../dist-backend",
+    "deploy": "pnpm pm --filter . --prod deploy .dist-deployable",
     "build": "tsdown",
     "typecheck": "tsc",
     "lint": "eslint .",

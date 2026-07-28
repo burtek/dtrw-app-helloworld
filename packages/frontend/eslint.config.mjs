@@ -20,5 +20,5 @@ export default config(
         },
         settings: { 'import/resolver': { typescript: true } }
     },
-    { ignores: ['dist', 'node_modules'] }
+    { ignores: ['dist', 'node_modules', '.dist-deployable'] }
 );

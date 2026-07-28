@@ -19,7 +19,10 @@
     "noFallthroughCasesInSwitch": true,
     "resolveJsonModule": true,
 
-    "types": ["node"]
+    "types": ["node"],
+
+    "allowJs": true,
+    "checkJs": true,
   },
-  "files": ["playwright.config.ts", "vitest.config.ts", ".versionrc.mjs"],
+  "include": ["playwright.config.ts", "vitest.config.ts", ".versionrc.mjs", "scripts/*"],
 }
