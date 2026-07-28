@@ -9,6 +9,7 @@ on:
 env:
   APP_NAME: helloworld
   NODE_VERSION: 26.5
+  DEPLOY_ARTIFACT_NAME: build-output
 
 permissions:
   contents: read
@@ -71,7 +72,32 @@ jobs:
             path: playwright-report/
             retention-days: 30
 
-  test-ssh: #To catch ssh issues early, as the job using the connection is late in the workflow
+  provide-env-to-alpine:
+    # as stupid as it looks,
+    # since you cannot directly pass env to reusable workflow,
+    # we need to provide the env varialbes as output
+    name: Provide env to Alpine build workflow indirectly
+    runs-on: ubuntu-latest
+    outputs:
+      node-version: ${{ steps.output-env.outputs.node-version }}
+      deploy-artifact-name: ${{ steps.output-env.outputs.deploy-artifact-name }}
+    steps:
+      - id: output-env
+        name: Output Node.js version
+        run: |
+          echo "node-version=${{ env.NODE_VERSION }}" >> "$GITHUB_OUTPUT"
+          echo "deploy-artifact-name=${{ env.DEPLOY_ARTIFACT_NAME }}" >> "$GITHUB_OUTPUT"
+
+  test-build-alpine:
+    name: Test building assets on Alpine Linux
+    if: github.event_name == 'pull_request'
+    needs: provide-env-to-alpine
+    uses: ./.github/workflows/build-alpine.yml
+    with:
+      ref: ${{ github.sha }}
+      node-version: ${{ needs.provide-env-to-alpine.outputs.node-version }}
+
+  test-ssh: # to catch ssh issues early, as the job using the connection is late in the workflow
     name: Test SSH connection to VPS
     runs-on: ubuntu-latest
     steps:
@@ -132,70 +158,19 @@ jobs:
         name: Wait for background jobs to finish
         wait: [push, output-version]
 
-  build-alpine:
+  build-alpine-for-deploy:
     name: Build assets on Alpine Linux
-    needs: [test, test-playwright, create-release]
-    if: >
-      !cancelled()
-        && needs.test.result == 'success'
-        && needs.test-playwright.result == 'success'
-        && (github.event_name == 'pull_request' || needs.create-release.result == 'success')
-    runs-on: ubuntu-latest
-    container:
-      image: node:26-alpine
-    env:
-      ARTIFACT_NAME: build-output
-      GIT_REF: ${{ github.event_name == 'push' && needs.create-release.outputs.release-commit-sha || github.sha }}
-    outputs:
-      artifact-name: ${{ steps.artifact.outputs.name }}
-    steps:
-      - id: artifact
-        run: echo "name=${ARTIFACT_NAME}" >> "$GITHUB_OUTPUT"
-      - id: prepare-alpine
-        name: Add tar for caching and python to build dependencies
-        run: apk add --no-cache tar python3 py3-pip build-base
-      - id: checkout
-        name: Checkout code
-        uses: actions/checkout@v7
-        with:
-          ref: ${{ env.GIT_REF }}
-      - id: setup-node
-        name: Setup node with pnpm
-        uses: ./.github/actions/setup-node-pnpm
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-          install-deps: true
-          shell: sh
-      - id: tests
-        name: Run tests
-        run: pnpm test
-        background: true
-      - id: build
-        name: Build
-        run: |
-          echo "COMMIT_SHA=${{ env.GIT_REF }}" >> docker/backend/env
-          VITE_COMMIT=${{ env.GIT_REF }} pnpm deploy
-        background: true
-      - id: wait
-        name: Wait for background jobs to finish
-        wait: [tests, build]
-      - id: upload-artifact
-        if: github.event_name == 'push'
-        name: Upload artifact
-        uses: actions/upload-artifact@v7
-        with:
-          name: ${{ env.ARTIFACT_NAME }}
-          path: |
-            dist-frontend
-            dist-backend
-            docker
-            docker-compose.yml
-          retention-days: 3
+    needs: [create-release, provide-env-to-alpine]
+    uses: ./.github/workflows/build-alpine.yml
+    with:
+      ref: ${{ github.sha }}
+      node-version: ${{ needs.provide-env-to-alpine.outputs.node-version }}
+      artifact-name: ${{ needs.provide-env-to-alpine.outputs.deploy-artifact-name }}
+      artifact-retentions-days: 3
 
   deploy:
     runs-on: ubuntu-latest
-    needs: [create-release, build-alpine, test-ssh]
-    if: github.event_name == 'push'
+    needs: [build-alpine-for-deploy, test-ssh]
     concurrency:
       group: deploy-production
       cancel-in-progress: false
@@ -215,7 +190,7 @@ jobs:
         name: Download artifacts
         uses: actions/download-artifact@v8
         with:
-          name: ${{ needs.build-alpine.outputs.artifact-name }}
+          name: ${{ env.DEPLOY_ARTIFACT_NAME }}
       - id: deploy-files
         name: Deploy build files
         run: |
