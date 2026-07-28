@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [2.3.0](https://github.com/burtek/dtrw-app-helloworld/compare/v2.2.5...v2.3.0) (2026-07-28)
+
+### Features
+
+* **ci:** make CI and monorepo root agnostic of specific packages inside monorepo ([6f4cfa2](https://github.com/burtek/dtrw-app-helloworld/commit/6f4cfa29b56a993ecd81bdd473e240eee879274e))
 ## [2.2.5](https://github.com/burtek/dtrw-app-helloworld/compare/v2.2.4...v2.2.5) (2026-07-28)
 ## [2.2.4](https://github.com/burtek/dtrw-app-helloworld/compare/v2.2.3...v2.2.4) (2026-07-28)
 ## [2.2.3](https://github.com/burtek/dtrw-app-helloworld/compare/v2.2.2...v2.2.3) (2026-07-28)
