@@ -213,13 +213,17 @@ jobs:
 
               [ -f docker-compose.yml ] && mv docker-compose.yml old/
               [ -d docker ] && mv docker old/
-              [ -d frontend ] && mv frontend old/
-              [ -d backend ] && mv backend old/
-
               mv upload/docker-compose.yml docker-compose.yml
               mv upload/docker docker
-              mv upload/dist-frontend frontend
-              mv upload/dist-backend backend
+
+              for dir in upload/dist-*; do
+                [ -d "$dir" ] || continue
+                suffix="${dir#upload/dist-}"
+
+                [ -d "$suffix" ] && mv "$suffix" old/
+                mv "$dir" "$suffix"
+              done
+
               rmdir upload
 
               docker compose up -d

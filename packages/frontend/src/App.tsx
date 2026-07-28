@@ -31,6 +31,9 @@ function App() {
             <p>
                 {`Response: ${response}`}
             </p>
+            <p>
+                Commit: {import.meta.env.VITE_COMMIT}
+            </p>
         </>
     );
 }

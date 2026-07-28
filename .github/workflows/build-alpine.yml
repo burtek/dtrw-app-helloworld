@@ -28,6 +28,8 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: node:26-alpine
+    env:
+      BUILD_SHA: ${{ inputs.ref }}
     steps:
       - id: prepare-alpine
         name: Add tar for caching and python to build dependencies
@@ -50,9 +52,7 @@ jobs:
         background: true
       - id: build
         name: Build
-        run: |
-          echo "COMMIT_SHA=${{ inputs.ref }}" >> docker/backend/env
-          VITE_COMMIT=${{ inputs.ref }} pnpm deploy
+        run: pnpm deploy
         background: true
       - id: wait
         name: Wait for background jobs to finish
@@ -60,7 +60,7 @@ jobs:
       - id: pack-artifacts
         name: Pack artifacts
         run: |
-          tar -czf alpine-build-output.tar.gz dist-frontend dist-backend docker docker-compose.yml
+          tar -czf alpine-build-output.tar.gz dist-* docker docker-compose.yml
       - id: upload-artifact
         if: inputs.upload-artifact == 'true' || inputs.upload-artifact == true
         name: Upload artifact

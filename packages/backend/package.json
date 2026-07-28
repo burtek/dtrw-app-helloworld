@@ -11,6 +11,8 @@
     "dev:tsx": "tsx watch --env-file=.env.development --clear-screen=false src/server.ts",
     "dev:typecheck": "tsc --watch",
     "prebuild": "tsc",
+    "predeploy": "node scripts/predeploy.mjs",
+    "deploy": "pnpm pm --filter . --prod deploy ../../dist-backend",
     "build": "tsdown",
     "typecheck": "tsc",
     "lint": "eslint .",
