@@ -4,8 +4,9 @@ on:
   workflow_call:
     inputs:
       ref:
-        required: true
+        required: false
         type: string
+        default: ${{ github.ref }}
       node-version:
         required: true
         type: string
@@ -61,7 +62,7 @@ jobs:
         run: |
           tar -czf dist.tar.gz dist-frontend dist-backend docker docker-compose.yml
       - id: upload-artifact
-        if: inputs.upload-artifact == 'true'
+        if: inputs.upload-artifact == 'true' || inputs.upload-artifact == true
         name: Upload artifact
         uses: actions/upload-artifact@v7
         with:

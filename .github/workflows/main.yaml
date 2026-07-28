@@ -91,7 +91,6 @@ jobs:
     needs: provide-env-to-alpine
     uses: ./.github/workflows/build-alpine.yml
     with:
-      ref: ${{ github.sha }}
       node-version: ${{ needs.provide-env-to-alpine.outputs.node-version }}
 
   test-ssh: # to catch ssh issues early, as the job using the connection is late in the workflow
