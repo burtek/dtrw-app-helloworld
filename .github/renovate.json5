@@ -13,6 +13,7 @@
   },
   "rebaseWhen": "behind-base-branch",
   "prTitle": "{{{commitMessage}}} [skip ci]",
+  "postUpdateOptions": ["pnpmDedupe"],
   "packageRules": [
     {
       "matchDepTypes": ["peerDependencies"],
