@@ -16,6 +16,16 @@
     {
       "matchDepTypes": ["peerDependencies"],
       "enabled": false
+//    },
+//    {
+//      "matchUpdateTypes": ["patch"],
+//      "automerge": true,
+//      "automergeType": "pr",
+//      "ignoreTests": false
+//    },
+//    {
+//      "matchUpdateTypes": ["major"],
+//      "labels": ["UPDATE-MAJOR"]
     }
   ]
 }
