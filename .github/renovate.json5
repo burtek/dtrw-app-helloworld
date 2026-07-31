@@ -12,6 +12,7 @@
     "assignees": ["@burtek"]
   },
   "rebaseWhen": "behind-base-branch",
+  "prTitle": "{{{commitMessage}}} [skip ci]",
   "packageRules": [
     {
       "matchDepTypes": ["peerDependencies"],
