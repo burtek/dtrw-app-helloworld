@@ -2,6 +2,7 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [2.3.1](https://github.com/burtek/dtrw-app-helloworld/compare/v2.3.0...v2.3.1) (2026-07-31)
 ## [2.3.0](https://github.com/burtek/dtrw-app-helloworld/compare/v2.2.5...v2.3.0) (2026-07-28)
 
 ### Features
