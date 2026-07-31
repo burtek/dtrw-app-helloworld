@@ -12,10 +12,22 @@
     "assignees": ["@burtek"]
   },
   "rebaseWhen": "behind-base-branch",
+  "prTitle": "{{{commitMessage}}} [skip ci]",
+  "postUpdateOptions": ["pnpmDedupe"],
   "packageRules": [
     {
       "matchDepTypes": ["peerDependencies"],
       "enabled": false
+//    },
+//    {
+//      "matchUpdateTypes": ["patch"],
+//      "automerge": true,
+//      "automergeType": "pr",
+//      "ignoreTests": false
+//    },
+//    {
+//      "matchUpdateTypes": ["major"],
+//      "labels": ["UPDATE-MAJOR"]
     }
   ]
 }
