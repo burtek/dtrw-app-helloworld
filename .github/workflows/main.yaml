@@ -192,7 +192,7 @@ jobs:
               set -eu
 
               rm -rf /apps/${{ env.APP_NAME }}/upload /apps/${{ env.APP_NAME }}/old
-              mkdir -p /apps/${{ env.APP_NAME }}/upload
+              mkdir -p /apps/${{ env.APP_NAME }}/upload /apps/${{ env.APP_NAME }}/old
               tar xzf - -C /apps/${{ env.APP_NAME }}/upload
           ' < alpine-build-output.tar.gz
       - id: start-app
@@ -206,9 +206,6 @@ jobs:
               then
                 docker compose stop
               fi
-
-              rm -rf old
-              mkdir -p old
 
               [ -f docker-compose.yml ] && mv docker-compose.yml old/
               [ -d docker ] && mv docker old/
