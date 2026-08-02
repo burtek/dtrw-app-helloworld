@@ -19,5 +19,5 @@ export default config(
         settings: { 'import/resolver': { typescript: true } }
     },
     { rules: { 'new-cap': 'off' } }, // for nestjs decorators
-    { ignores: ['dist', 'node_modules', '.dist-deployable'] }
+    { ignores: ['dist', 'node_modules', '.assembled'] }
 );
