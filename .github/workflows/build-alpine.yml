@@ -52,7 +52,7 @@ jobs:
         background: true
       - id: build
         name: Build
-        run: pnpm stage
+        run: pnpm assemble
         background: true
       - id: wait
         name: Wait for background jobs to finish
