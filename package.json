@@ -11,7 +11,6 @@
     "@playwright/test": "^1.62.0",
     "@types/node": "catalog:",
     "commit-and-tag-version": "^13.1.0",
-    "cpx2": "catalog:",
     "husky": "^9.1.7",
     "rimraf": "^6.1.3",
     "vitest": "catalog:"
@@ -21,9 +20,8 @@
     "dev": "pnpm run validate && pnpm -r --parallel run /^dev/",
     "prebuild": "pnpm run validate",
     "build": "pnpm -r --parallel --aggregate-output --no-bail run build",
-    "predeploy": "pnpm run validate && pnpm run clear && pnpm run build",
-    "deploy": "pnpm -r --parallel --aggregate-output --no-bail run deploy",
-    "postdeploy": "node scripts/collect-deployables.mjs",
+    "preassemble": "pnpm run validate && pnpm run clear && pnpm run build",
+    "assemble": "pnpm -r --parallel --aggregate-output --no-bail run assemble",
     "lint": "pnpm -r --parallel --aggregate-output --no-bail run lint",
     "typecheck": "pnpm -r --parallel --aggregate-output --no-bail run typecheck",
     "test": "vitest run",
@@ -33,7 +31,7 @@
     "prepare": "husky",
     "prerelease": "pnpm run check-all",
     "release": "commit-and-tag-version",
-    "clear": "rimraf dist-* packages/*/dist packages/*/.dist-deployable playwright-report test-results",
+    "clear": "rimraf deploy.tar.gz packages/*/dist packages/*/.assembled playwright-report test-results",
     "validate": "node scripts/validate-workspace.mjs"
   },
   "packageManager": "pnpm@11.18.0+sha512.33d83c77da82f49fba836925c6f1b841181ec3132b670639bd012f7075f5c7cf634c5f870147c19aae7478fac01df09d8892e880454896edd23ee9b33757563c",

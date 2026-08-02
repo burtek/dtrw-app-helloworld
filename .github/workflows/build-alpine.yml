@@ -52,7 +52,7 @@ jobs:
         background: true
       - id: build
         name: Build
-        run: pnpm deploy
+        run: pnpm stage
         background: true
       - id: wait
         name: Wait for background jobs to finish
@@ -60,7 +60,7 @@ jobs:
       - id: pack-artifacts
         name: Pack artifacts
         run: |
-          tar -czf alpine-build-output.tar.gz dist-* docker docker-compose.yml
+          tar -czf alpine-build-output.tar.gz docker docker-compose.yml packages/*/.assembled --transform='s,^packages/\(.\+\)/.assembled,\1,'
       - id: upload-artifact
         if: inputs.upload-artifact == 'true' || inputs.upload-artifact == true
         name: Upload artifact

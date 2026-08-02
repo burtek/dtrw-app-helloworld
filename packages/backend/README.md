@@ -64,6 +64,7 @@ pnpm typecheck
 pnpm test
 pnpm test:watch
 pnpm build         # runs prebuild (tsc) then tsdown
+pnpm assemble
 ```
 
 ## Build output

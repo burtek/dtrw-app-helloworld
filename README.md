@@ -8,7 +8,7 @@ Production-ready pnpm monorepo template for a full-stack app:
 
 ## Stack
 
-- Node.js `24.x`
+- Node.js `26.x`
 - pnpm workspace (`pnpm-workspace.yaml`)
 - TypeScript (both packages)
 - Vitest (workspace and package-level)
@@ -65,6 +65,7 @@ pnpm typecheck   # typecheck all packages
 pnpm test        # run Vitest projects from packages/*
 pnpm build       # build all packages
 pnpm clear       # remove build artifacts
+pnpm assemble    # prepare deply.tar.gz ready to be deployed to a server
 ```
 
 Target a single package when needed:
@@ -83,9 +84,20 @@ pnpm --filter frontend dev
 
 ## CI/CD overview
 
-- PR checks (`.github/workflows/test-pr.yaml`): install, test, lint, build.
-- Release (`.github/workflows/release.yaml`): on push to `master`, runs checks, creates release commit/tag.
-- Deploy (`.github/workflows/deploy.yaml`): on `v*` tag, builds artifacts, copies frontend/backend/docker files to VPS, restarts Docker services.
+The main workflow (`.github/workflows/main.yaml`) runs on both PRs and pushes to `master`.
+
+On every PR/push:
+
+- `test`: runs workspace tests, lint, and build in parallel
+- `test-playwright`: runs end-to-end tests in Playwright container
+- `test-build-alpine` (PR only): executes Alpine build workflow as a deployment packaging smoke test
+- `test-ssh`: validates SSH connectivity to the target VPS early
+
+On push to `master` (after successful checks):
+
+- `create-release`: bumps versions and changelog using `commit-and-tag-version`, then pushes tag/commit
+- `build-alpine-for-deploy`: builds deployment artifacts on Alpine from the release commit
+- `deploy`: downloads built artifact and performs zero-downtime-ish file swap on VPS, then runs `docker compose up -d`
 
 ### Required GitHub secrets
 
@@ -100,32 +112,62 @@ pnpm --filter frontend dev
 This template currently contains default app identifiers (`helloworld`). Update them after creating your new app:
 
 - `package.json`: `name`, `repository`
-- `.github/workflows/deploy.yaml`: `env.APP_NAME`, `env.KUMA_APP`
+- `.github/workflows/main.yaml`: `env.APP_NAME`
 - `docker-compose.yml`: service container names
 
 If your deploy target path differs, also update paths used in deploy workflow SCP steps.
 
 ## Deployment artifacts
 
-Root deploy scripts prepare:
+The deployment payload is prepared in two layers:
 
-- `dist-frontend/` from frontend build output
-- `dist-backend/` from backend build output packaged for runtime
+1. Package-level `assemble` scripts create package-local `.assembled` outputs:
+    - backend: `pnpm pm --filter . --prod deploy .assembled`
+      - exports production backend runtime dependencies/files
+      - then `postassemble` generates `.assembled/env` with `COMMIT_SHA=$BUILD_SHA`
+    - frontend: `cp -r dist .assembled`
+      - copies static Vite build output
 
-`docker-compose.yml` expects runtime folders on server:
+1. Root `pnpm assemble` runs package `assemble` scripts across the workspace.
 
-- `./frontend` served by nginx
-- `./backend` executed by Node.js
+In CI, `.github/workflows/build-alpine.yml` then creates one archive:
 
-Deploy workflow copies both artifacts and docker config into `/apps/${APP_NAME}`.
+- `alpine-build-output.tar.gz` containing:
+  - `docker/`
+  - `docker-compose.yml`
+  - transformed package artifacts from `packages/*/.assembled` into top-level `backend/` and `frontend/` directories
+
+The `deploy` job in `.github/workflows/main.yaml` downloads this artifact, extracts it on the VPS under `/apps/${APP_NAME}/upload`, rotates current files into `old/`, moves new files into place, and restarts via `docker compose up -d`.
+
+### Responsibility separation
+
+```plain
+Package
+    build
+    assemble
+        ↓
+Monorepo
+    assemble
+        ↓
+Filesystem ready for deployment
+        ↓
+CI
+    archive
+    upload
+        ↓
+VPS
+    extract
+```
 
 ## Commit quality gates
 
-- Husky `pre-commit`: runs `pnpm lint` and `pnpm typecheck`
+- Husky `pre-commit`: runs `pnpm check-all`, which executes:
+    - workspace validation (`pnpm run validate`)
+    - parallel `lint`, `typecheck`, and `test`
 - Husky `commit-msg`: runs commitlint with conventional commit rules
 
 ## Notes
 
 - Backend dev env defaults are in `packages/backend/.env.development`.
-- Deploy pipeline writes `COMMIT_SHA` into `docker/backend/env` before packaging.
+- Deploy pipeline sets `BUILD_SHA` in Alpine build job, and backend `postassemble` writes `COMMIT_SHA` into `packages/backend/.assembled/env`.
 - Workspace uses pnpm catalog versions to keep toolchain versions aligned across packages.

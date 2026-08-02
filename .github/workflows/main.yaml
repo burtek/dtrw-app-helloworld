@@ -9,7 +9,6 @@ on:
 env:
   APP_NAME: helloworld
   NODE_VERSION: 26.5
-  DEPLOY_ARTIFACT_NAME: build-output
 
 permissions:
   contents: read
@@ -216,9 +215,9 @@ jobs:
               mv upload/docker-compose.yml docker-compose.yml
               mv upload/docker docker
 
-              for dir in upload/dist-*; do
+              for dir in upload/*; do
                 [ -d "$dir" ] || continue
-                suffix="${dir#upload/dist-}"
+                suffix="${dir#upload/}"
 
                 [ -d "$suffix" ] && mv "$suffix" old/
                 mv "$dir" "$suffix"

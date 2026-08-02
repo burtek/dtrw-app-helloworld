@@ -1,6 +1,6 @@
 node_modules/
-/dist-*/
-.dist-deployable/
+/deply.tar.gz
+packages/*/.assembled/
 
 # Playwright
 /test-results/
