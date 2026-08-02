@@ -1,12 +1,12 @@
 import type { FastifyPluginCallback } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 
-import { HealthService } from './health.service.js';
+import { routeFp } from '../helpers/route-plugin.js';
+
+import { meta as healthServiceMeta } from './health.service.js';
 
 
-export const healthController: FastifyPluginCallback = (instance, options, done) => {
-    const healthService = new HealthService();
-
+const healthController: FastifyPluginCallback = (instance, options, done) => {
     const f = instance.withTypeProvider<ZodTypeProvider>();
 
     f.get(
@@ -18,7 +18,7 @@ export const healthController: FastifyPluginCallback = (instance, options, done)
             timestamp: new Date().toISOString(),
             uptime: process.uptime(), // seconds
             commit: process.env.COMMIT_SHA ?? 'dev',
-            version: healthService.getVersion(),
+            version: f.healthService.getVersion(),
             nodeVersion: process.version,
             memoryUsage: process.memoryUsage(),
             cpuUsage: process.cpuUsage(),
@@ -30,3 +30,8 @@ export const healthController: FastifyPluginCallback = (instance, options, done)
 
     done();
 };
+
+export default routeFp(healthController, {
+    dependencies: [healthServiceMeta.name],
+    decorators: { fastify: [healthServiceMeta.decorator] }
+});

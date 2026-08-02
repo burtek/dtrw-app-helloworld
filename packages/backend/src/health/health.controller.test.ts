@@ -1,16 +1,14 @@
-import { fastify } from 'fastify';
+import type { FastifyInstance } from 'fastify';
+import { setupApp } from 'tests/setup-app';
 
 import packageJson from '../../package.json' with { type: 'json' };
 
-import { healthController } from './health.controller.js';
-
 
 describe('HealthController', () => {
-    const app = fastify();
-    app.register(healthController, { prefix: '/health' });
+    let app: FastifyInstance;
 
-    afterAll(async () => {
-        await app.close();
+    beforeEach(async () => {
+        app = await setupApp();
     });
 
     it('should return correct data', async () => {

@@ -1,25 +1,41 @@
+import { createAuthDecorator } from '@dtrw/fastify-shared/plugins/authelia';
+import { createPluginRegistry } from '@dtrw/fastify-shared/registry/registry';
 import type { FastifyServerOptions } from 'fastify';
 import { fastify } from 'fastify';
+import { fastifyRawBody } from 'fastify-raw-body';
 import { serializerCompiler, validatorCompiler } from 'fastify-type-provider-zod';
 
-import { decorateRequestUser } from './decorators/auth.decorator.js';
-import { decorateErrorHandler } from './decorators/error.decorator.js';
-import { healthController } from './health/health.controller.js';
-import { helloWorldController } from './helloworld/helloworld.controller.js';
+import { errorHandler } from './errors/handler.js';
+import healthController from './health/health.controller.js';
+import healthService from './health/health.service.js';
+import helloWorldController from './helloworld/helloworld.controller.js';
 
 
-export function createApp(opts: FastifyServerOptions = {}) {
+export async function createApp(opts: FastifyServerOptions = {}) {
     const app = fastify(opts);
 
-    decorateErrorHandler(app);
+    await app.register(fastifyRawBody, {
+        field: 'rawBody',
+        global: false,
+        encoding: false,
+        runFirst: true
+    });
+
+    app.setErrorHandler(errorHandler);
 
     app.setValidatorCompiler(validatorCompiler);
     app.setSerializerCompiler(serializerCompiler);
 
+    // Decorators
+    app.register(createAuthDecorator());
+
+    // Services
+    createPluginRegistry(app)
+        .use(healthService)
+        .registerAll();
+
+    // Controllers
     app.register(healthController, { prefix: '/health' });
-
-    decorateRequestUser(app);
-
     app.register(helloWorldController, { prefix: '/hello' });
 
     return {

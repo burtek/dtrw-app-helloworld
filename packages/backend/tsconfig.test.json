@@ -1,7 +1,12 @@
 {
   "extends": "./tsconfig.json",
-  "include": ["src/**/*.test.ts"],
+  "include": ["src/**/*.test.ts", "tests/**/*.ts"],
   "compilerOptions": {
-    "types": ["vitest/globals"]
+    "types": ["vitest/globals"],
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "paths": {
+      "tests/*": ["./tests/*"]
+    }
   }
 }

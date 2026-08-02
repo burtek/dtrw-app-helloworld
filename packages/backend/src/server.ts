@@ -2,17 +2,27 @@ import { createApp } from './app.js';
 import { env } from './config.js';
 
 
-const { app, shutdown } = createApp({ logger: true });
+const logLevels = {
+    production: 'warn',
+    development: 'info',
+    test: 'silent'
+};
 
-process.on('SIGINT', () => shutdown('SIGINT'));
-process.on('SIGTERM', () => shutdown('SIGTERM'));
+async function bootstrap() {
+    const { app, shutdown } = await createApp({ logger: { level: logLevels[env.NODE_ENV] } });
 
-app.listen({
-    port: env.PORT,
-    host: '0.0.0.0'
-// eslint-disable-next-line promise/prefer-await-to-callbacks
-}).catch((error: unknown) => {
-    app.log.error(error);
-    // eslint-disable-next-line n/no-process-exit
-    process.exit(1);
-});
+    process.on('SIGINT', () => shutdown('SIGINT'));
+    process.on('SIGTERM', () => shutdown('SIGTERM'));
+
+    try {
+        await app.listen({
+            port: env.PORT,
+            host: '0.0.0.0'
+        });
+    } catch (error: unknown) {
+        app.log.error(error);
+        throw error;
+    }
+}
+
+void bootstrap();
