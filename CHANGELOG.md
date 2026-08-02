@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [2.4.3](https://github.com/burtek/dtrw-app-helloworld/compare/v2.4.2...v2.4.3) (2026-08-02)
+
+### Bug Fixes
+
+* alpine build ([0018e16](https://github.com/burtek/dtrw-app-helloworld/commit/0018e168e45af57378606974e220d7a3cc0f5fe0))
 ## [2.4.2](https://github.com/burtek/dtrw-app-helloworld/compare/v2.4.0...v2.4.2) (2026-08-02)
 ## [2.4.0](https://github.com/burtek/dtrw-app-helloworld/compare/v2.3.0...v2.4.0) (2026-08-02)
 
