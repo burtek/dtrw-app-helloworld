@@ -41,11 +41,10 @@ jobs:
           ref: ${{ inputs.ref }}
       - id: setup-node
         name: Setup node with pnpm
-        uses: ./.github/actions/setup-node-pnpm
+        uses: pnpm/setup@v1
         with:
-          node-version: ${{ inputs.node-version }}
-          install-deps: true
-          shell: sh
+          runtime: node@${{ inputs.node-version }}
+          cache: true
       - id: tests
         name: Run tests
         run: pnpm test
