@@ -22,7 +22,7 @@ runs:
   steps:
       - id: install-pnpm
         name: Install pnpm
-        uses: pnpm/action-setup@v6.0.9
+        uses: pnpm/action-setup@v6.0.10
 
       - id: setup-node
         name: Set up Node.js
