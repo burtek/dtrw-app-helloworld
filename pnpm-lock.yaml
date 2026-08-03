@@ -71,13 +71,13 @@ importers:
     dependencies:
       '@dtrw/fastify-shared':
         specifier: ^1.0.3
-        version: 1.0.3(fastify-plugin@6.0.0)(fastify@5.11.0)
+        version: 1.0.3(fastify-plugin@6.0.0)(fastify@5.11.2)
       dotenv:
         specifier: ^17.4.2
         version: 17.4.2
       fastify:
         specifier: ^5.10.0
-        version: 5.11.0
+        version: 5.11.2
       fastify-plugin:
         specifier: ^6.0.0
         version: 6.0.0
@@ -86,7 +86,7 @@ importers:
         version: 5.0.0
       fastify-type-provider-zod:
         specifier: ^7.0.0
-        version: 7.0.0(@fastify/swagger@9.7.0(supports-color@5.5.0))(fastify@5.11.0)(openapi-types@12.1.3)(zod@4.4.3)
+        version: 7.0.0(@fastify/swagger@9.7.0(supports-color@5.5.0))(fastify@5.11.2)(openapi-types@12.1.3)(zod@4.4.3)
       validator:
         specifier: ^13.15.35
         version: 13.15.35
@@ -1919,8 +1919,8 @@ packages:
       openapi-types: ^12.1.3
       zod: '>=4.1.5'
 
-  fastify@5.11.0:
-    resolution: {integrity: sha512-Y/Ecx1yt0hYzrQR+QVLbxaUN8wCX+MQzMevh29r5RRvlOIArmi4+WAXXaGl5Hw5gBr2wduZpZaT3gRCnXoyVgA==}
+  fastify@5.11.2:
+    resolution: {integrity: sha512-i/eJG7nXR9OkbFgoX4jFiPOHoRq0rXqDACVAXELh5Fdg6BFBErIVZ8MyibGCwup9Go1pYrxZJ0ogIub8vVdEcQ==}
 
   fastq@1.20.1:
     resolution: {integrity: sha512-GGToxJ/w1x32s/D2EKND7kTil4n8OVk/9mycTc4VDza13lOvpUZTGX3mFSCtV9ksdGBVzvsyAVLM6mHFThxXxw==}
@@ -3243,9 +3243,9 @@ snapshots:
       - supports-color
       - ts-declaration-location
 
-  '@dtrw/fastify-shared@1.0.3(fastify-plugin@6.0.0)(fastify@5.11.0)':
+  '@dtrw/fastify-shared@1.0.3(fastify-plugin@6.0.0)(fastify@5.11.2)':
     dependencies:
-      fastify: 5.11.0
+      fastify: 5.11.2
       fastify-plugin: 6.0.0
 
   '@emnapi/core@1.10.0':
@@ -4751,15 +4751,15 @@ snapshots:
       raw-body: 3.0.2
       secure-json-parse: 2.7.0
 
-  fastify-type-provider-zod@7.0.0(@fastify/swagger@9.7.0(supports-color@5.5.0))(fastify@5.11.0)(openapi-types@12.1.3)(zod@4.4.3):
+  fastify-type-provider-zod@7.0.0(@fastify/swagger@9.7.0(supports-color@5.5.0))(fastify@5.11.2)(openapi-types@12.1.3)(zod@4.4.3):
     dependencies:
       '@fastify/error': 4.2.0
       '@fastify/swagger': 9.7.0(supports-color@5.5.0)
-      fastify: 5.11.0
+      fastify: 5.11.2
       openapi-types: 12.1.3
       zod: 4.4.3
 
-  fastify@5.11.0:
+  fastify@5.11.2:
     dependencies:
       '@fastify/ajv-compiler': 4.0.5
       '@fastify/error': 4.2.0
