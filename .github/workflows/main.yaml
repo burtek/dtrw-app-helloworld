@@ -24,10 +24,10 @@ jobs:
         uses: actions/checkout@v7
       - id: setup-node
         name: Setup node with pnpm
-        uses: ./.github/actions/setup-node-pnpm
+        uses: pnpm/setup@v1
         with:
-          node-version: ${{ env.NODE_VERSION }}
-          install-deps: true
+          runtime: node@${{ env.NODE_VERSION }}
+          cache: true
       - id: tests
         name: Run tests
         run: pnpm test
@@ -56,10 +56,10 @@ jobs:
         uses: actions/checkout@v7
       - id: setup-node
         name: Setup node with pnpm
-        uses: ./.github/actions/setup-node-pnpm
+        uses: pnpm/setup@v1
         with:
-          node-version: ${{ env.NODE_VERSION }}
-          install-deps: true
+          runtime: node@${{ env.NODE_VERSION }}
+          cache: true
       - id: run-playwirght
         name: Run Playwright tests
         run: pnpm exec playwright test
@@ -126,10 +126,10 @@ jobs:
           fetch-depth: 0  # Needed for standard-version to access tags
       - id: setup-node
         name: Setup node with pnpm
-        uses: ./.github/actions/setup-node-pnpm
+        uses: pnpm/setup@v1
         with:
-          node-version: ${{ env.NODE_VERSION }}
-          install-deps: true
+          runtime: node@${{ env.NODE_VERSION }}
+          cache: true
       - id: release
         name: Bump version and generate changelog
         run: |
