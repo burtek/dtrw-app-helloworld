@@ -41,7 +41,7 @@ jobs:
           ref: ${{ inputs.ref }}
       - id: setup-node
         name: Setup node with pnpm
-        uses: pnpm/setup@v1
+        uses: pnpm/setup@v2
         with:
           runtime: node@${{ inputs.node-version }}
           cache: true
