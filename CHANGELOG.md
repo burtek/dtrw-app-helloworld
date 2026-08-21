@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [2.4.7](https://github.com/burtek/dtrw-app-helloworld/compare/v2.4.6...v2.4.7) (2026-08-21)
+
+### Bug Fixes
+
+* broken pnpm lockfile [skip ci] ([aea5f1b](https://github.com/burtek/dtrw-app-helloworld/commit/aea5f1b6f8eff5ad7bcbf8ed4d200d51b93e6c94))
+* **deps:** update dependency fastify-raw-body to v6 ([#74](https://github.com/burtek/dtrw-app-helloworld/issues/74)) [skip ci] ([b8cf4ca](https://github.com/burtek/dtrw-app-helloworld/commit/b8cf4cacf7a2afae67d9600a66ad0aadf1b4b98d))
 ## [2.4.6](https://github.com/burtek/dtrw-app-helloworld/compare/v2.4.5...v2.4.6) (2026-08-21)
 ## [2.4.5](https://github.com/burtek/dtrw-app-helloworld/compare/v2.4.4...v2.4.5) (2026-08-04)
 ## [2.4.4](https://github.com/burtek/dtrw-app-helloworld/compare/v2.4.3...v2.4.4) (2026-08-03)
