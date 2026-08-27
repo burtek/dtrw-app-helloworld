@@ -3,8 +3,8 @@ services:
     image: ghcr.io/burtek/dtrw-app-helloworld/frontend:${VERSION_TAG}
     container_name: helloworld_frontend
     restart: always
-    env:
-      - API_URL=http://helloworld_backend:4000
+    environment:
+      API_URL: http://helloworld_backend:4000
     healthcheck:
       test: curl -f http://localhost/
       interval: 30s
@@ -16,8 +16,8 @@ services:
   backend:
     image: ghcr.io/burtek/dtrw-app-helloworld/backend:${VERSION_TAG}
     container_name: helloworld_backend
-    env:
-      - PORT=4000
+    environment:
+      PORT: 4000
     env_file:
       - path: .backend.env
         required: false

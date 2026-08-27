@@ -6,7 +6,7 @@ on:
       ref:
         required: false
         type: string
-        default: ${{ github.ref }}
+        default: ${{ github.sha }}
       push-images:
         required: false
         type: boolean

@@ -71,23 +71,9 @@ jobs:
             path: playwright-report/
             retention-days: 30
 
-  provide-env-to-alpine:
-    # as stupid as it looks,
-    # since you cannot directly pass env to reusable workflow,
-    # we need to provide the env varialbes as output
-    name: Provide env to Alpine build workflow indirectly
-    runs-on: ubuntu-latest
-    outputs:
-      node-version: ${{ steps.output-env.outputs.node-version }}
-    steps:
-      - id: output-env
-        name: Output Node.js version
-        run: echo "node-version=${{ env.NODE_VERSION }}" >> "$GITHUB_OUTPUT"
-
   test-build-alpine:
     name: Test building assets on Alpine Linux
     if: github.event_name == 'pull_request'
-    needs: provide-env-to-alpine
     uses: ./.github/workflows/build-docker.yml
 
   test-ssh: # to catch ssh issues early, as the job using the connection is late in the workflow
@@ -153,7 +139,7 @@ jobs:
 
   build-alpine-for-deploy:
     name: Build assets on Alpine Linux
-    needs: [create-release, provide-env-to-alpine]
+    needs: create-release
     uses: ./.github/workflows/build-docker.yml
     with:
       ref: ${{ needs.create-release.outputs.release-commit-sha }}

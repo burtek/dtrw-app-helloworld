@@ -1,5 +1,5 @@
 # Should be run from the workspace rot using
-# docker build -f docker/<package_name>/Dockerfile . 
+# docker build -f packages/backend/Dockerfile . 
 
 FROM node:26-alpine AS build
 

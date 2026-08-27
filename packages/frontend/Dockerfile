@@ -1,5 +1,5 @@
 # Should be run from the workspace rot using
-# docker build -f docker/<package_name>/Dockerfile . 
+# docker build -f packages/frontend/Dockerfile . 
 
 FROM node:26-slim AS build
 
@@ -27,5 +27,5 @@ FROM nginx:alpine AS runtime
 
 EXPOSE 80
 
-COPY docker/frontend/nginx.conf.template /etc/nginx/templates/default.conf.template
+COPY packages/frontend/nginx.conf.template /etc/nginx/templates/default.conf.template
 COPY --from=build /app/packages/frontend/dist/ /usr/share/nginx/html/
