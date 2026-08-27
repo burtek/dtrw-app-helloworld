@@ -8,11 +8,11 @@ WORKDIR /app
 RUN apk add --no-cache python3 py3-pip build-base
 RUN npm i -g corepack
 RUN corepack enable
-RUN corepack install
 
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 COPY packages/backend/package.json ./packages/backend/package.json
 
+RUN corepack install
 RUN pnpm install --frozen-lockfile
 
 COPY packages/backend/ ./packages/backend/
