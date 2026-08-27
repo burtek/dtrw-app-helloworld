@@ -75,6 +75,9 @@ jobs:
     name: Test building assets on Alpine Linux
     if: github.event_name == 'pull_request'
     uses: ./.github/workflows/build-docker.yml
+    permissions:
+      contents: read
+      packages: write
 
   test-ssh: # to catch ssh issues early, as the job using the connection is late in the workflow
     name: Test SSH connection to VPS
@@ -137,10 +140,13 @@ jobs:
         name: Wait for background jobs to finish
         wait: [push, output-version]
 
-  build-alpine-for-deploy:
+  build-image-for-deploy:
     name: Build assets on Alpine Linux
     needs: create-release
     uses: ./.github/workflows/build-docker.yml
+    permissions:
+      contents: read
+      packages: write
     with:
       ref: ${{ needs.create-release.outputs.release-commit-sha }}
       push-images: true
@@ -148,7 +154,7 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
-    needs: [create-release, build-alpine-for-deploy, test-ssh]
+    needs: [create-release, build-image-for-deploy, test-ssh]
     concurrency:
       group: deploy-production
       cancel-in-progress: false
