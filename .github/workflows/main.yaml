@@ -71,8 +71,8 @@ jobs:
             path: playwright-report/
             retention-days: 30
 
-  test-build-alpine:
-    name: Test building assets on Alpine Linux
+  test-build-image:
+    name: Test building docker image
     if: github.event_name == 'pull_request'
     uses: ./.github/workflows/build-docker.yml
     permissions:
@@ -141,7 +141,7 @@ jobs:
         wait: [push, output-version]
 
   build-image-for-deploy:
-    name: Build assets on Alpine Linux
+    name: Build docker image
     needs: create-release
     uses: ./.github/workflows/build-docker.yml
     permissions:

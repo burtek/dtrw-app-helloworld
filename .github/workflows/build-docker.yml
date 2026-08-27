@@ -45,6 +45,7 @@ jobs:
       contents: read
       packages: write
     strategy:
+      fail-fast: ${{ inputs.push-images == true || inputs.push-images == 'true' }} # only fail fast when building, not when testing a PR
       matrix:
         path: ${{ fromJSON(needs.discover.outputs.packages) }}
     steps:

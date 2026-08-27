@@ -5,7 +5,9 @@ FROM node:26-slim AS build
 
 WORKDIR /app
 
+RUN npm i -g corepack
 RUN corepack enable
+RUN corepack install
 
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 COPY packages/frontend/package.json ./packages/frontend/package.json
