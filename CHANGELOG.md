@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [2.5.1](https://github.com/burtek/dtrw-app-helloworld/compare/v2.5.0...v2.5.1) (2026-08-28)
+
+### Bug Fixes
+
+* **docker:** add labels to docker image ([#89](https://github.com/burtek/dtrw-app-helloworld/issues/89)) ([3acc481](https://github.com/burtek/dtrw-app-helloworld/commit/3acc481f551b3de8a38b47481e409d8285e3968e))
 ## [2.5.0](https://github.com/burtek/dtrw-app-helloworld/compare/v2.4.7...v2.5.0) (2026-08-28)
 
 ### Features
