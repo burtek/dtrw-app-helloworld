@@ -79,6 +79,8 @@ jobs:
           file: ${{ matrix.path }}/Dockerfile
           push: false
           cache-from: type=registry,ref=ghcr.io/${{ github.repository }}/${{ steps.package-name.outputs.package-name }}:buildcache
+      - id: meta
+        run: echo "created=$(date -u +'%Y-%m-%dT%H:%M:%SZ')" >> "$GITHUB_OUTPUT"
       - id: build-image
         if: inputs.push-images == true || inputs.push-images == 'true'
         name: Build image
@@ -89,6 +91,15 @@ jobs:
           build-args: |
             COMMIT_SHA=${{ inputs.ref }}
           push: true
+          labels: |
+            org.opencontainers.image.title=${{ steps.package-name.outputs.package-name }}
+            org.opencontainers.image.description=Helloworld app - ${{ steps.package-name.outputs.package-name }}
+            org.opencontainers.image.source=https://github.com/${{ github.repository }}/tree/master/${{ matrix.path }}
+            org.opencontainers.image.url=https://github.com/${{ github.repository }}
+            org.opencontainers.image.version=${{ inputs.version }}
+            org.opencontainers.image.revision=${{ inputs.ref }}
+            org.opencontainers.image.created=${{ steps.meta.outputs.created }}
+            org.opencontainers.image.licenses=MIT
           tags: |
             ghcr.io/${{ github.repository }}/${{ steps.package-name.outputs.package-name }}:${{ inputs.ref }}
             ghcr.io/${{ github.repository }}/${{ steps.package-name.outputs.package-name }}:${{ inputs.version }}
