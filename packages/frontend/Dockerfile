@@ -21,7 +21,7 @@ RUN pnpm run validate
 
 WORKDIR /app/packages/frontend
 
-ARG COMMIT_SHA
+ARG COMMIT_SHA=dev
 ENV VITE_COMMIT=$COMMIT_SHA
 
 RUN pnpm build

@@ -27,7 +27,7 @@ RUN pnpm assemble
 
 FROM node:26.8.1-alpine AS runtime
 
-ARG COMMIT_SHA
+ARG COMMIT_SHA=dev
 
 ENV COMMIT_SHA=$COMMIT_SHA
 ENV NODE_ENV=production
