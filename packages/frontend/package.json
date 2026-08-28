@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "prebuild": "tsc",
-    "build": "cross-env VITE_COMMIT=$BUILD_SHA vite build",
+    "build": "vite build",
     "assemble": "cp -r dist .assembled",
     "typecheck": "tsc",
     "lint": "eslint .",
