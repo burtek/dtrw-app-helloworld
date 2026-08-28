@@ -1,13 +1,14 @@
 # Should be run from the workspace rot using
 # docker build -f packages/frontend/Dockerfile . 
 
-FROM node:26-slim AS build
+FROM node:26.8.1-slim AS build
 
 WORKDIR /app
 
 RUN npm i -g corepack
 RUN corepack enable
 
+COPY scripts/ ./scripts/
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 COPY packages/frontend/package.json ./packages/frontend/package.json
 
@@ -25,7 +26,7 @@ ENV VITE_COMMIT=$COMMIT_SHA
 
 RUN pnpm build
 
-FROM nginx:alpine AS runtime
+FROM nginx:1.31.4-alpine AS runtime
 
 EXPOSE 80
 

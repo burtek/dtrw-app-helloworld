@@ -1,7 +1,7 @@
 # Should be run from the workspace rot using
 # docker build -f packages/backend/Dockerfile . 
 
-FROM node:26-alpine AS build
+FROM node:26.8.1-alpine AS build
 
 WORKDIR /app
 
@@ -9,6 +9,7 @@ RUN apk add --no-cache python3 py3-pip build-base
 RUN npm i -g corepack
 RUN corepack enable
 
+COPY scripts/ ./scripts/
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 COPY packages/backend/package.json ./packages/backend/package.json
 
@@ -24,7 +25,7 @@ WORKDIR /app/packages/backend
 RUN pnpm build
 RUN pnpm assemble
 
-FROM node:26-alpine AS runtime
+FROM node:26.8.1-alpine AS runtime
 
 ARG COMMIT_SHA
 
