@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [2.5.0](https://github.com/burtek/dtrw-app-helloworld/compare/v2.4.7...v2.5.0) (2026-08-28)
+
+### Features
+
+* routing and deployment changes ([#85](https://github.com/burtek/dtrw-app-helloworld/issues/85)) ([5d07eab](https://github.com/burtek/dtrw-app-helloworld/commit/5d07eabd3e14748d30292b5b4edd15d74e58d434))
 ## [2.4.7](https://github.com/burtek/dtrw-app-helloworld/compare/v2.4.6...v2.4.7) (2026-08-21)
 
 ### Bug Fixes
