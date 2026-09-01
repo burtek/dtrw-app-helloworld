@@ -65,7 +65,6 @@ pnpm typecheck   # typecheck all packages
 pnpm test        # run Vitest projects from packages/*
 pnpm build       # build all packages
 pnpm clear       # remove build artifacts
-pnpm assemble    # prepare deply.tar.gz ready to be deployed to a server
 ```
 
 Target a single package when needed:
@@ -90,14 +89,14 @@ On every PR/push:
 
 - `test`: runs workspace tests, lint, and build in parallel
 - `test-playwright`: runs end-to-end tests in Playwright container
-- `test-build-alpine` (PR only): executes Alpine build workflow as a deployment packaging smoke test
+- `test-build-image` (PR only): executes Docker image build as a smoke test
 - `test-ssh`: validates SSH connectivity to the target VPS early
 
 On push to `master` (after successful checks):
 
 - `create-release`: bumps versions and changelog using `commit-and-tag-version`, then pushes tag/commit
-- `build-alpine-for-deploy`: builds deployment artifacts on Alpine from the release commit
-- `deploy`: downloads built artifact and performs zero-downtime-ish file swap on VPS, then runs `docker compose up -d`
+- `build-image-for-deploy`: builds Docker images from the release commit and pushes them to GitHub Container Registry
+- `deploy`: uploads `docker-compose.yml` to VPS, pulls latest images, and starts services with `docker compose up -d`
 
 ### Required GitHub secrets
 
@@ -113,51 +112,30 @@ This template currently contains default app identifiers (`helloworld`). Update 
 
 - `package.json`: `name`, `repository`
 - `.github/workflows/main.yaml`: `env.APP_NAME`
-- `docker-compose.yml`: service container names
+- `docker-compose.yml`: service container names and GHCR image references
+- `packages/*/Dockerfile`: image labels that reference the app name
 
-If your deploy target path differs, also update paths used in deploy workflow SCP steps.
+## Docker deployment
 
-## Deployment artifacts
+The deployment uses Docker images built and pushed to GitHub Container Registry (GHCR):
 
-The deployment payload is prepared in two layers:
+1. **Image building**: 
+   - `.github/workflows/build-docker.yml` discovers all packages with Dockerfiles
+   - Each package is built as a separate Docker image
+   - Images are tagged with commit SHA and version tag
+   - Images are pushed to `ghcr.io/<repository>/<package>:<tag>`
 
-1. Package-level `assemble` scripts create package-local `.assembled` outputs:
-    - backend: `pnpm pm --filter . --prod deploy .assembled`
-      - exports production backend runtime dependencies/files
-      - then `postassemble` generates `.assembled/env` with `COMMIT_SHA=$BUILD_SHA`
-    - frontend: `cp -r dist .assembled`
-      - copies static Vite build output
+2. **Deployment**:
+   - `docker-compose.yml` references images by version tag (set via `VERSION_TAG` env variable)
+   - The deploy workflow uploads `docker-compose.yml` to VPS
+   - On VPS: `docker compose pull` fetches the latest images from GHCR
+   - `docker compose up -d` starts services with zero-downtime restart
 
-1. Root `pnpm assemble` runs package `assemble` scripts across the workspace.
-
-In CI, `.github/workflows/build-alpine.yml` then creates one archive:
-
-- `alpine-build-output.tar.gz` containing:
-  - `docker/`
-  - `docker-compose.yml`
-  - transformed package artifacts from `packages/*/.assembled` into top-level `backend/` and `frontend/` directories
-
-The `deploy` job in `.github/workflows/main.yaml` downloads this artifact, extracts it on the VPS under `/apps/${APP_NAME}/upload`, rotates current files into `old/`, moves new files into place, and restarts via `docker compose up -d`.
-
-### Responsibility separation
-
-```plain
-Package
-    build
-    assemble
-        ↓
-Monorepo
-    assemble
-        ↓
-Filesystem ready for deployment
-        ↓
-CI
-    archive
-    upload
-        ↓
-VPS
-    extract
-```
+This approach provides:
+- Simplified deployment (no file artifacts, just image pulls)
+- Atomic updates (images are immutable)
+- Easy rollback (just pull a different image tag)
+- Consistent environments (Dockerfile defines exact dependencies)
 
 ## Commit quality gates
 
@@ -169,5 +147,4 @@ VPS
 ## Notes
 
 - Backend dev env defaults are in `packages/backend/.env.development`.
-- Deploy pipeline sets `BUILD_SHA` in Alpine build job, and backend `postassemble` writes `COMMIT_SHA` into `packages/backend/.assembled/env`.
-- Workspace uses pnpm catalog versions to keep toolchain versions aligned across packages.
+- Dockerfiles in each package define the production build and runtime.

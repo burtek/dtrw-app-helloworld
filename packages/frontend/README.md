@@ -49,7 +49,6 @@ pnpm test
 pnpm test:watch
 pnpm build
 pnpm preview
-pnpm assemble
 ```
 
 ## Testing
@@ -59,8 +58,8 @@ pnpm assemble
 
 Run from root or package directory.
 
-## Build and deploy notes
+## Build and deployment
 
 - `pnpm build` produces static files in `dist/`
-- root assemble pipeline copies this output to `.assembled`
-- production nginx config for static hosting is in `docker/frontend/nginx.conf`
+- Docker image build (in `Dockerfile`) copies the `dist/` output for serving via nginx
+- nginx configuration for static hosting is in `docker/frontend/nginx.conf`
