@@ -2,7 +2,7 @@ services:
   frontend:
     image: ghcr.io/burtek/dtrw-app-helloworld/frontend:${VERSION_TAG}
     container_name: helloworld_frontend
-    restart: always
+    restart: unless-stopped
     environment:
       API_URL: http://helloworld_backend:4000
     healthcheck:
