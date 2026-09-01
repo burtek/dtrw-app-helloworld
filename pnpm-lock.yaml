@@ -89,13 +89,13 @@ importers:
         version: 6.0.1
       fastify-type-provider-zod:
         specifier: ^7.0.0
-        version: 7.0.0(@fastify/swagger@9.7.0(supports-color@5.5.0))(fastify@5.12.1)(openapi-types@12.1.3)(zod@4.4.3)
+        version: 7.0.0(@fastify/swagger@9.7.0(supports-color@5.5.0))(fastify@5.12.1)(openapi-types@12.1.3)(zod@4.5.4)
       validator:
         specifier: ^13.15.35
         version: 13.15.35
       zod:
         specifier: ^4.4.3
-        version: 4.4.3
+        version: 4.5.4
     devDependencies:
       '@dtrw/eslint-config':
         specifier: 'catalog:'
@@ -3037,8 +3037,8 @@ packages:
   yuku-parser@0.8.0:
     resolution: {integrity: sha512-obrazyE8Cyh79xTQS9wv44khnhvkXG1CDSSy0bg+Pjjla+iXkKXK2b6+LTYXSN3qvVfQxc0MN5qhNKYr9sl3Zw==}
 
-  zod@4.4.3:
-    resolution: {integrity: sha512-ytENFjIJFl2UwYglde2jchW2Hwm4GJFLDiSXWdTrJQBIN9Fcyp7n4DhxJEiWNAJMV1/BqWfW/kkg71UDcHJyTQ==}
+  zod@4.5.4:
+    resolution: {integrity: sha512-sC95tT5iHHH9gtpj6A81kh+NEaRAUFN+qlUPDUbRfOMvNf5QCBqsb3WgvnpVtK5Y+4UfA6KqufotuTvMGiTlsA==}
 
 snapshots:
 
@@ -3450,7 +3450,7 @@ snapshots:
       eslint: 10.9.1(jiti@2.6.1)(supports-color@5.5.0)
       ts-pattern: 5.9.0
       typescript: 6.0.3
-      zod: 4.4.3
+      zod: 4.5.4
     transitivePeerDependencies:
       - supports-color
 
@@ -4740,13 +4740,13 @@ snapshots:
       raw-body: 3.0.2
       secure-json-parse: 4.1.0
 
-  fastify-type-provider-zod@7.0.0(@fastify/swagger@9.7.0(supports-color@5.5.0))(fastify@5.12.1)(openapi-types@12.1.3)(zod@4.4.3):
+  fastify-type-provider-zod@7.0.0(@fastify/swagger@9.7.0(supports-color@5.5.0))(fastify@5.12.1)(openapi-types@12.1.3)(zod@4.5.4):
     dependencies:
       '@fastify/error': 4.2.0
       '@fastify/swagger': 9.7.0(supports-color@5.5.0)
       fastify: 5.12.1
       openapi-types: 12.1.3
-      zod: 4.4.3
+      zod: 4.5.4
 
   fastify@5.12.1:
     dependencies:
@@ -5762,4 +5762,4 @@ snapshots:
       '@yuku-parser/binding-win32-arm64': 0.8.0
       '@yuku-parser/binding-win32-x64': 0.8.0
 
-  zod@4.4.3: {}
+  zod@4.5.4: {}
