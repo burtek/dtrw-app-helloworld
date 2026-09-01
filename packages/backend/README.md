@@ -64,14 +64,13 @@ pnpm typecheck
 pnpm test
 pnpm test:watch
 pnpm build         # runs prebuild (tsc) then tsdown
-pnpm assemble
 ```
 
 ## Build output
 
 Build entry is `src/server.ts` (configured in `tsdown.config.ts`).
 
-This package is bundled in ESM format and used by root deploy packaging scripts.
+This package is bundled in ESM format and used in the Docker image.
 
 ## Auth header notes
 
