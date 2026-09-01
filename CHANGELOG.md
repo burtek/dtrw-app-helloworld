@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [2.5.3](https://github.com/burtek/dtrw-app-helloworld/compare/v2.5.2...v2.5.3) (2026-09-01)
+
+### Bug Fixes
+
+* nginx conf with envsubst ([f1260db](https://github.com/burtek/dtrw-app-helloworld/commit/f1260dbd282b17f9fe11ae93a3569c91687cfece))
 ## [2.5.2](https://github.com/burtek/dtrw-app-helloworld/compare/v2.5.1...v2.5.2) (2026-09-01)
 ## [2.5.1](https://github.com/burtek/dtrw-app-helloworld/compare/v2.5.0...v2.5.1) (2026-08-28)
 
