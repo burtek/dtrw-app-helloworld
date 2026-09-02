@@ -12,6 +12,9 @@ services:
       retries: 2
       start_period: 5s
       start_interval: 5s
+    networks:
+      - default
+      - apps
 
   backend:
     image: ghcr.io/burtek/dtrw-app-helloworld/backend:${VERSION_TAG}
@@ -21,8 +24,6 @@ services:
     env_file:
       - path: .backend.env
         required: false
-    expose:
-      - 4000
     restart: unless-stopped
     healthcheck:
       test: wget --no-verbose --tries=1 --spider http://127.0.0.1:4000/health || exit 1
@@ -31,8 +32,12 @@ services:
       retries: 2
       start_period: 25s
       start_interval: 10s
+    networks:
+      - default
 
 networks:
   default:
+    internal: true
+  apps:
     external: true
     name: apps

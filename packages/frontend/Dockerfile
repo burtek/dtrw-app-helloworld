@@ -31,7 +31,5 @@ FROM nginx:1.31.4-alpine AS runtime
 # envsubst trick to escape nginx variables
 ENV DOLLAR='$'
 
-EXPOSE 80
-
 COPY packages/frontend/nginx.conf.template /etc/nginx/templates/default.conf.template
 COPY --from=build /app/packages/frontend/dist/ /usr/share/nginx/html/
