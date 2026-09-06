@@ -1,10 +1,12 @@
 #!/usr/bin/env node
 
-import { readdirSync } from 'node:fs';
+import { existsSync, readdirSync } from 'node:fs';
 import { readFile } from 'node:fs/promises';
+import { join } from 'node:path';
 
 const packages = readdirSync('./packages', { withFileTypes: true })
-    .filter(dir => dir.isDirectory());
+    .filter(dir => dir.isDirectory())
+    .filter(dir => existsSync(join(dir.parentPath, dir.name, 'package.json')));
 
 const results = await Promise.all(
     packages.map(async (dir) => {
