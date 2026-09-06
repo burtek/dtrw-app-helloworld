@@ -1,6 +1,4 @@
 node_modules/
-/deply.tar.gz
-packages/*/.assembled/
 
 # Playwright
 /test-results/
