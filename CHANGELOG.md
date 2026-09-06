@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [2.6.0](https://github.com/burtek/dtrw-app-helloworld/compare/v2.5.4...v2.6.0) (2026-09-06)
+
+### Features
+
+* **deps:** update nginx docker tag to v1.31.5 ([#96](https://github.com/burtek/dtrw-app-helloworld/issues/96)) [skip ci] ([ced0f9f](https://github.com/burtek/dtrw-app-helloworld/commit/ced0f9f15da21733f543c83936ce570c32418856))
+
+### Bug Fixes
+
+* **deps:** update dependency fastify to v5.12.3 ([#100](https://github.com/burtek/dtrw-app-helloworld/issues/100)) [skip ci] ([3b1936a](https://github.com/burtek/dtrw-app-helloworld/commit/3b1936aad3848e73d4c5a87e41d0598bbb09d463))
+* **deps:** update vulnerable dependencies as per audit ([d9ba885](https://github.com/burtek/dtrw-app-helloworld/commit/d9ba8853a9ed4370825aa1195569676a60b6e4b1))
 ## [2.5.4](https://github.com/burtek/dtrw-app-helloworld/compare/v2.5.3...v2.5.4) (2026-09-02)
 ## [2.5.3](https://github.com/burtek/dtrw-app-helloworld/compare/v2.5.2...v2.5.3) (2026-09-01)
 
