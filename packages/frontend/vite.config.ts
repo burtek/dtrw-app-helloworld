@@ -7,10 +7,15 @@ export default defineConfig({
     plugins: [react()],
     server: {
         proxy: {
-            '/api': {
+            '/api1': {
                 target: 'http://localhost:4000',
                 changeOrigin: true,
-                rewrite: path => path.replace(/^\/api/, '')
+                rewrite: path => path.replace(/^\/api1/, '')
+            },
+            '/api2': {
+                target: 'http://localhost:4001',
+                changeOrigin: true,
+                rewrite: path => path.replace(/^\/api2/, '')
             }
         },
         port: 3000

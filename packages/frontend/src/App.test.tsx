@@ -14,7 +14,7 @@ test('App renders', async () => {
 
     expect(container).not.toBeEmptyDOMElement();
 
-    expect(screen.getByText(/Loading/)).toBeInTheDocument();
+    expect(screen.getAllByText(/Loading/)).toHaveLength(2);
 
     act(() => {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion
