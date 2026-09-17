@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [2.7.1](https://github.com/burtek/dtrw-app-helloworld/compare/v2.7.0...v2.7.1) (2026-09-17)
+
+### Bug Fixes
+
+* assets path ([34c97fa](https://github.com/burtek/dtrw-app-helloworld/commit/34c97faeb5caba76617c28cebd9296b7236bb654))
+
 ## [2.7.0](https://github.com/burtek/dtrw-app-helloworld/compare/v2.6.1...v2.7.0) (2026-09-17)
 
 ### Features
