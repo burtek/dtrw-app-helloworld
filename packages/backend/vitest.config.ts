@@ -1,8 +1,9 @@
 import { config } from 'dotenv';
+import { resolve } from 'node:path';
 import { defineConfig } from 'vitest/config';
 
 
-config({ path: '.env.test' });
+config({ path: resolve(import.meta.dirname, '.env.test') });
 
 // https://vite.dev/config/
 export default defineConfig({

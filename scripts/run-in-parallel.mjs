@@ -3,7 +3,7 @@ import { spawn } from 'node:child_process';
 import { glob, readFile } from 'node:fs/promises';
 import { basename, delimiter as envPathDelimiter, dirname, join, resolve, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { format, styleText } from 'node:util';
+import { styleText } from 'node:util';
 import { getPackageColor, getScriptColor, padBothSides, pipeOutput } from './run-in-parallel.utils.mjs';
 
 
