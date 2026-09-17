@@ -26,7 +26,7 @@
     "fastify-raw-body": "^6.0.0",
     "fastify-type-provider-zod": "^7.0.0",
     "validator": "^13.15.35",
-    "zod": "^4.4.3"
+    "zod": "^4.6.5"
   },
   "devDependencies": {
     "@dtrw/eslint-config": "catalog:",
