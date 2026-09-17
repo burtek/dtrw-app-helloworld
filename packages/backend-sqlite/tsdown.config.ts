@@ -17,7 +17,7 @@ export default defineConfig({
                 'src/assets/**/*',
                 '!src/assets/**/*.ts'
             ],
-            to: 'dist/assets',
+            to: 'dist',
             flatten: false
         }
     ]
