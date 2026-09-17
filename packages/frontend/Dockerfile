@@ -13,7 +13,7 @@ COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 COPY packages/frontend/package.json ./packages/frontend/package.json
 
 RUN corepack install
-RUN pnpm install --frozen-lockfile
+RUN pnpm install --frozen-lockfile --filter=frontend
 
 COPY packages/frontend/ ./packages/frontend/
 
@@ -21,8 +21,7 @@ RUN pnpm run validate
 
 WORKDIR /app/packages/frontend
 
-ARG COMMIT_SHA=dev
-ENV VITE_COMMIT=$COMMIT_SHA
+ARG VITE_COMMIT=dev
 
 RUN pnpm build
 
