@@ -73,7 +73,7 @@ jobs:
           cache: true
       - id: setup-playwright
         name: Setup Playwright
-        run: pnpm exec playwright install
+        run: pnpm exec playwright install --with-deps
       - id: run-playwright
         name: Run Playwright tests
         run: pnpm exec playwright test
