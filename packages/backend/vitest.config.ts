@@ -1,5 +1,8 @@
+import { config } from 'dotenv';
 import { defineConfig } from 'vitest/config';
 
+
+config({ path: '.env.test' });
 
 // https://vite.dev/config/
 export default defineConfig({
