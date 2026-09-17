@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [2.7.0](https://github.com/burtek/dtrw-app-helloworld/compare/v2.6.1...v2.7.0) (2026-09-17)
+
+### Features
+
+* add assets to backend package, add .env.test ([1619f05](https://github.com/burtek/dtrw-app-helloworld/commit/1619f054ac37e4c9f94d9b91118faf9f8765d1b9))
+* add backend-sqlite package ([70a370e](https://github.com/burtek/dtrw-app-helloworld/commit/70a370e16c3d381590d00614a6383082a603532f))
+* add custom parallel runner for local development ([d5e4f74](https://github.com/burtek/dtrw-app-helloworld/commit/d5e4f74b1c69e230d1f595ea9cd30aee3d1c8b6f))
+
+### Bug Fixes
+
+* **deps:** bump some dependencies ([1ad6557](https://github.com/burtek/dtrw-app-helloworld/commit/1ad65577bed9fbd6701df5182d77d9b00771108c))
+* playwright tests on CI ([#119](https://github.com/burtek/dtrw-app-helloworld/issues/119)) ([ed56712](https://github.com/burtek/dtrw-app-helloworld/commit/ed5671234ae90a7a666c9866f549913e7f81dc42))
+
 ## [2.6.1](https://github.com/burtek/dtrw-app-helloworld/compare/v2.6.0...v2.6.1) (2026-09-06)
 ## [2.6.0](https://github.com/burtek/dtrw-app-helloworld/compare/v2.5.4...v2.6.0) (2026-09-06)
 
