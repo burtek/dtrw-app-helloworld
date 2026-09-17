@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [2.7.3](https://github.com/burtek/dtrw-app-helloworld/compare/v2.7.2...v2.7.3) (2026-09-17)
+
+### Bug Fixes
+
+* frontend Dockerfile commit sha ([6268091](https://github.com/burtek/dtrw-app-helloworld/commit/6268091292c6c228fbd1863a2b395b22050a9e31))
+
 ## [2.7.2](https://github.com/burtek/dtrw-app-helloworld/compare/v2.7.1...v2.7.2) (2026-09-17)
 
 ### Bug Fixes
