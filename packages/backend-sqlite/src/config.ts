@@ -1,5 +1,6 @@
-import 'dotenv/config';
 import { resolve } from 'node:path';
+
+import 'dotenv/config';
 import { z } from 'zod/v4';
 
 
