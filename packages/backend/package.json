@@ -9,7 +9,7 @@
   "main": "dist/index.mjs",
   "scripts": {
     "dev:tsx": "tsx watch --env-file=.env.development --clear-screen=false src/server.ts",
-    "dev:typecheck": "tsc --watch",
+    "dev:typecheck": "tsc --watch --preserveWatchOutput",
     "prebuild": "tsc",
     "build": "tsdown",
     "assemble": "pnpm pm --filter . --prod deploy .assembled",

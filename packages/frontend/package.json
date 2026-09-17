@@ -4,7 +4,7 @@
   "version": "2.6.1",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --clearScreen false",
     "prebuild": "tsc",
     "build": "vite build",
     "assemble": "cp -r dist .assembled",
