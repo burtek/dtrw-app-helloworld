@@ -28,7 +28,7 @@
     "@vitejs/plugin-react": "^6.0.3",
     "cross-env": "catalog:",
     "eslint": "catalog:",
-    "jsdom": "^30.0.0",
+    "jsdom": "^30.1.0",
     "typescript": "catalog:",
     "vite": "catalog:",
     "vitest": "catalog:"

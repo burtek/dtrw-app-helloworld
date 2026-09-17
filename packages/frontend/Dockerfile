@@ -25,7 +25,7 @@ ARG VITE_COMMIT=dev
 
 RUN pnpm build
 
-FROM nginx:1.31.5-alpine AS runtime
+FROM nginx:1.31.6-alpine AS runtime
 
 # envsubst trick to escape nginx variables
 ENV DOLLAR='$'
