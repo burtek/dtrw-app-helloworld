@@ -14,7 +14,7 @@ COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 COPY packages/backend-sqlite/package.json ./packages/backend-sqlite/package.json
 
 RUN corepack install
-RUN pnpm install --frozen-lockfile
+RUN pnpm install --frozen-lockfile --filter=backend-sqlite
 
 COPY packages/backend-sqlite/ ./packages/backend-sqlite/
 
@@ -28,10 +28,7 @@ RUN pnpm assemble
 FROM node:26.8.1-alpine AS runtime
 
 ARG COMMIT_SHA=dev
-
-ENV COMMIT_SHA=$COMMIT_SHA
-ENV NODE_ENV=production
-ENV DB_MIGRATIONS_FOLDER=/app/drizzle
+ENV COMMIT_SHA=$COMMIT_SHA NODE_ENV=production DB_MIGRATIONS_FOLDER=/app/drizzle
 
 WORKDIR /app
 

@@ -5,12 +5,6 @@ FROM node:26.8.1-slim AS build
 
 WORKDIR /app
 
-RUN apt update
-# not technically required but pnpm since v12 installs deps for ALL packages breaking env isolation
-RUN apt install python3 build-essentials 
-RUN python3 -m ensurepip
-RUN pip3 install --no-cache --upgrade pip setuptools
-
 RUN npm i -g corepack
 RUN corepack enable
 
@@ -19,7 +13,7 @@ COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 COPY packages/frontend/package.json ./packages/frontend/package.json
 
 RUN corepack install
-RUN pnpm install --frozen-lockfile --filter !./packages/
+RUN pnpm install --frozen-lockfile --filter=frontend
 
 COPY packages/frontend/ ./packages/frontend/
 
@@ -27,8 +21,7 @@ RUN pnpm run validate
 
 WORKDIR /app/packages/frontend
 
-ARG COMMIT_SHA=dev
-ENV VITE_COMMIT=$COMMIT_SHA
+ARG VITE_COMMIT=dev
 
 RUN pnpm build
 
