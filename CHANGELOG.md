@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [2.7.4](https://github.com/burtek/dtrw-app-helloworld/compare/v2.7.3...v2.7.4) (2026-09-18)
+
+### Bug Fixes
+
+* helloworld service depends on database ([60df0f3](https://github.com/burtek/dtrw-app-helloworld/commit/60df0f3b1bad7836fb343e5b91a737540c11c6fe))
+
 ## [2.7.3](https://github.com/burtek/dtrw-app-helloworld/compare/v2.7.2...v2.7.3) (2026-09-17)
 
 ### Bug Fixes
