@@ -2,6 +2,7 @@ import type { FastifyInstance, FastifyPluginCallback } from 'fastify';
 import fp from 'fastify-plugin';
 
 import { Asset, getAssetText } from '../assets/index.js';
+import { meta as databaseProviderMeta } from '../database/database.provider.js';
 import { dummy } from '../database/schemas/dummy.js';
 
 
@@ -36,7 +37,11 @@ const helloWorldService: FastifyPluginCallback = (app, opts, done) => {
     done();
 };
 
-export default fp(helloWorldService, { name });
+export default fp(helloWorldService, {
+    dependencies: [databaseProviderMeta.name],
+    decorators: { fastify: [databaseProviderMeta.decorator] },
+    name
+});
 
 declare module 'fastify' {
     interface FastifyInstance {
