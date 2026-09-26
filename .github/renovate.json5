@@ -20,7 +20,8 @@
     },
     {
       "matchFileNames": ["**/Dockerfile"],
-      "labels": ["docker-tag"]
+      "labels": ["docker-tag"],
+      "semanticCommitScope": "docker"
 //    },
 //    {
 //      "matchUpdateTypes": ["patch"],
