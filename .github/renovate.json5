@@ -17,6 +17,10 @@
     {
       "matchDepTypes": ["peerDependencies"],
       "enabled": false
+    },
+    {
+      "matchFileNames": ["**/Dockerfile"],
+      "labels": ["docker-tag"]
 //    },
 //    {
 //      "matchUpdateTypes": ["patch"],
