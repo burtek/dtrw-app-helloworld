@@ -140,10 +140,7 @@ jobs:
           pnpm exec commit-and-tag-version --no-verify #skips tests before release and on precommit
       - id: push
         name: Push release commit and tags
-        uses: ad-m/github-push-action@v1.3.0
-        with:
-          branch: master
-          tags: true
+        run: git push origin HEAD:master --follow-tags
         background: true
       - id: output-version
         name: Output new version and release commit sha
