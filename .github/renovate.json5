@@ -19,19 +19,22 @@
       "enabled": false
     },
     {
+      "matchDepTypes": ["devDependencies"],
+      "semanticCommitType": "chore"
+    },
+    {
+      "matchDepTypes": ["dependencies"],
+      "semanticCommitType": "fix"
+    },
+    {
       "matchFileNames": ["**/Dockerfile"],
       "labels": ["docker-tag"],
+      "semanticCommitType": "feat",
       "semanticCommitScope": "docker"
-//    },
-//    {
-//      "matchUpdateTypes": ["patch"],
-//      "automerge": true,
-//      "automergeType": "pr",
-//      "ignoreTests": false
-//    },
-//    {
-//      "matchUpdateTypes": ["major"],
-//      "labels": ["UPDATE-MAJOR"]
+    },
+    {
+      "matchUpdateTypes": ["major"],
+      "addLabels": ["UPDATE-MAJOR"]
     }
   ]
 }
