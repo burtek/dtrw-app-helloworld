@@ -2,6 +2,51 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [2.7.5](https://github.com/burtek/dtrw-app-helloworld/compare/v2.7.4...v2.7.5) (2026-10-02)
+
+
+### Bug Fixes
+
+* **deps:** update dependency dotenv to v18 ([#120](https://github.com/burtek/dtrw-app-helloworld/issues/120)) [skip ci] ([32078ec](https://github.com/burtek/dtrw-app-helloworld/commit/32078ecdba351740e827ec5809a4ae8eddda135f))
+
+
+### Miscellaneous Chores
+
+* **deps:** update commitlint monorepo to v21.2.3 ([#122](https://github.com/burtek/dtrw-app-helloworld/issues/122)) [skip ci] ([2d19519](https://github.com/burtek/dtrw-app-helloworld/commit/2d19519fa7d63298c3ddaf61f67561fb3b3ecb0a))
+* **deps:** update dependency @dtrw/eslint-config to v7.1.3 ([#129](https://github.com/burtek/dtrw-app-helloworld/issues/129)) [skip ci] ([df657e5](https://github.com/burtek/dtrw-app-helloworld/commit/df657e544851202a95d1bd356a5d580ddcf12811))
+* **deps:** update dependency @types/node to v26.6.2 ([#109](https://github.com/burtek/dtrw-app-helloworld/issues/109)) [skip ci] ([26e6aba](https://github.com/burtek/dtrw-app-helloworld/commit/26e6abac68b460ce12ac73057ed145f33cdc3f9c))
+* **deps:** update dependency @types/node to v26.6.3 ([#132](https://github.com/burtek/dtrw-app-helloworld/issues/132)) [skip ci] ([4c0730b](https://github.com/burtek/dtrw-app-helloworld/commit/4c0730bb260aee44fa5185a6eb7c71c12c20cf22))
+* **deps:** update dependency @types/node to v26.6.4 ([#137](https://github.com/burtek/dtrw-app-helloworld/issues/137)) ([cb12a3e](https://github.com/burtek/dtrw-app-helloworld/commit/cb12a3e77c01cd8eb948897470f9756a8152ad3e))
+* **deps:** update dependency dotenv to v18.0.4 ([#127](https://github.com/burtek/dtrw-app-helloworld/issues/127)) [skip ci] ([a2a41b5](https://github.com/burtek/dtrw-app-helloworld/commit/a2a41b511e660543de4e7a13e163a09cfdf073a1))
+* **deps:** update dependency dotenv to v18.0.5 ([#134](https://github.com/burtek/dtrw-app-helloworld/issues/134)) ([8ab9845](https://github.com/burtek/dtrw-app-helloworld/commit/8ab9845bfab592689493c1b12ea1d2cbda2e8e5f))
+* **deps:** update dependency drizzle-kit to v0.31.11 ([#125](https://github.com/burtek/dtrw-app-helloworld/issues/125)) [skip ci] ([8beb924](https://github.com/burtek/dtrw-app-helloworld/commit/8beb924076c95550ae0d7cdba245672bcc562b20))
+* **deps:** update dependency drizzle-orm to v0.45.3 ([#126](https://github.com/burtek/dtrw-app-helloworld/issues/126)) [skip ci] ([fe1974c](https://github.com/burtek/dtrw-app-helloworld/commit/fe1974cbe3d4f86a6bdb79cf90360c3ef82360ed))
+* **deps:** update dependency eslint to v10.11.0 ([#121](https://github.com/burtek/dtrw-app-helloworld/issues/121)) [skip ci] ([991c643](https://github.com/burtek/dtrw-app-helloworld/commit/991c643f6e08d13344eb4af876855e611e059c6c))
+* **deps:** update dependency jsdom to v30.1.1 ([#118](https://github.com/burtek/dtrw-app-helloworld/issues/118)) [skip ci] ([fd88607](https://github.com/burtek/dtrw-app-helloworld/commit/fd88607ad1d443e40c5a2b544ad77d1ab8c4e0d2))
+* **deps:** update dependency tsx to v4.23.15 ([#123](https://github.com/burtek/dtrw-app-helloworld/issues/123)) [skip ci] ([37ced3a](https://github.com/burtek/dtrw-app-helloworld/commit/37ced3a97ea59bcea8f9c979241d9a62605b8864))
+* **deps:** update dependency vite to v8.3.1 ([#130](https://github.com/burtek/dtrw-app-helloworld/issues/130)) [skip ci] ([4f4069d](https://github.com/burtek/dtrw-app-helloworld/commit/4f4069da1aa2beb31aa4465a8f0bad3c914abb87))
+* **deps:** update dependency vite to v8.3.2 ([#136](https://github.com/burtek/dtrw-app-helloworld/issues/136)) ([795eb37](https://github.com/burtek/dtrw-app-helloworld/commit/795eb376a720ccdae08d8ec3c5ad2c0356143672))
+* **deps:** update dependency vitest to v5.0.2 ([#131](https://github.com/burtek/dtrw-app-helloworld/issues/131)) [skip ci] ([bca9b23](https://github.com/burtek/dtrw-app-helloworld/commit/bca9b2335ef7fc75eee94fcc37717058e51c5970))
+* **deps:** update dependency vitest to v5.0.3 ([#135](https://github.com/burtek/dtrw-app-helloworld/issues/135)) ([ceebf24](https://github.com/burtek/dtrw-app-helloworld/commit/ceebf242066cdc0786396b103ce216a39c4d039c))
+* **deps:** update googleapis/release-please-action action to v5 ([#139](https://github.com/burtek/dtrw-app-helloworld/issues/139)) ([e09adb1](https://github.com/burtek/dtrw-app-helloworld/commit/e09adb1f4d03cfd9fa849282326f10e8753c7c11))
+* **deps:** update pnpm to v12.5.1 ([#106](https://github.com/burtek/dtrw-app-helloworld/issues/106)) [skip ci] ([0ef108a](https://github.com/burtek/dtrw-app-helloworld/commit/0ef108ac5ccf77f2d84210d4f41acc4db5af7f47))
+* **deps:** update pnpm to v12.7.0 ([#128](https://github.com/burtek/dtrw-app-helloworld/issues/128)) [skip ci] ([7c686c6](https://github.com/burtek/dtrw-app-helloworld/commit/7c686c6c257d74b517d78816f92716a96161cc52))
+* **deps:** update pnpm to v12.8.1 ([#133](https://github.com/burtek/dtrw-app-helloworld/issues/133)) ([6433e40](https://github.com/burtek/dtrw-app-helloworld/commit/6433e4048a46a484e721e55f077b7d76b50ef288))
+* **deps:** update pnpm/setup action to v3 ([#124](https://github.com/burtek/dtrw-app-helloworld/issues/124)) [skip ci] ([4d359fc](https://github.com/burtek/dtrw-app-helloworld/commit/4d359fcd77da859def1fa7d8f4e2486bf7fcfa98))
+* move docker healthcheck to Dockerfile ([bc42ab0](https://github.com/burtek/dtrw-app-helloworld/commit/bc42ab0c4c7822c40b3ac6d39f7516cd1b7c2899))
+
+
+### Continuous Integration
+
+* commit scope for docker updates [skip ci] ([30ea392](https://github.com/burtek/dtrw-app-helloworld/commit/30ea39246ad917c04ddfd55bdf71ef5a06fe8058))
+* label for docker updates [skip ci] ([e1ee14c](https://github.com/burtek/dtrw-app-helloworld/commit/e1ee14caf5e4d75d2c8219d73e4b542b53918453))
+* setup release-please ([e9c312e](https://github.com/burtek/dtrw-app-helloworld/commit/e9c312e621981a868fe8ce769669903f02dfcf52))
+* timeout for playwright tests [skip ci] ([5c22cb8](https://github.com/burtek/dtrw-app-helloworld/commit/5c22cb8cecf9e5ca1b6225b051d56a45998f1593))
+* update main workflow to match new setup ([f9f3b06](https://github.com/burtek/dtrw-app-helloworld/commit/f9f3b0635be81f3372aa421ff032fd70bcbe3c77))
+* update release-please configuration ([ba3a85d](https://github.com/burtek/dtrw-app-helloworld/commit/ba3a85d793c9accd9d9562f88d45707bce063287))
+* update renovate config ([6b9a5ac](https://github.com/burtek/dtrw-app-helloworld/commit/6b9a5ac876080d6fd7c065f28e70088468573e46))
+* use raw "git push" ([8454c0c](https://github.com/burtek/dtrw-app-helloworld/commit/8454c0c03d0ab8cc69a4f52d5e951ee4420e6b81))
+
 ## [2.7.4](https://github.com/burtek/dtrw-app-helloworld/compare/v2.7.3...v2.7.4) (2026-09-18)
 
 ### Bug Fixes
