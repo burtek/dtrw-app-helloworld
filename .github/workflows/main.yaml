@@ -2,7 +2,7 @@ name: Main workflow
 
 on:
   push:
-    branches: [master]
+    tags: [v*]
   pull_request:
     branches: [master]
 
