@@ -79,7 +79,18 @@ jobs:
           context: .
           file: ${{ matrix.path }}/Dockerfile
           push: false
+          tags: ghcr.io/${{ github.repository }}/${{ steps.package-name.outputs.package-name }}:compose-test
+          outputs: type=docker,dest=/tmp/${{ steps.package-name.outputs.package-name }}.tar
           cache-from: type=registry,ref=ghcr.io/${{ github.repository }}/${{ steps.package-name.outputs.package-name }}:buildcache
+
+      - id: upload-image-tar
+        if: inputs.push-images == false || inputs.push-images == 'false'
+        name: Upload built image artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: image-${{ steps.package-name.outputs.package-name }}
+          path: /tmp/${{ steps.package-name.outputs.package-name }}.tar
+          retention-days: 1
 
       - id: meta
         run: echo "created=$(date -u +'%Y-%m-%dT%H:%M:%SZ')" >> "$GITHUB_OUTPUT"
