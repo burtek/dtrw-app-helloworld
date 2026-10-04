@@ -115,9 +115,7 @@ jobs:
           REPO="${{ github.repository }}"
           RELEASE_SHA="${{ needs.release-please.outputs.sha }}"
 
-          SOURCE_SHA="$(gh api "repos/$REPO/commits/$RELEASE_SHA" --jq '.parents[0].sha')"
-
-          PR_NUMBER="$(gh api -H "Accept: application/vnd.github+json" "repos/$REPO/commits/$SOURCE_SHA/pulls" --jq 'map(select(.merged_at != null)) | sort_by(.merged_at) | last | .number // empty')"
+          PR_NUMBER="$(gh api -H "Accept: application/vnd.github+json" "repos/$REPO/commits/$RELEASE_SHA/pulls" --jq 'map(select(.merged_at != null)) | sort_by(.merged_at) | last | .number // empty')"
 
           if [ -z "$PR_NUMBER" ]; then
             echo "No merged PR found for commit $SOURCE_SHA; skipping label."
