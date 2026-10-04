@@ -12,7 +12,7 @@ on:
         type: boolean
         default: false
       version:
-        required: false
+        required: true
         type: string
 
 permissions:
@@ -79,7 +79,7 @@ jobs:
           context: .
           file: ${{ matrix.path }}/Dockerfile
           push: false
-          tags: ghcr.io/${{ github.repository }}/${{ steps.package-name.outputs.package-name }}:compose-test
+          tags: ghcr.io/${{ github.repository }}/${{ steps.package-name.outputs.package-name }}:${{ inputs.version }}
           outputs: type=docker,dest=/tmp/${{ steps.package-name.outputs.package-name }}.tar
           cache-from: type=registry,ref=ghcr.io/${{ github.repository }}/${{ steps.package-name.outputs.package-name }}:buildcache
 

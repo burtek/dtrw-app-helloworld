@@ -15,6 +15,8 @@ jobs:
   test-build-image:
     name: Test building docker image
     uses: ./.github/workflows/build-docker.yml
+    with:
+      version: compose-test # Change in compose-smoke-test.env.VERSION_TAG too
     permissions:
       contents: read
       packages: write
@@ -24,7 +26,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: test-build-image
     env:
-      VERSION_TAG: compose-test
+      VERSION_TAG: compose-test # Change in test-build-image.with.version too
     steps:
       - id: checkout
         name: Checkout code
@@ -106,3 +108,31 @@ jobs:
         if: always()
         name: Cleanup compose stack
         run: docker compose down -v --remove-orphans
+
+  commitlint:
+    name: Commitlint
+    runs-on: ubuntu-latest
+    needs: run-checks
+    steps:
+      - id: checkout
+        name: Checkout code
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - id: setup-node
+        name: Setup node with pnpm
+        uses: pnpm/setup@v3
+        with:
+          runtime: node@${{ needs.run-checks.outputs.NODE_VERSION }}
+          cache: true
+
+      - id: run-commitlint
+        name: Lint all commit messages in PR
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          set -eu
+
+          pnpm commitlint --from "${BASE_SHA}" --to "${HEAD_SHA}"
