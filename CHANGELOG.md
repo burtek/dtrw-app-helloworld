@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [2.7.6](https://github.com/burtek/dtrw-app-helloworld/compare/v2.7.5...v2.7.6) (2026-10-04)
+
+
+### Miscellaneous Chores
+
+* **deps:** update dependency eslint to v10.12.0 ([#142](https://github.com/burtek/dtrw-app-helloworld/issues/142)) ([3e6141a](https://github.com/burtek/dtrw-app-helloworld/commit/3e6141a548e623bc3f06ea2deac1118e80b11d3b))
+* **deps:** update dependency jsdom to v30.1.2 ([#145](https://github.com/burtek/dtrw-app-helloworld/issues/145)) ([fdff497](https://github.com/burtek/dtrw-app-helloworld/commit/fdff49708758ee1fb038b4bd51f2f2d9fddb8eb9))
+* **deps:** update pnpm to v12.9.1 ([#144](https://github.com/burtek/dtrw-app-helloworld/issues/144)) ([2ce03e1](https://github.com/burtek/dtrw-app-helloworld/commit/2ce03e13caf8e01d325b24f9dd43d312ddd4fddd))
+* update renovate config ([575a8a6](https://github.com/burtek/dtrw-app-helloworld/commit/575a8a626028d20f9ad2587b338f5966dd57d1df))
+
+
+### Continuous Integration
+
+* **github-actions:** update github artifact actions ([#146](https://github.com/burtek/dtrw-app-helloworld/issues/146)) ([5c2bf03](https://github.com/burtek/dtrw-app-helloworld/commit/5c2bf0361472af2f392222ba7ee50f38cc6a146f))
+* rework ci/cd workflows to work with release-please ([#143](https://github.com/burtek/dtrw-app-helloworld/issues/143)) ([5b7393d](https://github.com/burtek/dtrw-app-helloworld/commit/5b7393d66e74da370b2a0ea9110ede5efaf51d49))
+* update renovate config ([bc129cd](https://github.com/burtek/dtrw-app-helloworld/commit/bc129cd6a3f9515c2dcfb9365cccc4d17135f200))
+
 ## [2.7.5](https://github.com/burtek/dtrw-app-helloworld/compare/v2.7.4...v2.7.5) (2026-10-02)
 
 
