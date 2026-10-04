@@ -27,6 +27,12 @@
       "semanticCommitType": "fix"
     },
     {
+      "matchManagers": ["github-actions"],
+      "labels": ["github-actions"],
+      "semanticCommitType": "ci",
+      "semanticCommitScope": "github-actions"
+    },
+    {
       "matchFileNames": ["**/Dockerfile"],
       "labels": ["docker-tag"],
       "semanticCommitType": "feat",
