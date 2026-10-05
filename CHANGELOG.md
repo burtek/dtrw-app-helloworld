@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [2.7.7](https://github.com/burtek/dtrw-app-helloworld/compare/v2.7.6...v2.7.7) (2026-10-04)
+
+
+### Continuous Integration
+
+* auto-remove tagged label ([dc88089](https://github.com/burtek/dtrw-app-helloworld/commit/dc880897a4c76b5d4852bb466671436cc3a6b201))
+* fix PR selection for post-deploy auto-tagging ([f3b6e03](https://github.com/burtek/dtrw-app-helloworld/commit/f3b6e03b2b0ca26977cad438b3de71bf777d2bf6))
+
 ## [2.7.6](https://github.com/burtek/dtrw-app-helloworld/compare/v2.7.5...v2.7.6) (2026-10-04)
 
 
