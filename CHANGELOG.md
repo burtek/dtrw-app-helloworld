@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [2.7.8](https://github.com/burtek/dtrw-app-helloworld/compare/v2.7.7...v2.7.8) (2026-10-07)
+
+
+### Bug Fixes
+
+* **deps:** update dependency dotenv to v18.0.6 ([#152](https://github.com/burtek/dtrw-app-helloworld/issues/152)) ([67677b3](https://github.com/burtek/dtrw-app-helloworld/commit/67677b3eab48b9e5d841386c5307590b18f132c6))
+
+
+### Miscellaneous Chores
+
+* **deps:** update dependency @vitejs/plugin-react to v6.1.2 ([#148](https://github.com/burtek/dtrw-app-helloworld/issues/148)) ([b506ad6](https://github.com/burtek/dtrw-app-helloworld/commit/b506ad6f16d7e0ec1396b50536ee0bb9c08daf0b))
+* **deps:** update dependency js-yaml to v5.4.3 ([#149](https://github.com/burtek/dtrw-app-helloworld/issues/149)) ([62d0490](https://github.com/burtek/dtrw-app-helloworld/commit/62d0490d5ebf73d5363e15ba1cffd126da66bdf4))
+* **deps:** update dependency vite to v8.3.3 ([#150](https://github.com/burtek/dtrw-app-helloworld/issues/150)) ([2e3db0c](https://github.com/burtek/dtrw-app-helloworld/commit/2e3db0c599a1bb6143b83ea75505242450cf6810))
+* **deps:** update pnpm to v12.10.1 ([#153](https://github.com/burtek/dtrw-app-helloworld/issues/153)) ([a5a765b](https://github.com/burtek/dtrw-app-helloworld/commit/a5a765beccd6bcb38b543479369cce1ef8d65339))
+
 ## [2.7.7](https://github.com/burtek/dtrw-app-helloworld/compare/v2.7.6...v2.7.7) (2026-10-04)
 
 
