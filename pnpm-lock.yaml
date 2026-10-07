@@ -238,7 +238,7 @@ importers:
         version: 1.0.3(fastify-plugin@6.0.0)(fastify@5.12.5)
       dotenv:
         specifier: ^18.0.0
-        version: 18.0.5
+        version: 18.0.6
       fastify:
         specifier: ^5.10.0
         version: 5.12.5
@@ -299,7 +299,7 @@ importers:
         version: 13.0.3
       dotenv:
         specifier: ^18.0.0
-        version: 18.0.5
+        version: 18.0.6
       drizzle-orm:
         specifier: ^0.45.2
         version: 0.45.3(@types/better-sqlite3@9.6.0)(better-sqlite3@13.0.3)
@@ -2150,8 +2150,8 @@ packages:
   dom-accessibility-api@0.6.3:
     resolution: {integrity: sha512-7ZgogeTnjuHbo+ct10G9Ffp0mif17idi0IyWNVA/wcwcm7NPOD/WEHVP3n7n3MhXqxoIYm8d6MuZohYWIZ4T3w==}
 
-  dotenv@18.0.5:
-    resolution: {integrity: sha512-aBrGvt6KhjxbEnatqMWOMidftwsrCiCvqh1yNIGB9QyF0J+VcWkKDMsvYOEm7ZS82oiV+BT1sTOtIlAmUlTpwQ==}
+  dotenv@18.0.6:
+    resolution: {integrity: sha512-ZMVmohV6CvAJtj++pZNyggluUt6hbRdQAxc2+Z635RL6/AG/ruXv5lHnybUFoxMPL/yrTL/tsF4paZu2l7RA6Q==}
     engines: {node: '>=12'}
     hasBin: true
 
@@ -5154,7 +5154,7 @@ snapshots:
 
   dom-accessibility-api@0.6.3: {}
 
-  dotenv@18.0.5: {}
+  dotenv@18.0.6: {}
 
   dotgitignore@2.1.0:
     dependencies:
