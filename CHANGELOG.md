@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [2.7.9](https://github.com/burtek/dtrw-app-helloworld/compare/v2.7.8...v2.7.9) (2026-10-09)
+
+
+### Bug Fixes
+
+* **deps:** update dependency dotenv to v18.0.7 ([#158](https://github.com/burtek/dtrw-app-helloworld/issues/158)) ([0e1c656](https://github.com/burtek/dtrw-app-helloworld/commit/0e1c656a51f9900bbd7934e9269b6532b8a62da4))
+* **deps:** update dependency drizzle-orm to v0.45.4 ([#156](https://github.com/burtek/dtrw-app-helloworld/issues/156)) ([00ba4a6](https://github.com/burtek/dtrw-app-helloworld/commit/00ba4a6e8cd17692765942b948d86687b4019769))
+
+
+### Miscellaneous Chores
+
+* **deps:** update dependency @playwright/test to v1.64.0 ([#154](https://github.com/burtek/dtrw-app-helloworld/issues/154)) ([073f9bd](https://github.com/burtek/dtrw-app-helloworld/commit/073f9bd9f123ab019ad48f7e93c92cb893b2aef7))
+* **deps:** update dependency vite to v8.3.4 ([#155](https://github.com/burtek/dtrw-app-helloworld/issues/155)) ([d376188](https://github.com/burtek/dtrw-app-helloworld/commit/d376188262341b42e9084857cbbe68b109930cec))
+
 ## [2.7.8](https://github.com/burtek/dtrw-app-helloworld/compare/v2.7.7...v2.7.8) (2026-10-07)
 
 
