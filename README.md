@@ -111,7 +111,7 @@ On push to `master` (after successful checks):
 This template currently contains default app identifiers (`helloworld`). Update them after creating your new app:
 
 - `package.json`: `name`, `repository`
-- `.github/workflows/main.yaml`: `env.APP_NAME`
+- `.github/workflows/main.yaml`: `env.DEPLOY_DIR_NAME`
 - `docker-compose.yml`: service container names and GHCR image references
 - `packages/*/Dockerfile`: image labels that reference the app name
 
