@@ -2,6 +2,43 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [2.8.0](https://github.com/burtek/dtrw-app-helloworld/compare/v2.7.9...v2.8.0) (2026-10-22)
+
+
+### Features
+
+* **deps:** update node.js to v26.12.0 ([#111](https://github.com/burtek/dtrw-app-helloworld/issues/111)) ([8fc5d48](https://github.com/burtek/dtrw-app-helloworld/commit/8fc5d4829b7e2069e8c0a487db4bdbabfc5a30a3))
+* **deps:** update node.js to v26.12.1 ([#183](https://github.com/burtek/dtrw-app-helloworld/issues/183)) ([5c4160f](https://github.com/burtek/dtrw-app-helloworld/commit/5c4160f33144329aab791e0691e569a053f7b683))
+* **docker:** update nginx docker tag to v1.31.7 ([#172](https://github.com/burtek/dtrw-app-helloworld/issues/172)) ([9063dd0](https://github.com/burtek/dtrw-app-helloworld/commit/9063dd0c3a2e02cc57f384c191aa075845a10d6e))
+* **docker:** update nginx docker tag to v1.31.8 ([#184](https://github.com/burtek/dtrw-app-helloworld/issues/184)) ([e470cbd](https://github.com/burtek/dtrw-app-helloworld/commit/e470cbd434240b360f07820621a6cc95546a1eef))
+
+
+### Bug Fixes
+
+* **deps:** update dependency dotenv to v18.0.8 ([#170](https://github.com/burtek/dtrw-app-helloworld/issues/170)) ([103b147](https://github.com/burtek/dtrw-app-helloworld/commit/103b147013207fc067ec754e5e21480245e713c7))
+* **deps:** update dependency fastify-raw-body to v6.0.3 ([#180](https://github.com/burtek/dtrw-app-helloworld/issues/180)) ([ac5fe65](https://github.com/burtek/dtrw-app-helloworld/commit/ac5fe65acd65e9350f964b57e919c01be1219615))
+* **deps:** update react monorepo to v19.3.1 ([#171](https://github.com/burtek/dtrw-app-helloworld/issues/171)) ([05819f9](https://github.com/burtek/dtrw-app-helloworld/commit/05819f9d36990d2c7811cd342b5b2089dedf8d29))
+
+
+### Miscellaneous Chores
+
+* **deps:** update commitlint monorepo to v21.2.4 ([#181](https://github.com/burtek/dtrw-app-helloworld/issues/181)) ([a831b48](https://github.com/burtek/dtrw-app-helloworld/commit/a831b48c6cdf2e1afd8a458a3d5c98b8fb71c138))
+* **deps:** update dependency @playwright/test to v1.64.1 ([#168](https://github.com/burtek/dtrw-app-helloworld/issues/168)) ([86b27bb](https://github.com/burtek/dtrw-app-helloworld/commit/86b27bb4bd135747f7056674b26b2f8201ed979a))
+* **deps:** update dependency commit-and-tag-version to v13.3.0 ([#173](https://github.com/burtek/dtrw-app-helloworld/issues/173)) ([e65f446](https://github.com/burtek/dtrw-app-helloworld/commit/e65f4469ddd424295610b4cf411afea4833ab9b8))
+* **deps:** update dependency eslint to v10.13.0 ([#179](https://github.com/burtek/dtrw-app-helloworld/issues/179)) ([fb87ed3](https://github.com/burtek/dtrw-app-helloworld/commit/fb87ed39767b2a6e2532d784461911aa1433a144))
+* **deps:** update dependency js-yaml to v5.5.0 ([#177](https://github.com/burtek/dtrw-app-helloworld/issues/177)) ([99a5c07](https://github.com/burtek/dtrw-app-helloworld/commit/99a5c07260203d47d907127d3642251644d22b75))
+* **deps:** update dependency jsdom to v30.1.3 ([#174](https://github.com/burtek/dtrw-app-helloworld/issues/174)) ([cc3112d](https://github.com/burtek/dtrw-app-helloworld/commit/cc3112dce7fc3058d57604463ecc3369e582b216))
+* **deps:** update dependency vite to v8.3.5 ([#182](https://github.com/burtek/dtrw-app-helloworld/issues/182)) ([4074719](https://github.com/burtek/dtrw-app-helloworld/commit/4074719387d691e509bf6a5767c0daad1ca92f3a))
+* **deps:** update dependency vitest to v5.0.5 ([#175](https://github.com/burtek/dtrw-app-helloworld/issues/175)) ([cbe7564](https://github.com/burtek/dtrw-app-helloworld/commit/cbe7564ff6d839b4797802b737f2e86a75eda132))
+* **deps:** update pnpm to v12.14.0 ([#178](https://github.com/burtek/dtrw-app-helloworld/issues/178)) ([7bbb807](https://github.com/burtek/dtrw-app-helloworld/commit/7bbb807a3eeb83ed486e86bcb78dda34371da93f))
+* fix node packages engine version ([34ac362](https://github.com/burtek/dtrw-app-helloworld/commit/34ac362148abc4e83e4afb5783eff34d57165296))
+* set engines node version ([ed231e7](https://github.com/burtek/dtrw-app-helloworld/commit/ed231e77f5c170469f45cb98d14fc73c1f1c485e))
+
+
+### Continuous Integration
+
+* auto use node version from package.json ([832886a](https://github.com/burtek/dtrw-app-helloworld/commit/832886a36633ee42e79960964a87a6387cd00937))
+
 ## [2.7.9](https://github.com/burtek/dtrw-app-helloworld/compare/v2.7.8...v2.7.9) (2026-10-13)
 
 
