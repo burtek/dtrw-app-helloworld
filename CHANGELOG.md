@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [2.8.1](https://github.com/burtek/dtrw-app-helloworld/compare/v2.8.0...v2.8.1) (2026-10-24)
+
+
+### Bug Fixes
+
+* **deps:** update dependency dotenv to v18.0.9 ([#185](https://github.com/burtek/dtrw-app-helloworld/issues/185)) ([a19e2f1](https://github.com/burtek/dtrw-app-helloworld/commit/a19e2f16df7631a0485c9500a849aa7f18cb4885))
+
+
+### Miscellaneous Chores
+
+* **deps:** update dependency tsdown to v0.23.2 ([#186](https://github.com/burtek/dtrw-app-helloworld/issues/186)) ([c1fe800](https://github.com/burtek/dtrw-app-helloworld/commit/c1fe800ed7d95754f2552ded6fab2a586c9a4b98))
+
 ## [2.8.0](https://github.com/burtek/dtrw-app-helloworld/compare/v2.7.9...v2.8.0) (2026-10-22)
 
 
