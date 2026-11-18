@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [2.9.0](https://github.com/burtek/dtrw-app-helloworld/compare/v2.8.1...v2.9.0) (2026-11-18)
+
+
+### Features
+
+* **deps:** update node.js to v26.13.1 ([#191](https://github.com/burtek/dtrw-app-helloworld/issues/191)) ([dd36e85](https://github.com/burtek/dtrw-app-helloworld/commit/dd36e85e8db90b455efee4e0d3587edd8f37fe12))
+* **docker:** update nginx docker tag to v1.31.9 ([#200](https://github.com/burtek/dtrw-app-helloworld/issues/200)) ([a83a04e](https://github.com/burtek/dtrw-app-helloworld/commit/a83a04e01642c34b677ca8bcbf9fa3cd765f2776))
+
+
+### Bug Fixes
+
+* **deps:** update dependency dotenv to v18.0.10 ([#201](https://github.com/burtek/dtrw-app-helloworld/issues/201)) ([3d1d803](https://github.com/burtek/dtrw-app-helloworld/commit/3d1d803b83e215f0460ff0dd982ff6370e32d233))
+* **deps:** update dependency fastify to v5.12.8 ([#194](https://github.com/burtek/dtrw-app-helloworld/issues/194)) ([e8a6142](https://github.com/burtek/dtrw-app-helloworld/commit/e8a6142452e85e7dd5fde3ac09e95a7cbb65b477))
+
+
+### Miscellaneous Chores
+
+* **deps:** update pnpm to v12.21.0 ([#189](https://github.com/burtek/dtrw-app-helloworld/issues/189)) ([9990f6f](https://github.com/burtek/dtrw-app-helloworld/commit/9990f6f4ed37b41d6d65286f6688d060970f10a5))
+
 ## [2.8.1](https://github.com/burtek/dtrw-app-helloworld/compare/v2.8.0...v2.8.1) (2026-10-24)
 
 
