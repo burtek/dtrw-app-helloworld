@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [2.9.1](https://github.com/burtek/dtrw-app-helloworld/compare/v2.9.0...v2.9.1) (2026-11-19)
+
+
+### Bug Fixes
+
+* **deps:** update dependency better-sqlite3 to v13.2.0 ([#203](https://github.com/burtek/dtrw-app-helloworld/issues/203)) ([beba78e](https://github.com/burtek/dtrw-app-helloworld/commit/beba78eca2b050cfbdb7a531109cd1a48abd4219))
+
+
+### Miscellaneous Chores
+
+* **deps:** bump brace-expansion from 1.1.18 to 1.1.22 ([#208](https://github.com/burtek/dtrw-app-helloworld/issues/208)) ([b1eeb8c](https://github.com/burtek/dtrw-app-helloworld/commit/b1eeb8cc7dfa5f83d5ceb7419c830cfc4b881ff2))
+* **deps:** bump fast-xml-parser from 5.10.1 to 5.12.1 ([#199](https://github.com/burtek/dtrw-app-helloworld/issues/199)) ([469745a](https://github.com/burtek/dtrw-app-helloworld/commit/469745a59e3c7e4cb1a517b74bb43ba098766272))
+* **deps:** update dependency @playwright/test to v1.65.1 ([#202](https://github.com/burtek/dtrw-app-helloworld/issues/202)) ([45b0d75](https://github.com/burtek/dtrw-app-helloworld/commit/45b0d75e92372d9b1550a195539f0868ef6d43d7))
+* **deps:** update dependency @testing-library/jest-dom to v8 ([#205](https://github.com/burtek/dtrw-app-helloworld/issues/205)) ([55afdd1](https://github.com/burtek/dtrw-app-helloworld/commit/55afdd1345e6bedf4ad4493d61e69a9088510ffd))
+* **deps:** update dependency @types/node to v26.6.6 ([#190](https://github.com/burtek/dtrw-app-helloworld/issues/190)) ([09406a4](https://github.com/burtek/dtrw-app-helloworld/commit/09406a4383b2080dc322a7dd7fbb4e9f60793488))
+* **deps:** update dependency @vitejs/plugin-react to v6.3.0 ([#193](https://github.com/burtek/dtrw-app-helloworld/issues/193)) ([dbf875c](https://github.com/burtek/dtrw-app-helloworld/commit/dbf875c7c581519ac54e50673500c43eced7db27))
+* **deps:** update dependency eslint to v10.15.0 ([#192](https://github.com/burtek/dtrw-app-helloworld/issues/192)) ([46be34d](https://github.com/burtek/dtrw-app-helloworld/commit/46be34d121bdf1bdb9142c399f57ea4237b80888))
+* **deps:** update dependency jsdom to v31 ([#206](https://github.com/burtek/dtrw-app-helloworld/issues/206)) ([23ce1d2](https://github.com/burtek/dtrw-app-helloworld/commit/23ce1d25d6fff60c7693a80438ed3ccc7856efe1))
+* **deps:** update dependency rimraf to v6.1.4 ([#196](https://github.com/burtek/dtrw-app-helloworld/issues/196)) ([b591eca](https://github.com/burtek/dtrw-app-helloworld/commit/b591ecaa773847e18c617fe23bccfa16727b8b74))
+* **deps:** update dependency vitest to v5.1.1 ([#195](https://github.com/burtek/dtrw-app-helloworld/issues/195)) ([9848cc4](https://github.com/burtek/dtrw-app-helloworld/commit/9848cc40463cd2619eba6f94a4f5a38904438eb8))
+* **deps:** update fast-uri and js-yaml ([#207](https://github.com/burtek/dtrw-app-helloworld/issues/207)) ([5ff2b7a](https://github.com/burtek/dtrw-app-helloworld/commit/5ff2b7aa40e38432b824faebb02ccab86e404dfa))
+* update README, remove unused dependency ([#209](https://github.com/burtek/dtrw-app-helloworld/issues/209)) ([06768c9](https://github.com/burtek/dtrw-app-helloworld/commit/06768c926b567aab5dce4fc05e357b31d7c58330))
+
 ## [2.9.0](https://github.com/burtek/dtrw-app-helloworld/compare/v2.8.1...v2.9.0) (2026-11-18)
 
 
