@@ -3,18 +3,20 @@
 Production-ready pnpm monorepo template for a full-stack app:
 
 - `packages/backend`: Fastify + TypeScript API
+- `packages/backend-sqlite`: Fastify + TypeScript API with SQLite database
 - `packages/frontend`: React + Vite frontend
 - root workspace scripts for linting, type checks, tests, build, and deployment packaging
 
 ## Stack
 
-- Node.js `26.x`
+- Node.js `26.13.1`
 - pnpm workspace (`pnpm-workspace.yaml`)
-- TypeScript (both packages)
+- TypeScript (all packages)
 - Vitest (workspace and package-level)
 - ESLint + Husky + Commitlint
 - Docker Compose for runtime deployment layout
 - GitHub Actions for PR checks, release tagging, and VPS deploy
+- Drizzle ORM (backend-sqlite package)
 
 ## Monorepo layout
 
@@ -22,10 +24,18 @@ Production-ready pnpm monorepo template for a full-stack app:
 .
 |- packages/
 |  |- backend/
+|  |- backend-sqlite/
 |  \- frontend/
-|- docker/
-|  |- backend/env
-|  \- frontend/nginx.conf
+|- scripts/
+|  |- run-in-parallel.mjs
+|  \- validate-workspace.mjs
+|- .github/
+|  |- workflows/
+|  |  |- pr-check.yaml
+|  |  |- push-master.yml
+|  |  |- build-docker.yml
+|  |  \- _checks.yml
+|  \- actions/
 |- docker-compose.yml
 |- pnpm-workspace.yaml
 \- vitest.config.ts
@@ -41,7 +51,7 @@ Production-ready pnpm monorepo template for a full-stack app:
 pnpm install
 ```
 
-1. Run development mode for both packages in parallel:
+1. Run development mode for all packages in parallel:
 
 ```bash
 pnpm dev
@@ -51,8 +61,11 @@ Expected local URLs:
 
 - frontend: `http://localhost:3000`
 - backend: `http://localhost:4000`
-- backend health: `http://localhost:4000/health`
-- backend hello route: `http://localhost:4000/hello`
+  - health check: `http://localhost:4000/health`
+  - hello route: `http://localhost:4000/hello`
+- backend-sqlite: `http://localhost:4001`
+  - health check: `http://localhost:4001/health`
+  - hello route: `http://localhost:4001/hello`
 
 ## Workspace commands
 
@@ -71,6 +84,7 @@ Target a single package when needed:
 
 ```bash
 pnpm --filter backend <script>
+pnpm --filter backend-sqlite <script>
 pnpm --filter frontend <script>
 ```
 
@@ -78,25 +92,29 @@ Example:
 
 ```bash
 pnpm --filter backend test
+pnpm --filter backend-sqlite dev
 pnpm --filter frontend dev
 ```
 
 ## CI/CD overview
 
-The main workflow (`.github/workflows/main.yaml`) runs on both PRs and pushes to `master`.
+GitHub Actions workflows run automated checks and deployments:
 
-On every PR/push:
+**PR checks** (`.github/workflows/pr-check.yaml`):
+- Runs workspace tests, lint, and build in parallel
+- Executes end-to-end tests with Playwright
+- Validates SSH connectivity to target VPS
+- Builds Docker images as a smoke test
 
-- `test`: runs workspace tests, lint, and build in parallel
-- `test-playwright`: runs end-to-end tests in Playwright container
-- `test-build-image` (PR only): executes Docker image build as a smoke test
-- `test-ssh`: validates SSH connectivity to the target VPS early
-
-On push to `master` (after successful checks):
-
-- `create-release`: bumps versions and changelog using `commit-and-tag-version`, then pushes tag/commit
-- `build-image-for-deploy`: builds Docker images from the release commit and pushes them to GitHub Container Registry
-- `deploy`: uploads `docker-compose.yml` to VPS, pulls latest images, and starts services with `docker compose up -d`
+**Push to master** (`.github/workflows/push-master.yml`):
+- After successful PR checks, creates release using release-please:
+  - Bumps versions and updates changelog based on conventional commit messages
+  - Creates release tag and commit
+- Builds Docker images and pushes to GitHub Container Registry (`.github/workflows/build-docker.yml`)
+- Deploys to VPS:
+  - Uploads `docker-compose.yml`
+  - Pulls latest images from GHCR
+  - Starts services with `docker compose up -d`
 
 ### Required GitHub secrets
 
@@ -111,7 +129,7 @@ On push to `master` (after successful checks):
 This template currently contains default app identifiers (`helloworld`). Update them after creating your new app:
 
 - `package.json`: `name`, `repository`
-- `.github/workflows/main.yaml`: `env.DEPLOY_DIR_NAME`
+- `.github/workflows/push-master.yml`: `env.DEPLOY_DIR_NAME`
 - `docker-compose.yml`: service container names and GHCR image references
 - `packages/*/Dockerfile`: image labels that reference the app name
 
@@ -147,4 +165,7 @@ This approach provides:
 ## Notes
 
 - Backend dev env defaults are in `packages/backend/.env.development`.
+- Backend-sqlite dev env defaults are in `packages/backend-sqlite/.env.development`.
+- Backend-sqlite runs on `http://localhost:4001` (separate from main backend on `4000`).
 - Dockerfiles in each package define the production build and runtime.
+- In Docker deployment, all three services (backend, backend-sqlite, frontend) run as separate containers orchestrated by `docker-compose.yml`.
