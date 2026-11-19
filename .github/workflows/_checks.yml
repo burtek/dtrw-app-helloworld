@@ -44,6 +44,7 @@ jobs:
       - id: setup-playwright
         name: Setup Playwright
         run: pnpm exec playwright install --with-deps
+        timeout-minutes: 5
       - id: run-playwright
         name: Run Playwright tests
         run: pnpm exec playwright test
