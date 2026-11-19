@@ -53,10 +53,15 @@ jobs:
     needs: get-playwright-version
     container:
       image: mcr.microsoft.com/playwright:v${{ needs.get-playwright-version.outputs.version }}-resolute
+    env:
+      HOME: /root
     steps:
       - id: checkout
         name: Checkout code
         uses: actions/checkout@v7
+      - id: install-jq
+        name: Install jq
+        run: apt-get update && apt-get install -y jq
       - id: setup-node
         name: Setup node with pnpm
         uses: ./.github/actions/setup-pnpm
