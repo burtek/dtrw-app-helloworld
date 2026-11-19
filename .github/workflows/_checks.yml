@@ -41,6 +41,17 @@ jobs:
       - id: setup-node
         name: Setup node with pnpm
         uses: ./.github/actions/setup-pnpm
+      - id: cache-playwright
+        name: Cache Playwright browsers
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-playwright-
+      - id: install-playwright-deps
+        name: Install system dependencies for Playwright
+        run: sudo apt-get update && sudo apt-get install -y xvfb libgconf-2-4
       - id: setup-playwright
         name: Setup Playwright
         run: pnpm exec playwright install --with-deps
